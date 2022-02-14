@@ -160,7 +160,6 @@ Decimal = {Numbers}[.]{Numbers}
                     }
 }
 
-/* error fallback */
-[^]                                     { 
-                                            System.out.println("Simbolo Ilegal: "+yytext()); 
-                                        }
+[^]                 { 
+                        System.out.println("Simbolo Ilegal: "+yytext()); 
+                    }
