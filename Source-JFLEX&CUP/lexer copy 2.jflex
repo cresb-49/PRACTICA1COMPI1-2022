@@ -27,7 +27,7 @@ import java.util.ArrayList;
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = {LineTerminator} | [ \t\f]
 
-Comment = [#][^\n]*[\n]
+Comment = [#][^\n]*
 Def = def|Def
 Graphic = Barras|Pie
 Tittle = titulo
@@ -44,7 +44,7 @@ Execute = Ejecutar
 Number = [0-9]
 Numbers = {Number}+
 Decimal = {Numbers}[.]{Numbers}
-
+cadena = [\"][^\"]*[\"]
 
 %state STRING
 
@@ -133,22 +133,11 @@ Decimal = {Numbers}[.]{Numbers}
     [;]             {
                         System.out.println(";-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
-    [\"]            {
-                        this.stringColumnInit = (yycolumn+1);
-                        this.string.setLength(0); 
-                        yybegin(STRING); 
+    {cadena}        {
+                        System.out.println("String: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
-    /* whitespace */
-    {WhiteSpace}                   { /* ignore */ }
-}
-<STRING>{
-    [\"]            {
-                        yybegin(YYINITIAL);
-                        System.out.println("String: "+string.toString()+", Linea: "+(yyline+1)+", Columna: "+stringColumnInit);
-                    }
-    [^\n\r\"]+      {
-                        string.append(yytext());
-                    }
+                    
+    {WhiteSpace}    { /* ignore */ }
 }
 
 [^]                 { 

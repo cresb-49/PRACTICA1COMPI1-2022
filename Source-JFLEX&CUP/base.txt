@@ -1,8 +1,8 @@
-#Aqui estoy definiendo un grafico de barras
+#Aqui estoy definiendo un gráfico de barras
 def Barras{
-                titulo: "Grafica 1";
-                ejex:["item1", "item2"];
-                ejey:[5, punto1];
+            	titulo: "Grafica 1";
+            	ejex:["item1", "item2"];
+            	ejey:[5, punto1];
             	unir:[{0,1}, {1,0}];
 		#Aqui termine
 }
