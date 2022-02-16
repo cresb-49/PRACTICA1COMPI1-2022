@@ -336,7 +336,7 @@ public class Lexer implements java_cup.runtime.Scanner {
         return errors;
     }
 
-    private void addError(ArrayList<ErrorAnalisis> error){
+    private void addError(ErrorAnalisis error){
         this.errors.add(error);
         System.out.println("Se decto un error");
     }

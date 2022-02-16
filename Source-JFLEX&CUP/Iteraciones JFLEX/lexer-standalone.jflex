@@ -1,31 +1,25 @@
-package com.carlos.android_practica1.lexer_parser;
-
 import java.util.ArrayList;
 
 %%
 %class Lexer
+%standalone
 %unicode
 %public
 %line
 %column
-%cup
+%int
 
 %{
-    private static final String ERROR_TYPE = "Léxico";
     private int stringColumnInit = 0; 
     private StringBuffer string = new StringBuffer();
-    private ArrayList<ErrorAnalisis> errors = new ArrayList<>();
+    private ArrayList<Object> lexErrors = new ArrayList<>();
     
-    public Lexer(ArrayList<ErrorAnalisis> errors){
-        this.errors=errors;
+    public ArrayList<Object> getLexErrors() {
+        return lexErrors;
     }
 
-    public ArrayList<ErrorAnalisis> getLexErrors() {
-        return errors;
-    }
-
-    private void addError(ErrorAnalisis error){
-        this.errors.add(error);
+    private void addError(Object object){
+        this.lexErrors.add(object);
         System.out.println("Se decto un error");
     }
 %}
@@ -158,7 +152,5 @@ Decimal = {Numbers}[.]{Numbers}
 }
 
 [^]                 { 
-                        String des ="El simbolo no existe en el lenguaje";
-                        this.addError(new ErrorAnalisis(this.ERROR_TYPE,yytext(),(yyline+1),(yycolumn+1),des));
                         System.out.println("Simbolo Ilegal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
