@@ -1,0 +1,24 @@
+import java_cup.runtime.*;
+
+parser code {:
+    // Connect this parser to a scanner!
+    Lexer lexer;
+    Parser(Lexer lexer){ this.lexer=lexer; }
+:}
+
+/* define how to connect to the scanner! */
+init with {: lexer.init(); :};
+scan with {: return lexer.next_token(); :};
+
+/* Terminals (tokens returned by the scanner). */
+terminal            SEMI, PLUS, MINUS, TIMES, UMINUS, LPAREN, RPAREN;
+terminal Integer    NUMBER;        // our scanner provides numbers as integers
+
+/* Non terminals */
+non terminal            expr_list;
+non terminal Integer    expr;      // used to store evaluated subexpressions
+
+/* Precedences */
+
+
+/* The grammar rules */
