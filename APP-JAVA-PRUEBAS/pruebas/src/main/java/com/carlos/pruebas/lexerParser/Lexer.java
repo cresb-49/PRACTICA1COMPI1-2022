@@ -5,6 +5,7 @@
 package com.carlos.pruebas.lexerParser;
 
 import java.util.ArrayList;
+import java_cup.runtime.*;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
@@ -66,13 +67,13 @@ public class Lexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\1\1\1\2\1\0\1\1\1\3\22\0\1\1"+
-    "\1\0\1\4\1\5\4\0\1\6\1\7\1\0\1\10"+
-    "\1\11\1\12\1\13\1\0\12\14\1\15\1\16\6\0"+
-    "\1\17\1\20\1\21\1\22\12\0\1\23\12\0\1\24"+
-    "\1\0\1\25\3\0\1\26\1\0\1\27\1\30\1\31"+
-    "\1\32\2\0\1\33\1\34\1\0\1\35\1\0\1\36"+
-    "\1\37\1\40\1\41\1\42\1\43\1\44\1\45\1\46"+
-    "\1\0\1\47\1\50\1\0\1\51\1\0\1\52\u0182\0";
+    "\1\0\1\4\1\5\4\0\1\6\1\7\1\10\1\11"+
+    "\1\12\1\13\1\14\1\15\12\16\1\17\1\20\6\0"+
+    "\1\21\1\22\1\23\1\24\12\0\1\25\12\0\1\26"+
+    "\1\0\1\27\3\0\1\30\1\0\1\31\1\32\1\33"+
+    "\1\34\2\0\1\35\1\36\1\0\1\37\1\0\1\40"+
+    "\1\41\1\42\1\43\1\44\1\45\1\46\1\47\1\50"+
+    "\1\0\1\51\1\52\1\0\1\53\1\0\1\54\u0182\0";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[512];
@@ -100,14 +101,15 @@ public class Lexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\2\0\1\1\2\2\1\3\1\1\1\4\1\5\1\6"+
-    "\1\7\1\10\1\11\1\12\1\13\5\1\1\14\1\15"+
-    "\4\1\1\16\1\17\1\20\1\21\1\0\1\22\16\0"+
-    "\1\23\2\0\1\24\1\0\1\25\15\0\1\26\1\27"+
-    "\2\0\1\30\2\0\1\31\6\0\1\32\1\0\1\33"+
-    "\5\0\1\34\5\0\1\35\1\36\1\37\3\0\1\40";
+    "\1\7\1\10\1\11\1\12\1\13\1\14\1\15\5\1"+
+    "\1\16\1\17\4\1\1\20\1\21\1\22\1\23\1\0"+
+    "\1\24\16\0\1\25\2\0\1\26\1\0\1\27\15\0"+
+    "\1\30\1\31\2\0\1\32\2\0\1\33\6\0\1\34"+
+    "\1\0\1\35\5\0\1\36\5\0\1\37\1\40\1\41"+
+    "\3\0\1\42";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[100];
+    int [] result = new int[102];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -132,22 +134,22 @@ public class Lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\53\0\126\0\126\0\201\0\126\0\254\0\126"+
-    "\0\126\0\126\0\126\0\126\0\327\0\126\0\126\0\u0102"+
-    "\0\u012d\0\u0158\0\u0183\0\u01ae\0\126\0\126\0\u01d9\0\u0204"+
-    "\0\u022f\0\u025a\0\126\0\126\0\u0285\0\126\0\254\0\126"+
-    "\0\u02b0\0\u02db\0\u0306\0\u0331\0\u035c\0\u0387\0\u03b2\0\u03dd"+
-    "\0\u0408\0\u0433\0\u045e\0\u0489\0\u04b4\0\u04df\0\u02b0\0\u050a"+
-    "\0\u0535\0\126\0\u0560\0\126\0\u058b\0\u05b6\0\u05e1\0\u060c"+
-    "\0\u0637\0\u0662\0\u068d\0\u06b8\0\u06e3\0\u070e\0\u0739\0\u0764"+
-    "\0\u078f\0\126\0\126\0\u07ba\0\u07e5\0\126\0\u0810\0\u083b"+
-    "\0\126\0\u0866\0\u0891\0\u08bc\0\u08e7\0\u0912\0\u093d\0\126"+
-    "\0\u0968\0\126\0\u0993\0\u09be\0\u09e9\0\u0a14\0\u0a3f\0\126"+
-    "\0\u0a6a\0\u0a95\0\u0ac0\0\u0aeb\0\u0b16\0\126\0\126\0\126"+
-    "\0\u0b41\0\u0b6c\0\u0b97\0\126";
+    "\0\0\0\55\0\132\0\132\0\207\0\132\0\264\0\132"+
+    "\0\132\0\132\0\132\0\132\0\132\0\132\0\341\0\132"+
+    "\0\132\0\u010e\0\u013b\0\u0168\0\u0195\0\u01c2\0\132\0\132"+
+    "\0\u01ef\0\u021c\0\u0249\0\u0276\0\132\0\132\0\u02a3\0\132"+
+    "\0\264\0\132\0\u02d0\0\u02fd\0\u032a\0\u0357\0\u0384\0\u03b1"+
+    "\0\u03de\0\u040b\0\u0438\0\u0465\0\u0492\0\u04bf\0\u04ec\0\u0519"+
+    "\0\u02d0\0\u0546\0\u0573\0\132\0\u05a0\0\132\0\u05cd\0\u05fa"+
+    "\0\u0627\0\u0654\0\u0681\0\u06ae\0\u06db\0\u0708\0\u0735\0\u0762"+
+    "\0\u078f\0\u07bc\0\u07e9\0\132\0\132\0\u0816\0\u0843\0\132"+
+    "\0\u0870\0\u089d\0\132\0\u08ca\0\u08f7\0\u0924\0\u0951\0\u097e"+
+    "\0\u09ab\0\132\0\u09d8\0\132\0\u0a05\0\u0a32\0\u0a5f\0\u0a8c"+
+    "\0\u0ab9\0\132\0\u0ae6\0\u0b13\0\u0b40\0\u0b6d\0\u0b9a\0\132"+
+    "\0\132\0\132\0\u0bc7\0\u0bf4\0\u0c21\0\132";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[100];
+    int [] result = new int[102];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -171,32 +173,32 @@ public class Lexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\3\2\4\1\5\1\6\1\7\1\10\1\11\1\12"+
-    "\1\13\1\14\1\3\1\15\1\16\1\17\1\20\1\21"+
-    "\1\22\1\23\1\24\1\25\1\26\2\3\1\22\1\27"+
-    "\12\3\1\30\1\31\1\32\2\3\1\33\1\34\2\35"+
-    "\2\3\1\36\46\35\55\0\1\4\50\0\2\37\1\40"+
-    "\50\37\13\0\1\41\1\15\64\0\1\42\52\0\1\43"+
-    "\55\0\1\44\55\0\1\45\51\0\1\46\3\0\1\47"+
-    "\47\0\1\50\7\0\1\51\2\0\1\52\36\0\1\53"+
-    "\3\0\1\54\51\0\1\55\42\0\1\56\24\0\2\35"+
-    "\3\0\46\35\14\0\1\57\100\0\1\60\46\0\1\61"+
-    "\46\0\1\62\51\0\1\63\52\0\1\64\63\0\1\65"+
-    "\41\0\1\66\54\0\1\67\63\0\1\70\46\0\1\71"+
-    "\3\0\1\72\52\0\1\73\41\0\1\74\54\0\1\75"+
-    "\57\0\1\76\54\0\1\77\35\0\1\100\52\0\1\101"+
-    "\72\0\1\102\1\103\43\0\1\104\53\0\1\105\47\0"+
-    "\1\106\60\0\1\107\33\0\1\110\66\0\1\111\47\0"+
-    "\1\112\41\0\1\113\57\0\1\114\64\0\1\115\36\0"+
-    "\1\116\66\0\1\117\33\0\1\120\61\0\1\121\52\0"+
-    "\1\122\57\0\1\123\53\0\1\64\37\0\1\124\66\0"+
-    "\1\125\44\0\1\126\45\0\1\127\60\0\1\130\44\0"+
-    "\1\131\47\0\1\132\52\0\1\133\70\0\1\134\52\0"+
-    "\1\135\51\0\1\136\37\0\1\137\64\0\1\140\36\0"+
-    "\1\141\52\0\1\142\60\0\1\143\61\0\1\144\40\0"+
-    "\1\137\21\0";
+    "\1\13\1\14\1\15\1\3\1\16\1\17\1\20\1\21"+
+    "\1\22\1\23\1\24\1\25\1\26\1\27\1\30\2\3"+
+    "\1\24\1\31\12\3\1\32\1\33\1\34\2\3\1\35"+
+    "\1\36\2\37\2\3\1\40\50\37\57\0\1\4\52\0"+
+    "\2\41\1\42\52\41\14\0\1\43\1\0\1\17\66\0"+
+    "\1\44\54\0\1\45\57\0\1\46\57\0\1\47\53\0"+
+    "\1\50\3\0\1\51\51\0\1\52\7\0\1\53\2\0"+
+    "\1\54\40\0\1\55\3\0\1\56\53\0\1\57\44\0"+
+    "\1\60\24\0\2\37\3\0\50\37\16\0\1\61\102\0"+
+    "\1\62\50\0\1\63\50\0\1\64\53\0\1\65\54\0"+
+    "\1\66\65\0\1\67\43\0\1\70\56\0\1\71\65\0"+
+    "\1\72\50\0\1\73\3\0\1\74\54\0\1\75\43\0"+
+    "\1\76\56\0\1\77\61\0\1\100\56\0\1\101\37\0"+
+    "\1\102\54\0\1\103\74\0\1\104\1\105\45\0\1\106"+
+    "\55\0\1\107\51\0\1\110\62\0\1\111\35\0\1\112"+
+    "\70\0\1\113\51\0\1\114\43\0\1\115\61\0\1\116"+
+    "\66\0\1\117\40\0\1\120\70\0\1\121\35\0\1\122"+
+    "\63\0\1\123\54\0\1\124\61\0\1\125\55\0\1\66"+
+    "\41\0\1\126\70\0\1\127\46\0\1\130\47\0\1\131"+
+    "\62\0\1\132\46\0\1\133\51\0\1\134\54\0\1\135"+
+    "\72\0\1\136\54\0\1\137\53\0\1\140\41\0\1\141"+
+    "\66\0\1\142\40\0\1\143\54\0\1\144\62\0\1\145"+
+    "\63\0\1\146\42\0\1\141\21\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[3010];
+    int [] result = new int[3150];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -239,14 +241,14 @@ public class Lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\2\11\1\1\1\11\1\1\5\11\1\1\2\11"+
+    "\2\0\2\11\1\1\1\11\1\1\7\11\1\1\2\11"+
     "\5\1\2\11\4\1\2\11\1\1\1\11\1\0\1\11"+
     "\16\0\1\1\2\0\1\11\1\0\1\11\15\0\2\11"+
     "\2\0\1\11\2\0\1\11\6\0\1\11\1\0\1\11"+
     "\5\0\1\11\5\0\3\11\3\0\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[100];
+    int [] result = new int[102];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -743,7 +745,8 @@ public class Lexer implements java_cup.runtime.Scanner {
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
             zzDoEOF();
-          { return new java_cup.runtime.Symbol(sym.EOF); }
+          {   return new java_cup.runtime.Symbol(ParserGraphicsSym.EOF);
+ }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
@@ -753,165 +756,204 @@ public class Lexer implements java_cup.runtime.Scanner {
                         System.out.println("Simbolo Ilegal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 33: break;
+          case 35: break;
           case 2:
             { /* ignore */
             }
             // fall through
-          case 34: break;
+          case 36: break;
           case 3:
             { this.stringColumnInit = (yycolumn+1);
                         this.string.setLength(0); 
                         yybegin(STRING);
             }
             // fall through
-          case 35: break;
-          case 4:
-            { System.out.println("(: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
-            }
-            // fall through
-          case 36: break;
-          case 5:
-            { System.out.println("): "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
-            }
-            // fall through
           case 37: break;
-          case 6:
-            { System.out.println("+: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 4:
+            { return new Symbol(ParserGraphicsSym.PA_A,yyline+1,yycolumn+1);
+                        //System.out.println("(: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 38: break;
-          case 7:
-            { System.out.println(",: "+yytext()+" , Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 5:
+            { return new Symbol(ParserGraphicsSym.PA_C,yyline+1,yycolumn+1);
+                        //System.out.println("): "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 39: break;
-          case 8:
-            { System.out.println("-: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 6:
+            { return new Symbol(ParserGraphicsSym.MUL,yyline+1,yycolumn+1);
+                        //System.out.println("*: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 40: break;
-          case 9:
-            { System.out.println("Numero: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 7:
+            { return new Symbol(ParserGraphicsSym.MAS,yyline+1,yycolumn+1);
+                        //System.out.println("+: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 41: break;
-          case 10:
-            { System.out.println(":-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 8:
+            { return new Symbol(ParserGraphicsSym.COMA,yyline+1,yycolumn+1);
+                        //System.out.println(",: "+yytext()+" , Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 42: break;
-          case 11:
-            { System.out.println(";-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 9:
+            { return new Symbol(ParserGraphicsSym.MENOS,yyline+1,yycolumn+1);
+                        //System.out.println("-: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 43: break;
-          case 12:
-            { System.out.println("[: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 10:
+            { return new Symbol(ParserGraphicsSym.DIV,yyline+1,yycolumn+1);
+                        //System.out.println("/: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 44: break;
-          case 13:
-            { System.out.println("]: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 11:
+            { return new Symbol(ParserGraphicsSym.NUMBERS,yyline+1,yycolumn+1, new Integer(yytext()));
+                        //System.out.println("Numero: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 45: break;
-          case 14:
-            { System.out.println("{: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 12:
+            { return new Symbol(ParserGraphicsSym.DOSPUNTOS,yyline+1,yycolumn+1);
+                        //System.out.println(":-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 46: break;
-          case 15:
-            { System.out.println("}: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 13:
+            { return new Symbol(ParserGraphicsSym.PUNTOCOMA,yyline+1,yycolumn+1);
+                        //System.out.println(";-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 47: break;
-          case 16:
-            { string.append(yytext());
+          case 14:
+            { return new Symbol(ParserGraphicsSym.CO_A,yyline+1,yycolumn+1);
+                        //System.out.println("[: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 48: break;
-          case 17:
-            { yybegin(YYINITIAL);
-                        System.out.println("String: "+string.toString()+", Linea: "+(yyline+1)+", Columna: "+stringColumnInit);
+          case 15:
+            { return new Symbol(ParserGraphicsSym.CO_C,yyline+1,yycolumn+1);
+                        //System.out.println("]: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 49: break;
-          case 18:
-            { System.out.println("Comentario: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 16:
+            { return new Symbol(ParserGraphicsSym.LLA_A,yyline+1,yycolumn+1);
+                        //System.out.println("{: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 50: break;
-          case 19:
-            { System.out.println("Decimal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 17:
+            { return new Symbol(ParserGraphicsSym.LLA_C,yyline+1,yycolumn+1);
+                        //System.out.println("}: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 51: break;
-          case 20:
-            { System.out.println("Def: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 18:
+            { string.append(yytext());
             }
             // fall through
           case 52: break;
-          case 21:
-            { System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 19:
+            { yybegin(YYINITIAL);
+                        return new Symbol(ParserGraphicsSym.STRING,yyline+1,yycolumn+1);
+                        //System.out.println("String: "+string.toString()+", Linea: "+(yyline+1)+", Columna: "+stringColumnInit);
             }
             // fall through
           case 53: break;
-          case 22:
-            { System.out.println("Ejex: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 20:
+            { //Dont return symbol, its a coment
             }
             // fall through
           case 54: break;
-          case 23:
-            { System.out.println("Ejey: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 21:
+            { return new Symbol(ParserGraphicsSym.DECIMAL,yyline+1,yycolumn+1,new Double(yytext()));
+                        //System.out.println("Decimal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 55: break;
-          case 24:
-            { System.out.println("Tipo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 22:
+            { return new Symbol(ParserGraphicsSym.DEF,yyline+1,yycolumn+1);
+                        //System.out.println("Def: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 56: break;
-          case 25:
-            { System.out.println("Union: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 23:
+            { return new Symbol(ParserGraphicsSym.GRAPHIC,yyline+1,yycolumn+1);
+                        //System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 57: break;
-          case 26:
-            { System.out.println("Extra: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 24:
+            { return new Symbol(ParserGraphicsSym.EJEX,yyline+1,yycolumn+1);
+                        //System.out.println("Ejex: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 58: break;
-          case 27:
-            { System.out.println("Total: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 25:
+            { return new Symbol(ParserGraphicsSym.EJEY,yyline+1,yycolumn+1);
+                        //System.out.println("Ejey: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 59: break;
-          case 28:
-            { System.out.println("Titulo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 26:
+            { return new Symbol(ParserGraphicsSym.TYPE,yyline+1,yycolumn+1);
+                        //System.out.println("Tipo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 60: break;
-          case 29:
-            { System.out.println("Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 27:
+            { return new Symbol(ParserGraphicsSym.LINK,yyline+1,yycolumn+1);
+                        //System.out.println("Union: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 61: break;
-          case 30:
-            { System.out.println("Tipo Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 28:
+            { return new Symbol(ParserGraphicsSym.EXTRA,yyline+1,yycolumn+1);
+                        //System.out.println("Extra: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 62: break;
-          case 31:
-            { System.out.println("Ejecutar: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 29:
+            { return new Symbol(ParserGraphicsSym.TOTAL,yyline+1,yycolumn+1);
+                        //System.out.println("Total: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 63: break;
-          case 32:
-            { System.out.println("Etiqueta: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+          case 30:
+            { return new Symbol(ParserGraphicsSym.TITTLE,yyline+1,yycolumn+1);
+                        //System.out.println("Titulo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 64: break;
+          case 31:
+            { return new Symbol(ParserGraphicsSym.VALUES,yyline+1,yycolumn+1);
+                        //System.out.println("Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+            }
+            // fall through
+          case 65: break;
+          case 32:
+            { return new Symbol(ParserGraphicsSym.TYPEVALUE,yyline+1,yycolumn+1);
+                        //System.out.println("Tipo Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+            }
+            // fall through
+          case 66: break;
+          case 33:
+            { return new Symbol(ParserGraphicsSym.EXECUTE,yyline+1,yycolumn+1);
+                        //System.out.println("Ejecutar: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+            }
+            // fall through
+          case 67: break;
+          case 34:
+            { return new Symbol(ParserGraphicsSym.LABEL,yyline+1,yycolumn+1);
+                        //System.out.println("Etiqueta: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+            }
+            // fall through
+          case 68: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
