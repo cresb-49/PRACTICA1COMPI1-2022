@@ -326,6 +326,8 @@ public class Lexer implements java_cup.runtime.Scanner {
 
   /* user code: */
     private static final String ERROR_TYPE = "Léxico";
+    private Token anterior;
+    private Token actual;
     private int stringColumnInit = 0; 
     private StringBuffer string = new StringBuffer();
     private ArrayList<ErrorAnalisis> errors = new ArrayList<>();
@@ -770,85 +772,113 @@ public class Lexer implements java_cup.runtime.Scanner {
             // fall through
           case 37: break;
           case 4:
-            { return new Symbol(ParserGraphicsSym.PA_A,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.PA_A,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("(: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 38: break;
           case 5:
-            { return new Symbol(ParserGraphicsSym.PA_C,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.PA_C,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("): "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 39: break;
           case 6:
-            { return new Symbol(ParserGraphicsSym.MUL,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.MUL,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("*: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 40: break;
           case 7:
-            { return new Symbol(ParserGraphicsSym.MAS,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.MAS,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("+: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 41: break;
           case 8:
-            { return new Symbol(ParserGraphicsSym.COMA,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.COMA,yyline+1,yycolumn+1,this.actual);
                         //System.out.println(",: "+yytext()+" , Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 42: break;
           case 9:
-            { return new Symbol(ParserGraphicsSym.MENOS,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.MENOS,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("-: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 43: break;
           case 10:
-            { return new Symbol(ParserGraphicsSym.DIV,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.DIV,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("/: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 44: break;
           case 11:
-            { return new Symbol(ParserGraphicsSym.NUMBERS,yyline+1,yycolumn+1, new Integer(yytext()));
+            { this.actual = new Token(yytext(),new Double(yytext()),yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.NUMBERS,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Numero: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 45: break;
           case 12:
-            { return new Symbol(ParserGraphicsSym.DOSPUNTOS,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.DOSPUNTOS,yyline+1,yycolumn+1,this.actual);
                         //System.out.println(":-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 46: break;
           case 13:
-            { return new Symbol(ParserGraphicsSym.PUNTOCOMA,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.PUNTOCOMA,yyline+1,yycolumn+1,this.actual);
                         //System.out.println(";-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 47: break;
           case 14:
-            { return new Symbol(ParserGraphicsSym.CO_A,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.CO_A,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("[: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 48: break;
           case 15:
-            { return new Symbol(ParserGraphicsSym.CO_C,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.CO_C,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("]: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 49: break;
           case 16:
-            { return new Symbol(ParserGraphicsSym.LLA_A,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.LLA_A,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("{: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 50: break;
           case 17:
-            { return new Symbol(ParserGraphicsSym.LLA_C,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.LLA_C,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("}: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
@@ -860,7 +890,9 @@ public class Lexer implements java_cup.runtime.Scanner {
           case 52: break;
           case 19:
             { yybegin(YYINITIAL);
-                        return new Symbol(ParserGraphicsSym.STRING,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.STRING,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("String: "+string.toString()+", Linea: "+(yyline+1)+", Columna: "+stringColumnInit);
             }
             // fall through
@@ -871,85 +903,113 @@ public class Lexer implements java_cup.runtime.Scanner {
             // fall through
           case 54: break;
           case 21:
-            { return new Symbol(ParserGraphicsSym.DECIMAL,yyline+1,yycolumn+1,new Double(yytext()));
+            { this.actual = new Token(yytext(),new Double(yytext()),yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.DECIMAL,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Decimal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 55: break;
           case 22:
-            { return new Symbol(ParserGraphicsSym.DEF,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.DEF,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Def: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 56: break;
           case 23:
-            { return new Symbol(ParserGraphicsSym.GRAPHIC,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.GRAPHIC,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 57: break;
           case 24:
-            { return new Symbol(ParserGraphicsSym.EJEX,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.EJEX,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Ejex: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 58: break;
           case 25:
-            { return new Symbol(ParserGraphicsSym.EJEY,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.EJEY,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Ejey: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 59: break;
           case 26:
-            { return new Symbol(ParserGraphicsSym.TYPE,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.TYPE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Tipo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 60: break;
           case 27:
-            { return new Symbol(ParserGraphicsSym.LINK,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.LINK,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Union: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 61: break;
           case 28:
-            { return new Symbol(ParserGraphicsSym.EXTRA,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.EXTRA,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Extra: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 62: break;
           case 29:
-            { return new Symbol(ParserGraphicsSym.TOTAL,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.TOTAL,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Total: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 63: break;
           case 30:
-            { return new Symbol(ParserGraphicsSym.TITTLE,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.TITTLE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Titulo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 64: break;
           case 31:
-            { return new Symbol(ParserGraphicsSym.VALUES,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.VALUES,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 65: break;
           case 32:
-            { return new Symbol(ParserGraphicsSym.TYPEVALUE,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.TYPEVALUE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Tipo Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 66: break;
           case 33:
-            { return new Symbol(ParserGraphicsSym.EXECUTE,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.EXECUTE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Ejecutar: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
           case 67: break;
           case 34:
-            { return new Symbol(ParserGraphicsSym.LABEL,yyline+1,yycolumn+1);
+            { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.LABEL,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Etiqueta: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through

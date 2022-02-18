@@ -18,10 +18,10 @@ parser code {:
 scan with {: return this.lexer.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
-terminal            DEF, GRAPHIC, TITTLE, EJEX, EJEY, LABEL, VALUES,
-                    LINK,TYPE,TYPEVALUE,TOTAL,EXTRA,EXECUTE,MAS,MENOS,
-                    MUL,DIV,PA_A,PA_C,CO_A,CO_C,LLA_A,LLA_C,COMA,DOSPUNTOS,
-                    PUNTOCOMA,STRING,NUMBERS,DECIMAL;
+terminal            DEF, GRAPHICBARRA,GRAPHICPIE, TITTLE, EJEX, EJEY, LABEL, VALUES,
+                    LINK,TYPE,TYPEVALUE,TOTAL,EXTRA,EXECUTE,MAS,MENOS,MUL,DIV,PA_A,
+                    PA_C,CO_A,CO_C,LLA_A,LLA_C,COMA,DOSPUNTOS,PUNTOCOMA,STRING,NUMBERS,
+                    DECIMAL;
 
 
 /* Non terminals */
@@ -30,22 +30,41 @@ non terminal Double     e,t,f;
 
 /* The grammar rules */
 
-
-e   ::= e MAS t
-    |   e MENOS t
-    |   t
+s   ::= e:val   {:
+                    System.out.println("El resultado de la operacion es: "+val);
+                :}
     ;
 
-t   ::= t MUL f
-    |   t DIV f
-    |   f
+e   ::= e:num1 MAS t:num2   {:
+                                RESULT = (num1 + num2);
+                            :}
+    |   e:num1 MENOS t:num2 {:
+                                RESULT = (num1 - num2);
+                            :}
+    |   t:exp               {:
+                                RESULT = exp;
+                            :}
+    ;
+
+t   ::= t:num1 MUL f:num2   {:
+                                RESULT = (num1*num2);
+                            :}
+    |   t:num1 DIV f:num2   {:
+                                RESULT = (num1/num2);
+                            :}             
+    |   f:exp               {:
+                                RESULT = exp;
+                            :}
     ;
 
 f   ::= NUMBERS:num     {:
-                            RESULT = (Double)num;
+                            RESULT = (Double) ((Token)num).getValue();
                         :}
     |   DECIMAL:num     {:
-                            RESULT = (Double)num;
+                            RESULT = (Double) ((Token)num).getValue();
                         :}
-    |   PA_A e PA_C
+    |   PA_A e:exp PA_C
+                        {:
+                            RESULT = exp;
+                        :}
     ;

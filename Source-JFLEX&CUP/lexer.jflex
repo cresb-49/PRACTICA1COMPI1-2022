@@ -13,6 +13,8 @@ import java_cup.runtime.*;
 
 %{
     private static final String ERROR_TYPE = "Léxico";
+    private Token anterior;
+    private Token actual;
     private int stringColumnInit = 0; 
     private StringBuffer string = new StringBuffer();
     private ArrayList<ErrorAnalisis> errors = new ArrayList<>();
@@ -40,7 +42,8 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 
 Comment = [#][^\n]*[\n]
 Def = def|Def
-Graphic = Barras|Pie
+GraphicBarras = Barras
+GraphicPie = Pie
 Tittle = titulo
 EjeX = ejex
 EjeY = ejey
@@ -67,115 +70,177 @@ Decimal = {Numbers}[.]{Numbers}
                         //Dont return symbol, its a coment
                     }
     {Def}           {
-                        return new Symbol(ParserGraphicsSym.DEF,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.DEF,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Def: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
-    {Graphic}       {
-                        return new Symbol(ParserGraphicsSym.GRAPHIC,yyline+1,yycolumn+1);
+    {GraphicBarras} {
+                        this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.GRAPHICBARRA,yyline+1,yycolumn+1,this.actual);
+                        //System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                    }
+    {GraphicPie} {
+                        this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.GRAPHICPIE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Tittle}        {
-                        return new Symbol(ParserGraphicsSym.TITTLE,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.TITTLE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Titulo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {EjeX}          {
-                        return new Symbol(ParserGraphicsSym.EJEX,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.EJEX,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Ejex: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {EjeY}          {
-                        return new Symbol(ParserGraphicsSym.EJEY,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.EJEY,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Ejey: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Label}         {
-                        return new Symbol(ParserGraphicsSym.LABEL,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.LABEL,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Etiqueta: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Values}        {
-                        return new Symbol(ParserGraphicsSym.VALUES,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.VALUES,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Link}          {
-                        return new Symbol(ParserGraphicsSym.LINK,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.LINK,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Union: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Type}          {
-                        return new Symbol(ParserGraphicsSym.TYPE,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.TYPE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Tipo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {TypeValue}     {
-                        return new Symbol(ParserGraphicsSym.TYPEVALUE,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.TYPEVALUE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Tipo Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Total}         {
-                        return new Symbol(ParserGraphicsSym.TOTAL,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.TOTAL,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Total: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Extra}         {
-                        return new Symbol(ParserGraphicsSym.EXTRA,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.EXTRA,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Extra: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Execute}       {
-                        return new Symbol(ParserGraphicsSym.EXECUTE,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.EXECUTE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Ejecutar: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Decimal}       {
-                        return new Symbol(ParserGraphicsSym.DECIMAL,yyline+1,yycolumn+1,new Double(yytext()));
+                        this.actual = new Token(yytext(),new Double(yytext()),yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.DECIMAL,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Decimal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Numbers}       {
-                        return new Symbol(ParserGraphicsSym.NUMBERS,yyline+1,yycolumn+1, new Integer(yytext()));
+                        this.actual = new Token(yytext(),new Double(yytext()),yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.NUMBERS,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Numero: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [*]             {
-                        return new Symbol(ParserGraphicsSym.MUL,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.MUL,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("*: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [/]             {
-                        return new Symbol(ParserGraphicsSym.DIV,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.DIV,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("/: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [+]             {
-                        return new Symbol(ParserGraphicsSym.MAS,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.MAS,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("+: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [-]             {
-                        return new Symbol(ParserGraphicsSym.MENOS,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.MENOS,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("-: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [(]             {
-                        return new Symbol(ParserGraphicsSym.PA_A,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.PA_A,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("(: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [)]             {
-                        return new Symbol(ParserGraphicsSym.PA_C,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.PA_C,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("): "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [\[]             {
-                        return new Symbol(ParserGraphicsSym.CO_A,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.CO_A,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("[: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [\]]            {
-                        return new Symbol(ParserGraphicsSym.CO_C,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.CO_C,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("]: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [{]             {
-                        return new Symbol(ParserGraphicsSym.LLA_A,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.LLA_A,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("{: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [}]             {
-                        return new Symbol(ParserGraphicsSym.LLA_C,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.LLA_C,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("}: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [,]             {
-                        return new Symbol(ParserGraphicsSym.COMA,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.COMA,yyline+1,yycolumn+1,this.actual);
                         //System.out.println(",: "+yytext()+" , Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [:]             {
-                        return new Symbol(ParserGraphicsSym.DOSPUNTOS,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.DOSPUNTOS,yyline+1,yycolumn+1,this.actual);
                         //System.out.println(":-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [;]             {
-                        return new Symbol(ParserGraphicsSym.PUNTOCOMA,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.PUNTOCOMA,yyline+1,yycolumn+1,this.actual);
                         //System.out.println(";-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [\"]            {
@@ -189,7 +254,9 @@ Decimal = {Numbers}[.]{Numbers}
 <STRING>{
     [\"]            {
                         yybegin(YYINITIAL);
-                        return new Symbol(ParserGraphicsSym.STRING,yyline+1,yycolumn+1);
+                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.STRING,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("String: "+string.toString()+", Linea: "+(yyline+1)+", Columna: "+stringColumnInit);
                     }
     [^\n\r\"]+      {
