@@ -1,0 +1,10 @@
+#Aqui estoy definiendo un grafico de barras
+def Barras{
+		#Aqui termine
+}
+Def Pie{
+}
+Def Pie{
+}
+#Aqui ejecutar la gráfica
+Ejecutar ("Grafica 1");

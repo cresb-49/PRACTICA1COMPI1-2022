@@ -42,6 +42,13 @@ ej  ::= EXECUTE PA_A STRING PA_C PUNTOCOMA ej
     |   EXECUTE PA_A STRING PA_C PUNTOCOMA 
     ;
 
+
+
+
+
+
+
+//GRAMAICA PARA EL RECONOCIMIENTO DE NUMEROS ENTEROS Y DECIMALES
 e   ::= e:num1 MAS t:num2   {:
                                 RESULT = (num1 + num2);
                             :}
