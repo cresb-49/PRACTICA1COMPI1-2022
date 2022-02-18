@@ -2,6 +2,10 @@ package com.carlos.pruebas.lexerParser;
 
 import com.carlos.pruebas.ED.Pila;
 import com.carlos.pruebas.obj.Token;
+import com.carlos.pruebas.obj.Union;
+
+import com.carlos.pruebas.obj.GraficaBarra;
+import com.carlos.pruebas.obj.GraficaPie;
 
 import java_cup.runtime.*;
 
@@ -48,15 +52,20 @@ terminal            DEF, GRAPHICBARRA,GRAPHICPIE, TITTLE, EJEX, EJEY, LABEL, VAL
 
 
 /* Non terminals */
-non terminal                s,graps,ej,contBarra,contPie,contUnir;
+non terminal                s,graps,ej;
+non terminal GraficaPie     contPie;
+non terminal GraficaBarra   contBarra;
 non terminal Pila<Double>   contEjeY;
 non terminal Pila<String>   contEjeX;
+non terminal Pila<Union>    contUnir;   
 non terminal Double         e,t,f;
+
 
 /* The grammar rules */
 
 s   ::= graps s
     |   graps ej
+    |   graps
     ;
 
 graps   ::= DEF GRAPHICBARRA LLA_A contBarra    {:
@@ -78,15 +87,28 @@ ej  ::= EXECUTE PA_A STRING PA_C PUNTOCOMA ej   {:
 
 //CONTENIDO DE UNA GRAFICA DE BARRAS
 
-contBarra   ::= TITTLE DOSPUNTOS STRING PUNTOCOMA contBarra
-            |   EJEX DOSPUNTOS CO_A contEjeX PUNTOCOMA contBarra
-            |   EJEY DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA contBarra   {:
+contBarra   ::= TITTLE DOSPUNTOS STRING:titulo PUNTOCOMA contBarra  {:
+                                                                        //String tittle = (String)((Token)titulo).getValue();
+                                                                        //System.out.println("Titulo de grafico: "+tittle);
+                                                                    :}
+            |   EJEX DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA contBarra   {:
                                                                             if(pila!=null){
-                                                                                System.out.println("Datos del eje y");
-                                                                                pila.imprimirPila();
+                                                                                //System.out.println("Datos del eje x");
+                                                                                //pila.imprimirPila();
                                                                             }
                                                                         :}
-            |   LINK DOSPUNTOS CO_A contUnir PUNTOCOMA contBarra
+            |   EJEY DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA contBarra   {:
+                                                                            if(pila!=null){
+                                                                                //System.out.println("Datos del eje y");
+                                                                                //pila.imprimirPila();
+                                                                            }
+                                                                        :}
+            |   LINK DOSPUNTOS CO_A contUnir:pila PUNTOCOMA contBarra   {:
+                                                                            if(pila!=null){
+                                                                                //System.out.println("Datos de union");
+                                                                                //pila.imprimirPila();
+                                                                            }
+                                                                        :}
             |   LLA_C
             ;
 
@@ -102,12 +124,30 @@ contEjeY    ::= e:num1 COMA contEjeY:pila   {:
                             :}
             ;
 
-contEjeX    ::= STRING COMA contEjeX
-            |   STRING CO_C
+contEjeX    ::= STRING:cadena COMA contEjeX:pila    {:
+                                                        RESULT = pila;
+                                                        if(RESULT!=null){
+                                                            String strin = (String)((Token)cadena).getValue();
+                                                            RESULT.push(strin);                    
+                                                        }
+                                                    :}
+            |   STRING:cadena CO_C  {:
+                                        RESULT = new Pila<>();
+                                        String strin = (String)((Token)cadena).getValue();
+                                        RESULT.push(strin);
+                                    :}
             ;
 
-contUnir    ::= LLA_A e COMA e LLA_C COMA contUnir
-            |   LLA_A e COMA e LLA_C CO_C
+contUnir    ::= LLA_A e:num1 COMA e:num2 LLA_C COMA contUnir:pila   {:
+                                                                        RESULT = pila;
+                                                                        if(RESULT!=null){
+                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));    
+                                                                        }
+                                                                    :}
+            |   LLA_A e:num1 COMA e:num2 LLA_C CO_C                 {:
+                                                                        RESULT = new Pila<>();
+                                                                        RESULT.push(new Union(num1.intValue(),num2.intValue()));
+                                                                    :}
             ;
 
 contPie     ::= TITTLE DOSPUNTOS STRING PUNTOCOMA contPie
