@@ -1,6 +1,7 @@
 package com.carlos.pruebas.ED;
 
 import com.carlos.pruebas.ED.Exceptions.NoDataException;
+import java.util.ArrayList;
 
 /**
  * Al igual que una pila normal esta puede guardar los datos agregando un tag de
@@ -28,7 +29,7 @@ public class PilaTag<T> {
      * @param data
      * @param tag
      */
-    public void push(T data, String tag){
+    public void push(T data, String tag) {
         if (this.raiz == null) {
             this.raiz = new NodoPilaTag<T>(data, tag, null);
             this.size++;
@@ -45,7 +46,7 @@ public class PilaTag<T> {
      *
      * @return
      */
-    public T pop(){
+    public T pop() {
         if (this.isEmpty()) {
             return null;
         } else {
@@ -91,10 +92,11 @@ public class PilaTag<T> {
             return false;
         }
     }
+
     /**
-     * 
+     *
      * @param tag
-     * @return 
+     * @return
      */
     public T retornar(String tag) {
         if (this.isEmpty()) {
@@ -132,6 +134,25 @@ public class PilaTag<T> {
      */
     public int getSize() {
         return size;
+    }
+
+    /**
+     * Retorna la pila en forma de ArrayList
+     *
+     * @return
+     */
+    public ArrayList<T> toArrayList() {
+        ArrayList<T> data = new ArrayList<>();
+        if (this.raiz == null) {
+            data = null;
+        } else {
+            NodoPilaTag<T> tmp = this.raiz;
+            while (tmp != null) {
+                data.add(tmp.data);
+                tmp = tmp.getNext();
+            }
+        }
+        return data;
     }
 
     public void imprimirPila() {
@@ -194,4 +215,3 @@ public class PilaTag<T> {
 
     }
 }
-
