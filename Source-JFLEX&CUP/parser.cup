@@ -34,12 +34,20 @@ s   ::= graps s
     |   graps ej
     ;
 
-graps   ::= DEF GRAPHICBARRA LLA_A LLA_C
-        |   DEF GRAPHICPIE LLA_A LLA_C
+graps   ::= DEF GRAPHICBARRA LLA_A LLA_C    {:
+                                                System.out.println("Grafica de barra");
+                                            :}
+        |   DEF GRAPHICPIE LLA_A LLA_C      {:
+                                                System.out.println("Grafica de pie");
+                                            :}
         ;
 
-ej  ::= EXECUTE PA_A STRING PA_C PUNTOCOMA ej
-    |   EXECUTE PA_A STRING PA_C PUNTOCOMA 
+ej  ::= EXECUTE PA_A STRING PA_C PUNTOCOMA ej   {:
+                                                    System.out.println("Instruccion de ejecucion");
+                                                :}
+    |   EXECUTE PA_A STRING PA_C PUNTOCOMA      {:
+                                                    System.out.println("Instruccion de ejecucion");
+                                                :}
     ;
 
 

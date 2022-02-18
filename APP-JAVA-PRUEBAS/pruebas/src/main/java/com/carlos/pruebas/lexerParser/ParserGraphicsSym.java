@@ -8,42 +8,44 @@ package com.carlos.pruebas.lexerParser;
 /** CUP generated class containing symbol constants. */
 public class ParserGraphicsSym {
   /* terminals */
-  public static final int MENOS = 16;
-  public static final int LLA_C = 24;
-  public static final int DOSPUNTOS = 26;
-  public static final int LLA_A = 23;
-  public static final int GRAPHIC = 3;
-  public static final int DECIMAL = 30;
-  public static final int STRING = 28;
-  public static final int COMA = 25;
-  public static final int TYPE = 10;
+  public static final int MENOS = 17;
+  public static final int LLA_C = 25;
+  public static final int DOSPUNTOS = 27;
+  public static final int LLA_A = 24;
+  public static final int DECIMAL = 31;
+  public static final int STRING = 29;
+  public static final int COMA = 26;
+  public static final int TYPE = 11;
+  public static final int GRAPHICBARRA = 3;
   public static final int EOF = 0;
-  public static final int TOTAL = 12;
-  public static final int CO_C = 22;
-  public static final int VALUES = 8;
-  public static final int TITTLE = 4;
+  public static final int TOTAL = 13;
+  public static final int CO_C = 23;
+  public static final int VALUES = 9;
+  public static final int GRAPHICPIE = 4;
+  public static final int TITTLE = 5;
   public static final int DEF = 2;
-  public static final int CO_A = 21;
-  public static final int DIV = 18;
-  public static final int LINK = 9;
-  public static final int EXTRA = 13;
+  public static final int CO_A = 22;
+  public static final int DIV = 19;
+  public static final int LINK = 10;
+  public static final int EXTRA = 14;
   public static final int error = 1;
-  public static final int TYPEVALUE = 11;
-  public static final int PA_C = 20;
-  public static final int PUNTOCOMA = 27;
-  public static final int EJEY = 6;
-  public static final int PA_A = 19;
-  public static final int EJEX = 5;
-  public static final int MUL = 17;
-  public static final int NUMBERS = 29;
-  public static final int MAS = 15;
-  public static final int LABEL = 7;
-  public static final int EXECUTE = 14;
+  public static final int TYPEVALUE = 12;
+  public static final int PA_C = 21;
+  public static final int PUNTOCOMA = 28;
+  public static final int EJEY = 7;
+  public static final int PA_A = 20;
+  public static final int EJEX = 6;
+  public static final int MUL = 18;
+  public static final int NUMBERS = 30;
+  public static final int MAS = 16;
+  public static final int LABEL = 8;
+  public static final int EXECUTE = 15;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "DEF",
-  "GRAPHIC",
+  "GRAPHICBARRA",
+  "GRAPHICPIE",
   "TITTLE",
   "EJEX",
   "EJEY",

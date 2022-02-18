@@ -105,11 +105,11 @@ public class Lexer implements java_cup.runtime.Scanner {
     "\1\16\1\17\4\1\1\20\1\21\1\22\1\23\1\0"+
     "\1\24\16\0\1\25\2\0\1\26\1\0\1\27\15\0"+
     "\1\30\1\31\2\0\1\32\2\0\1\33\6\0\1\34"+
-    "\1\0\1\35\5\0\1\36\5\0\1\37\1\40\1\41"+
-    "\3\0\1\42";
+    "\1\0\1\35\1\0\1\36\4\0\1\37\5\0\1\40"+
+    "\1\41\1\42\3\0\1\43";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[102];
+    int [] result = new int[103];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -144,12 +144,12 @@ public class Lexer implements java_cup.runtime.Scanner {
     "\0\u0627\0\u0654\0\u0681\0\u06ae\0\u06db\0\u0708\0\u0735\0\u0762"+
     "\0\u078f\0\u07bc\0\u07e9\0\132\0\132\0\u0816\0\u0843\0\132"+
     "\0\u0870\0\u089d\0\132\0\u08ca\0\u08f7\0\u0924\0\u0951\0\u097e"+
-    "\0\u09ab\0\132\0\u09d8\0\132\0\u0a05\0\u0a32\0\u0a5f\0\u0a8c"+
-    "\0\u0ab9\0\132\0\u0ae6\0\u0b13\0\u0b40\0\u0b6d\0\u0b9a\0\132"+
-    "\0\132\0\132\0\u0bc7\0\u0bf4\0\u0c21\0\132";
+    "\0\u09ab\0\132\0\u09d8\0\132\0\u0a05\0\132\0\u0a32\0\u0a5f"+
+    "\0\u0a8c\0\u0ab9\0\132\0\u0ae6\0\u0b13\0\u0b40\0\u0b6d\0\u0b9a"+
+    "\0\132\0\132\0\132\0\u0bc7\0\u0bf4\0\u0c21\0\132";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[102];
+    int [] result = new int[103];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -190,12 +190,12 @@ public class Lexer implements java_cup.runtime.Scanner {
     "\55\0\1\107\51\0\1\110\62\0\1\111\35\0\1\112"+
     "\70\0\1\113\51\0\1\114\43\0\1\115\61\0\1\116"+
     "\66\0\1\117\40\0\1\120\70\0\1\121\35\0\1\122"+
-    "\63\0\1\123\54\0\1\124\61\0\1\125\55\0\1\66"+
-    "\41\0\1\126\70\0\1\127\46\0\1\130\47\0\1\131"+
-    "\62\0\1\132\46\0\1\133\51\0\1\134\54\0\1\135"+
-    "\72\0\1\136\54\0\1\137\53\0\1\140\41\0\1\141"+
-    "\66\0\1\142\40\0\1\143\54\0\1\144\62\0\1\145"+
-    "\63\0\1\146\42\0\1\141\21\0";
+    "\63\0\1\123\54\0\1\124\61\0\1\125\55\0\1\126"+
+    "\41\0\1\127\70\0\1\130\46\0\1\131\47\0\1\132"+
+    "\62\0\1\133\46\0\1\134\51\0\1\135\54\0\1\136"+
+    "\72\0\1\137\54\0\1\140\53\0\1\141\41\0\1\142"+
+    "\66\0\1\143\40\0\1\144\54\0\1\145\62\0\1\146"+
+    "\63\0\1\147\42\0\1\142\21\0";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[3150];
@@ -245,10 +245,10 @@ public class Lexer implements java_cup.runtime.Scanner {
     "\5\1\2\11\4\1\2\11\1\1\1\11\1\0\1\11"+
     "\16\0\1\1\2\0\1\11\1\0\1\11\15\0\2\11"+
     "\2\0\1\11\2\0\1\11\6\0\1\11\1\0\1\11"+
-    "\5\0\1\11\5\0\3\11\3\0\1\11";
+    "\1\0\1\11\4\0\1\11\5\0\3\11\3\0\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[102];
+    int [] result = new int[103];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -758,19 +758,19 @@ public class Lexer implements java_cup.runtime.Scanner {
                         System.out.println("Simbolo Ilegal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 35: break;
+          case 36: break;
           case 2:
             { /* ignore */
             }
             // fall through
-          case 36: break;
+          case 37: break;
           case 3:
             { this.stringColumnInit = (yycolumn+1);
                         this.string.setLength(0); 
                         yybegin(STRING);
             }
             // fall through
-          case 37: break;
+          case 38: break;
           case 4:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -778,7 +778,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("(: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 38: break;
+          case 39: break;
           case 5:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -786,7 +786,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("): "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 39: break;
+          case 40: break;
           case 6:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -794,7 +794,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("*: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 40: break;
+          case 41: break;
           case 7:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -802,7 +802,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("+: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 41: break;
+          case 42: break;
           case 8:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -810,7 +810,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println(",: "+yytext()+" , Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 42: break;
+          case 43: break;
           case 9:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -818,7 +818,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("-: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 43: break;
+          case 44: break;
           case 10:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -826,7 +826,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("/: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 44: break;
+          case 45: break;
           case 11:
             { this.actual = new Token(yytext(),new Double(yytext()),yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -834,7 +834,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("Numero: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 45: break;
+          case 46: break;
           case 12:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -842,7 +842,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println(":-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 46: break;
+          case 47: break;
           case 13:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -850,7 +850,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println(";-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 47: break;
+          case 48: break;
           case 14:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -858,7 +858,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("[: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 48: break;
+          case 49: break;
           case 15:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -866,7 +866,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("]: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 49: break;
+          case 50: break;
           case 16:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -874,7 +874,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("{: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 50: break;
+          case 51: break;
           case 17:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -882,12 +882,12 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("}: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 51: break;
+          case 52: break;
           case 18:
             { string.append(yytext());
             }
             // fall through
-          case 52: break;
+          case 53: break;
           case 19:
             { yybegin(YYINITIAL);
                         this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
@@ -896,12 +896,12 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("String: "+string.toString()+", Linea: "+(yyline+1)+", Columna: "+stringColumnInit);
             }
             // fall through
-          case 53: break;
+          case 54: break;
           case 20:
             { //Dont return symbol, its a coment
             }
             // fall through
-          case 54: break;
+          case 55: break;
           case 21:
             { this.actual = new Token(yytext(),new Double(yytext()),yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -909,7 +909,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("Decimal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 55: break;
+          case 56: break;
           case 22:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -917,15 +917,15 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("Def: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 56: break;
+          case 57: break;
           case 23:
             { this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
-                        return new Symbol(ParserGraphicsSym.GRAPHIC,yyline+1,yycolumn+1,this.actual);
+                        return new Symbol(ParserGraphicsSym.GRAPHICPIE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 57: break;
+          case 58: break;
           case 24:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -933,7 +933,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("Ejex: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 58: break;
+          case 59: break;
           case 25:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -941,7 +941,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("Ejey: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 59: break;
+          case 60: break;
           case 26:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -949,7 +949,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("Tipo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 60: break;
+          case 61: break;
           case 27:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -957,7 +957,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("Union: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 61: break;
+          case 62: break;
           case 28:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -965,7 +965,7 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("Extra: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 62: break;
+          case 63: break;
           case 29:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
@@ -973,47 +973,55 @@ public class Lexer implements java_cup.runtime.Scanner {
                         //System.out.println("Total: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 63: break;
+          case 64: break;
           case 30:
+            { this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
+                        this.anterior = this.actual;
+                        return new Symbol(ParserGraphicsSym.GRAPHICBARRA,yyline+1,yycolumn+1,this.actual);
+                        //System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+            }
+            // fall through
+          case 65: break;
+          case 31:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
                         return new Symbol(ParserGraphicsSym.TITTLE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Titulo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 64: break;
-          case 31:
+          case 66: break;
+          case 32:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
                         return new Symbol(ParserGraphicsSym.VALUES,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 65: break;
-          case 32:
+          case 67: break;
+          case 33:
             { this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
                         return new Symbol(ParserGraphicsSym.TYPEVALUE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Tipo Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 66: break;
-          case 33:
+          case 68: break;
+          case 34:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
                         return new Symbol(ParserGraphicsSym.EXECUTE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Ejecutar: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 67: break;
-          case 34:
+          case 69: break;
+          case 35:
             { this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
                         return new Symbol(ParserGraphicsSym.LABEL,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Etiqueta: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }
             // fall through
-          case 68: break;
+          case 70: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

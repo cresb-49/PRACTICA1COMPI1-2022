@@ -31,10 +31,12 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\013\000\002\002\003\000\002\002\004\000\002\003" +
-    "\005\000\002\003\005\000\002\003\003\000\002\004\005" +
-    "\000\002\004\005\000\002\004\003\000\002\005\003\000" +
-    "\002\005\003\000\002\005\005" });
+    "\000\020\000\002\002\004\000\002\002\004\000\002\002" +
+    "\004\000\002\003\006\000\002\003\006\000\002\004\010" +
+    "\000\002\004\007\000\002\005\005\000\002\005\005\000" +
+    "\002\005\003\000\002\006\005\000\002\006\005\000\002" +
+    "\006\003\000\002\007\003\000\002\007\003\000\002\007" +
+    "\005" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -42,25 +44,16 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\023\000\010\025\012\037\007\040\011\001\002\000" +
-    "\016\002\ufffd\021\ufffd\022\ufffd\023\020\024\021\026\ufffd" +
-    "\001\002\000\004\002\025\001\002\000\016\002\ufffa\021" +
-    "\ufffa\022\ufffa\023\ufffa\024\ufffa\026\ufffa\001\002\000\016" +
-    "\002\ufff9\021\ufff9\022\ufff9\023\ufff9\024\ufff9\026\ufff9\001" +
-    "\002\000\010\002\001\021\014\022\015\001\002\000\016" +
-    "\002\ufff8\021\ufff8\022\ufff8\023\ufff8\024\ufff8\026\ufff8\001" +
-    "\002\000\010\025\012\037\007\040\011\001\002\000\010" +
-    "\021\014\022\015\026\016\001\002\000\010\025\012\037" +
-    "\007\040\011\001\002\000\010\025\012\037\007\040\011" +
-    "\001\002\000\016\002\ufff7\021\ufff7\022\ufff7\023\ufff7\024" +
-    "\ufff7\026\ufff7\001\002\000\016\002\ufffe\021\ufffe\022\ufffe" +
-    "\023\020\024\021\026\ufffe\001\002\000\010\025\012\037" +
-    "\007\040\011\001\002\000\010\025\012\037\007\040\011" +
-    "\001\002\000\016\002\ufffb\021\ufffb\022\ufffb\023\ufffb\024" +
-    "\ufffb\026\ufffb\001\002\000\016\002\ufffc\021\ufffc\022\ufffc" +
-    "\023\ufffc\024\ufffc\026\ufffc\001\002\000\016\002\uffff\021" +
-    "\uffff\022\uffff\023\020\024\021\026\uffff\001\002\000\004" +
-    "\002\000\001\002" });
+    "\000\023\000\004\004\004\001\002\000\006\005\021\006" +
+    "\020\001\002\000\004\002\017\001\002\000\006\004\004" +
+    "\021\007\001\002\000\004\026\012\001\002\000\004\002" +
+    "\001\001\002\000\004\002\uffff\001\002\000\004\037\013" +
+    "\001\002\000\004\027\014\001\002\000\004\036\015\001" +
+    "\002\000\006\002\ufffb\021\007\001\002\000\004\002\ufffc" +
+    "\001\002\000\004\002\000\001\002\000\004\032\024\001" +
+    "\002\000\004\032\022\001\002\000\004\033\023\001\002" +
+    "\000\006\004\ufffe\021\ufffe\001\002\000\004\033\025\001" +
+    "\002\000\006\004\ufffd\021\ufffd\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -68,15 +61,13 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\023\000\012\002\004\003\007\004\003\005\005\001" +
+    "\000\023\000\006\002\004\003\005\001\001\000\002\001" +
+    "\001\000\002\001\001\000\010\002\007\003\005\004\010" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\010\003\012\004\003\005\005\001\001\000\002\001\001" +
-    "\000\006\004\023\005\005\001\001\000\006\004\016\005" +
-    "\005\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\005\022\001\001\000\004\005\021\001\001\000\002\001" +
+    "\000\004\004\015\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "" });
+    "\000\002\001\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -156,16 +147,11 @@ class CUP$ParserGraphics$actions {
       switch (CUP$ParserGraphics$act_num)
         {
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 0: // s ::= e 
+          case 0: // s ::= graps s 
             {
               Object RESULT =null;
-		int valleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
-		int valright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
-		Double val = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
-		
-                    System.out.println("El resultado de la operacion es: "+val);
-                
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
@@ -184,7 +170,60 @@ class CUP$ParserGraphics$actions {
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // e ::= e MAS t 
+          case 2: // s ::= graps ej 
+            {
+              Object RESULT =null;
+
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+            }
+          return CUP$ParserGraphics$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 3: // graps ::= DEF GRAPHICBARRA LLA_A LLA_C 
+            {
+              Object RESULT =null;
+		
+                                                System.out.println("Grafica de barra");
+                                            
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("graps",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+            }
+          return CUP$ParserGraphics$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 4: // graps ::= DEF GRAPHICPIE LLA_A LLA_C 
+            {
+              Object RESULT =null;
+		
+                                                System.out.println("Grafica de pie");
+                                            
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("graps",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+            }
+          return CUP$ParserGraphics$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 5: // ej ::= EXECUTE PA_A STRING PA_C PUNTOCOMA ej 
+            {
+              Object RESULT =null;
+		
+                                                    System.out.println("Instruccion de ejecucion");
+                                                
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("ej",2, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+            }
+          return CUP$ParserGraphics$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 6: // ej ::= EXECUTE PA_A STRING PA_C PUNTOCOMA 
+            {
+              Object RESULT =null;
+		
+                                                    System.out.println("Instruccion de ejecucion");
+                                                
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("ej",2, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+            }
+          return CUP$ParserGraphics$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 7: // e ::= e MAS t 
             {
               Double RESULT =null;
 		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
@@ -196,12 +235,12 @@ class CUP$ParserGraphics$actions {
 		
                                 RESULT = (num1 + num2);
                             
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("e",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("e",3, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // e ::= e MENOS t 
+          case 8: // e ::= e MENOS t 
             {
               Double RESULT =null;
 		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
@@ -213,12 +252,12 @@ class CUP$ParserGraphics$actions {
 		
                                 RESULT = (num1 - num2);
                             
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("e",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("e",3, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // e ::= t 
+          case 9: // e ::= t 
             {
               Double RESULT =null;
 		int expleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
@@ -227,12 +266,12 @@ class CUP$ParserGraphics$actions {
 		
                                 RESULT = exp;
                             
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("e",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("e",3, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // t ::= t MUL f 
+          case 10: // t ::= t MUL f 
             {
               Double RESULT =null;
 		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
@@ -244,12 +283,12 @@ class CUP$ParserGraphics$actions {
 		
                                 RESULT = (num1*num2);
                             
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("t",2, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("t",4, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // t ::= t DIV f 
+          case 11: // t ::= t DIV f 
             {
               Double RESULT =null;
 		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
@@ -261,12 +300,12 @@ class CUP$ParserGraphics$actions {
 		
                                 RESULT = (num1/num2);
                             
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("t",2, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("t",4, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // t ::= f 
+          case 12: // t ::= f 
             {
               Double RESULT =null;
 		int expleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
@@ -275,12 +314,12 @@ class CUP$ParserGraphics$actions {
 		
                                 RESULT = exp;
                             
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("t",2, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("t",4, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // f ::= NUMBERS 
+          case 13: // f ::= NUMBERS 
             {
               Double RESULT =null;
 		int numleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
@@ -289,12 +328,12 @@ class CUP$ParserGraphics$actions {
 		
                             RESULT = (Double) ((Token)num).getValue();
                         
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("f",3, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("f",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // f ::= DECIMAL 
+          case 14: // f ::= DECIMAL 
             {
               Double RESULT =null;
 		int numleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
@@ -303,12 +342,12 @@ class CUP$ParserGraphics$actions {
 		
                             RESULT = (Double) ((Token)num).getValue();
                         
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("f",3, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("f",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // f ::= PA_A e PA_C 
+          case 15: // f ::= PA_A e PA_C 
             {
               Double RESULT =null;
 		int expleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
@@ -317,7 +356,7 @@ class CUP$ParserGraphics$actions {
 		
                             RESULT = exp;
                         
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("f",3, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("f",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
