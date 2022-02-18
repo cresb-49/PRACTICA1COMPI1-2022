@@ -1,24 +1,51 @@
+package com.carlos.pruebas.lexerParser;
+
 import java_cup.runtime.*;
+
+class ParserGraphics;
 
 parser code {:
     // Connect this parser to a scanner!
-    Lexer lexer;
-    Parser(Lexer lexer){ this.lexer=lexer; }
+    private Lexer lexer;
+    
+    public ParserGraphics (Lexer lexer){ 
+        super(lexer);
+        this.lexer=lexer;
+    }
 :}
 
 /* define how to connect to the scanner! */
-init with {: lexer.init(); :};
-scan with {: return lexer.next_token(); :};
+scan with {: return this.lexer.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
-terminal            SEMI, PLUS, MINUS, TIMES, UMINUS, LPAREN, RPAREN;
-terminal Integer    NUMBER;        // our scanner provides numbers as integers
+terminal            DEF, GRAPHIC, TITTLE, EJEX, EJEY, LABEL, VALUES,
+                    LINK,TYPE,TYPEVALUE,TOTAL,EXTRA,EXECUTE,MAS,MENOS,
+                    MUL,DIV,PA_A,PA_C,CO_A,CO_C,LLA_A,LLA_C,COMA,DOSPUNTOS,
+                    PUNTOCOMA,STRING,NUMBERS,DECIMAL;
+
 
 /* Non terminals */
-non terminal            expr_list;
-non terminal Integer    expr;      // used to store evaluated subexpressions
-
-/* Precedences */
-
+non terminal            s;
+non terminal Double     e,t,f;
 
 /* The grammar rules */
+
+
+e   ::= e MAS t
+    |   e MENOS t
+    |   t
+    ;
+
+t   ::= t MUL f
+    |   t DIV f
+    |   f
+    ;
+
+f   ::= NUMBERS:num     {:
+                            RESULT = (Double)num;
+                        :}
+    |   DECIMAL:num     {:
+                            RESULT = (Double)num;
+                        :}
+    |   PA_A e PA_C
+    ;

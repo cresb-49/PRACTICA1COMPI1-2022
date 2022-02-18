@@ -1,6 +1,7 @@
-package com.carlos.android_practica1.lexer_parser;
+package com.carlos.pruebas.lexerParser;
 
 import java.util.ArrayList;
+import java_cup.runtime.*;
 
 %%
 %class Lexer
@@ -29,6 +30,10 @@ import java.util.ArrayList;
         System.out.println("Se decto un error");
     }
 %}
+%eofval{
+  return new java_cup.runtime.Symbol(ParserGraphicsSym.EOF);
+%eofval}
+
 
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = {LineTerminator} | [ \t\f]
@@ -59,85 +64,119 @@ Decimal = {Numbers}[.]{Numbers}
 
 <YYINITIAL> {
     {Comment}       {
-                        System.out.println("Comentario: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        //Dont return symbol, its a coment
                     }
     {Def}           {
-                        System.out.println("Def: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.DEF,yyline+1,yycolumn+1);
+                        //System.out.println("Def: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Graphic}       {
-                        System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.GRAPHIC,yyline+1,yycolumn+1);
+                        //System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Tittle}        {
-                        System.out.println("Titulo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.TITTLE,yyline+1,yycolumn+1);
+                        //System.out.println("Titulo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {EjeX}          {
-                        System.out.println("Ejex: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.EJEX,yyline+1,yycolumn+1);
+                        //System.out.println("Ejex: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {EjeY}          {
-                        System.out.println("Ejey: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.EJEY,yyline+1,yycolumn+1);
+                        //System.out.println("Ejey: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Label}         {
-                        System.out.println("Etiqueta: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.LABEL,yyline+1,yycolumn+1);
+                        //System.out.println("Etiqueta: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Values}        {
-                        System.out.println("Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.VALUES,yyline+1,yycolumn+1);
+                        //System.out.println("Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Link}          {
-                        System.out.println("Union: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.LINK,yyline+1,yycolumn+1);
+                        //System.out.println("Union: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Type}          {
-                        System.out.println("Tipo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.TYPE,yyline+1,yycolumn+1);
+                        //System.out.println("Tipo: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {TypeValue}     {
-                        System.out.println("Tipo Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.TYPEVALUE,yyline+1,yycolumn+1);
+                        //System.out.println("Tipo Valor: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Total}         {
-                        System.out.println("Total: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.TOTAL,yyline+1,yycolumn+1);
+                        //System.out.println("Total: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Extra}         {
-                        System.out.println("Extra: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.EXTRA,yyline+1,yycolumn+1);
+                        //System.out.println("Extra: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Execute}       {
-                        System.out.println("Ejecutar: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.EXECUTE,yyline+1,yycolumn+1);
+                        //System.out.println("Ejecutar: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Decimal}       {
-                        System.out.println("Decimal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.DECIMAL,yyline+1,yycolumn+1,new Double(yytext()));
+                        //System.out.println("Decimal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     {Numbers}       {
-                        System.out.println("Numero: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.NUMBERS,yyline+1,yycolumn+1, new Integer(yytext()));
+                        //System.out.println("Numero: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                    }
+    [*]             {
+                        return new Symbol(ParserGraphicsSym.MUL,yyline+1,yycolumn+1);
+                        //System.out.println("*: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                    }
+    [/]             {
+                        return new Symbol(ParserGraphicsSym.DIV,yyline+1,yycolumn+1);
+                        //System.out.println("/: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [+]             {
-                        System.out.println("+: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.MAS,yyline+1,yycolumn+1);
+                        //System.out.println("+: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [-]             {
-                        System.out.println("-: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.MENOS,yyline+1,yycolumn+1);
+                        //System.out.println("-: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [(]             {
-                        System.out.println("(: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.PA_A,yyline+1,yycolumn+1);
+                        //System.out.println("(: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [)]             {
-                        System.out.println("): "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.PA_C,yyline+1,yycolumn+1);
+                        //System.out.println("): "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [\[]             {
-                        System.out.println("[: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.CO_A,yyline+1,yycolumn+1);
+                        //System.out.println("[: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
-    [\]]             {
-                        System.out.println("]: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+    [\]]            {
+                        return new Symbol(ParserGraphicsSym.CO_C,yyline+1,yycolumn+1);
+                        //System.out.println("]: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [{]             {
-                        System.out.println("{: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.LLA_A,yyline+1,yycolumn+1);
+                        //System.out.println("{: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [}]             {
-                        System.out.println("}: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.LLA_C,yyline+1,yycolumn+1);
+                        //System.out.println("}: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [,]             {
-                        System.out.println(",: "+yytext()+" , Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.COMA,yyline+1,yycolumn+1);
+                        //System.out.println(",: "+yytext()+" , Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [:]             {
-                        System.out.println(":-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.DOSPUNTOS,yyline+1,yycolumn+1);
+                        //System.out.println(":-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [;]             {
-                        System.out.println(";-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
+                        return new Symbol(ParserGraphicsSym.PUNTOCOMA,yyline+1,yycolumn+1);
+                        //System.out.println(";-> "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
                     }
     [\"]            {
                         this.stringColumnInit = (yycolumn+1);
@@ -150,7 +189,8 @@ Decimal = {Numbers}[.]{Numbers}
 <STRING>{
     [\"]            {
                         yybegin(YYINITIAL);
-                        System.out.println("String: "+string.toString()+", Linea: "+(yyline+1)+", Columna: "+stringColumnInit);
+                        return new Symbol(ParserGraphicsSym.STRING,yyline+1,yycolumn+1);
+                        //System.out.println("String: "+string.toString()+", Linea: "+(yyline+1)+", Columna: "+stringColumnInit);
                     }
     [^\n\r\"]+      {
                         string.append(yytext());
