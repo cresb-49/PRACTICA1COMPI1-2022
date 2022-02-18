@@ -63,6 +63,10 @@ public class GraficaPie {
     public void setUnir(ArrayList<Union> unir) {
         this.unir = unir;
     }
+    
+    public  void addUnir(Union unir){
+        this.unir.add(unir);
+    }
 
     public Double getTotal() {
         return total;
