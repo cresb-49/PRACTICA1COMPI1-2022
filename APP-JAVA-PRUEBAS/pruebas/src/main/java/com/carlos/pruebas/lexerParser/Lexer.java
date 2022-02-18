@@ -893,7 +893,7 @@ public class Lexer implements java_cup.runtime.Scanner {
           case 53: break;
           case 19:
             { yybegin(YYINITIAL);
-                        this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+                        this.actual = new Token(string.toString(),string.toString(),yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
                         return new Symbol(ParserGraphicsSym.STRING,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("String: "+string.toString()+", Linea: "+(yyline+1)+", Columna: "+stringColumnInit);
