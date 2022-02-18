@@ -194,4 +194,5 @@ f   ::= NUMBERS:num     {:
                         {:
                             RESULT = exp;
                         :}
+    |   error f
     ;
