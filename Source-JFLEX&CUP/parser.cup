@@ -25,14 +25,21 @@ terminal            DEF, GRAPHICBARRA,GRAPHICPIE, TITTLE, EJEX, EJEY, LABEL, VAL
 
 
 /* Non terminals */
-non terminal            s;
+non terminal            s,graps,ej;
 non terminal Double     e,t,f;
 
 /* The grammar rules */
 
-s   ::= e:val   {:
-                    System.out.println("El resultado de la operacion es: "+val);
-                :}
+s   ::= graps s
+    |   graps ej
+    ;
+
+graps   ::= DEF GRAPHICBARRA LLA_A LLA_C
+        |   DEF GRAPHICPIE LLA_A LLA_C
+        ;
+
+ej  ::= EXECUTE PA_A STRING PA_C PUNTOCOMA ej
+    |   EXECUTE PA_A STRING PA_C PUNTOCOMA 
     ;
 
 e   ::= e:num1 MAS t:num2   {:
