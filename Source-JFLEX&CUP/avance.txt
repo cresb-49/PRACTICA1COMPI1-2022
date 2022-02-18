@@ -1,10 +1,27 @@
 #Aqui estoy definiendo un grafico de barras
 def Barras{
-		#Aqui termine
+	titulo: "Grafica 1";
+	ejex:["item1", "item2"];
+	ejey:[5,1];
+	unir:[{0,1}, {1,0}];
+	#Aqui termine
 }
 Def Pie{
+	titulo: "Grafica 2";
+	tipo: Cantidad;
+	etiquetas: ["Compi1", "Compi2"];
+	valores:[5, 10];
+	total: 25;
+	unir:[{0,1}, {1,0}];
+	extra: "Resto";
 }
 Def Pie{
+	titulo: "Grafica 3";
+	tipo: Porcentaje;
+	etiquetas: ["Compi1","Compi2"];
+	valores:[70,120];
+	unir:[{0,1},{1,0}];
+	extra: "Resto";
 }
 #Aqui ejecutar la gráfica
 Ejecutar ("Grafica 1");
