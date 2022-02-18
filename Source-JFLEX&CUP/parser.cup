@@ -1,5 +1,8 @@
 package com.carlos.pruebas.lexerParser;
 
+import com.carlos.pruebas.ED.Pila;
+import com.carlos.pruebas.obj.Token;
+
 import java_cup.runtime.*;
 
 class ParserGraphics;
@@ -45,8 +48,10 @@ terminal            DEF, GRAPHICBARRA,GRAPHICPIE, TITTLE, EJEX, EJEY, LABEL, VAL
 
 
 /* Non terminals */
-non terminal            s,graps,ej,contBarra,contPie,contEjeY,contEjeX,contUnir;
-non terminal Double     e,t,f;
+non terminal                s,graps,ej,contBarra,contPie,contUnir;
+non terminal Pila<Double>   contEjeY;
+non terminal Pila<String>   contEjeX;
+non terminal Double         e,t,f;
 
 /* The grammar rules */
 
@@ -75,13 +80,26 @@ ej  ::= EXECUTE PA_A STRING PA_C PUNTOCOMA ej   {:
 
 contBarra   ::= TITTLE DOSPUNTOS STRING PUNTOCOMA contBarra
             |   EJEX DOSPUNTOS CO_A contEjeX PUNTOCOMA contBarra
-            |   EJEY DOSPUNTOS CO_A contEjeY PUNTOCOMA contBarra
+            |   EJEY DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA contBarra   {:
+                                                                            if(pila!=null){
+                                                                                System.out.println("Datos del eje y");
+                                                                                pila.imprimirPila();
+                                                                            }
+                                                                        :}
             |   LINK DOSPUNTOS CO_A contUnir PUNTOCOMA contBarra
             |   LLA_C
             ;
 
-contEjeY    ::= e COMA contEjeY
-            |   e CO_C
+contEjeY    ::= e:num1 COMA contEjeY:pila   {:
+                                                RESULT = pila;
+                                                if(RESULT != null){
+                                                    RESULT.push(num1);
+                                                }
+                                            :}
+            |   e:num1 CO_C {:
+                                RESULT = new Pila<>();
+                                RESULT.push(num1);
+                            :}
             ;
 
 contEjeX    ::= STRING COMA contEjeX
