@@ -1,4 +1,4 @@
-package com.carlos.pruebas.lexerParser;
+package com.carlos.pruebas.obj;
 
 import java.util.ArrayList;
 

@@ -5,6 +5,8 @@
 
 package com.carlos.pruebas.lexerParser;
 
+import com.carlos.pruebas.ED.Pila;
+import com.carlos.pruebas.obj.Token;
 import java_cup.runtime.*;
 import java_cup.runtime.XMLElement;
 
@@ -35,8 +37,8 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     "\004\000\002\003\006\000\002\003\006\000\002\004\010" +
     "\000\002\004\007\000\002\005\007\000\002\005\010\000" +
     "\002\005\010\000\002\005\010\000\002\005\003\000\002" +
-    "\007\005\000\002\007\004\000\002\010\005\000\002\010" +
-    "\004\000\002\011\011\000\002\011\010\000\002\006\007" +
+    "\010\005\000\002\010\004\000\002\011\005\000\002\011" +
+    "\004\000\002\007\011\000\002\007\010\000\002\006\007" +
     "\000\002\006\007\000\002\006\010\000\002\006\010\000" +
     "\002\006\007\000\002\006\010\000\002\006\007\000\002" +
     "\006\003\000\002\012\005\000\002\012\005\000\002\012" +
@@ -148,10 +150,10 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     "\001\000\002\001\001\000\002\001\001\000\004\005\027" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\010\033\001\001\000\002\001" +
+    "\000\002\001\001\000\004\011\033\001\001\000\002\001" +
     "\001\000\002\001\001\000\004\005\035\001\001\000\002" +
-    "\001\001\000\004\010\040\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\012\007\043\012\047" +
+    "\001\001\000\004\011\040\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\012\010\043\012\047" +
     "\013\044\014\046\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\010\012\052\013\044\014\046\001" +
@@ -159,26 +161,26 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     "\000\006\013\056\014\046\001\001\000\002\001\001\000" +
     "\002\001\001\000\004\014\062\001\001\000\004\014\061" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\012\007\066\012\047\013\044\014\046\001\001" +
+    "\001\000\012\010\066\012\047\013\044\014\046\001\001" +
     "\000\002\001\001\000\002\001\001\000\004\005\070\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\004\005\074\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\011\077\001\001\000\002\001\001\000\010" +
+    "\001\000\004\007\077\001\001\000\002\001\001\000\010" +
     "\012\101\013\044\014\046\001\001\000\002\001\001\000" +
     "\010\012\103\013\044\014\046\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\011\107\001\001\000\002\001" +
+    "\000\002\001\001\000\004\007\107\001\001\000\002\001" +
     "\001\000\002\001\001\000\004\005\111\001\001\000\002" +
     "\001\001\000\004\006\114\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\004\006\127\001\001\000\002\001\001\000\002\001" +
-    "\001\000\012\007\132\012\047\013\044\014\046\001\001" +
+    "\001\000\012\010\132\012\047\013\044\014\046\001\001" +
     "\000\002\001\001\000\004\006\134\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\011\137\001\001\000\002" +
+    "\001\000\002\001\001\000\004\007\137\001\001\000\002" +
     "\001\001\000\004\006\141\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\004\006\145\001\001" +
-    "\000\002\001\001\000\002\001\001\000\004\010\150\001" +
+    "\000\002\001\001\000\002\001\001\000\004\011\150\001" +
     "\001\000\002\001\001\000\004\006\152\001\001\000\002" +
     "\001\001\000\010\012\154\013\044\014\046\001\001\000" +
     "\002\001\001\000\004\006\156\001\001\000\002\001\001" +
@@ -380,7 +382,15 @@ class CUP$ParserGraphics$actions {
           case 9: // contBarra ::= EJEY DOSPUNTOS CO_A contEjeY PUNTOCOMA contBarra 
             {
               Object RESULT =null;
-
+		int pilaleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
+		int pilaright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).right;
+		Pila<Double> pila = (Pila<Double>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
+		
+                                                                            if(pila!=null){
+                                                                                System.out.println("Datos del eje y");
+                                                                                pila.imprimirPila();
+                                                                            }
+                                                                        
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contBarra",3, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -406,36 +416,53 @@ class CUP$ParserGraphics$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 12: // contEjeY ::= e COMA contEjeY 
             {
-              Object RESULT =null;
-
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contEjeY",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              Pila<Double> RESULT =null;
+		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
+		int num1right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).right;
+		Double num1 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
+		int pilaleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
+		int pilaright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
+		Pila<Double> pila = (Pila<Double>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
+		
+                                                RESULT = pila;
+                                                if(RESULT != null){
+                                                    RESULT.push(num1);
+                                                }
+                                            
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contEjeY",6, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 13: // contEjeY ::= e CO_C 
             {
-              Object RESULT =null;
-
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contEjeY",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              Pila<Double> RESULT =null;
+		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
+		int num1right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
+		Double num1 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
+		
+                                RESULT = new Pila<>();
+                                RESULT.push(num1);
+                            
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contEjeY",6, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 14: // contEjeX ::= STRING COMA contEjeX 
             {
-              Object RESULT =null;
+              Pila<String> RESULT =null;
 
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contEjeX",6, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contEjeX",7, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 15: // contEjeX ::= STRING CO_C 
             {
-              Object RESULT =null;
+              Pila<String> RESULT =null;
 
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contEjeX",6, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contEjeX",7, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
@@ -444,7 +471,7 @@ class CUP$ParserGraphics$actions {
             {
               Object RESULT =null;
 
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contUnir",7, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-6)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contUnir",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-6)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 
@@ -453,7 +480,7 @@ class CUP$ParserGraphics$actions {
             {
               Object RESULT =null;
 
-              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contUnir",7, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
+              CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contUnir",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
 

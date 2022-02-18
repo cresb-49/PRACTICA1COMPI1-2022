@@ -4,6 +4,9 @@
 
 package com.carlos.pruebas.lexerParser;
 
+import com.carlos.pruebas.obj.ErrorAnalisis;
+import com.carlos.pruebas.obj.Token;
+
 import java.util.ArrayList;
 import java_cup.runtime.*;
 
