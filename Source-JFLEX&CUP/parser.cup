@@ -29,14 +29,19 @@ parser code {:
     }
 
     public void syntax_error(Symbol cur_token) {
-        System.out.println("El error es el simbolo: " + ParserGraphicsSym.terminalNames[cur_token.sym]);
-        System.out.println(String.format("En la posicion: %d, %d", cur_token.left, cur_token.right));
+        System.out.println("Error sintactico: " + ParserGraphicsSym.terminalNames[cur_token.sym]);
+        System.out.println(String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right));
     }
 
     public void unrecovered_syntax_error(Symbol cur_token) {
         if (cur_token.sym == ParserGraphicsSym.EOF) {
             System.out.println("public void unrecoveredsyntax_error");
         }
+    }
+
+    public void semantic_error(Token token,String contexto) {
+        System.out.println("Error semantico: " + token.getLexema()+" , "+contexto);
+        System.out.println(String.format("Linea: %d,Columna: %d", token.getLinea(), token.getColumna()));
     }
 
     protected int error_sync_size() {
@@ -93,42 +98,51 @@ s   ::= s DEF GRAPHICBARRA contBarra:gb LLA_C   {:
 
 //CONTENIDO DE UNA GRAFICA DE BARRAS
 
-contBarra   ::= contBarra:gb TITTLE DOSPUNTOS STRING:titulo PUNTOCOMA  {:
-                                                                            String tittle = (String)((Token)titulo).getValue();
-                                                                            //System.out.println("Titulo de grafico: "+tittle);
+contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
                                                                             if(gb !=null){
                                                                                 RESULT = gb;
-                                                                                RESULT.setTitulo(tittle);
+                                                                                if(RESULT.getTitulo()!=null){
+                                                                                    semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                }else{
+                                                                                    String tittle = (String)((Token)titulo).getValue();
+                                                                                    RESULT.setTitulo(tittle);
+                                                                                }
                                                                             }
 
                                                                         :}
-            |   contBarra:gb EJEX DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA   {:
+            |   contBarra:gb EJEX:e DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA  {:
                                                                                 if(pila!=null){
-                                                                                    //System.out.println("Datos del eje x");
-                                                                                    //pila.imprimirPila();
                                                                                     if(gb !=null){
                                                                                         RESULT = gb;
-                                                                                        //RESULT.setEjex();
+                                                                                        if(RESULT.getEjex()!=null){
+                                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                        }else{
+                                                                                            //RESULT.setEjex();
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             :}
-            |   contBarra:gb EJEY DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA    {:
+            |   contBarra:gb EJEY:e DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA  {:
                                                                                 if(pila!=null){
-                                                                                    //System.out.println("Datos del eje y");
-                                                                                    //pila.imprimirPila();
                                                                                     if(gb !=null){
                                                                                         RESULT = gb;
-                                                                                        //RESULT.setEjey();
+                                                                                        if(RESULT.getEjey()!=null){
+                                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                        }else{
+                                                                                            //RESULT.setEjey();
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             :}
-            |   contBarra:gb LINK DOSPUNTOS CO_A contUnir:pila PUNTOCOMA    {:
+            |   contBarra:gb LINK:e DOSPUNTOS CO_A contUnir:pila PUNTOCOMA  {:
                                                                                 if(pila!=null){
-                                                                                    //System.out.println("Datos de union");
-                                                                                    //pila.imprimirPila();
                                                                                     if(gb !=null){
                                                                                         RESULT = gb;
-                                                                                        RESULT.setUnir(pila.toArrayList());
+                                                                                        if(RESULT.getEjey()!=null){
+                                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                        }else{
+                                                                                            RESULT.setUnir(pila.toArrayList());
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             :}
