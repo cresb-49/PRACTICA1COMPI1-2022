@@ -84,6 +84,43 @@ public class GraficaPie {
         this.extra = extra;
     }
 
+    public ArrayList<String> verificarGrafica(){
+        ArrayList<String> errores = new ArrayList<>();
+        if(this.tipo==null){
+            errores.add("Grafica de Pie, no esta definido el parametro \"tipo\"");
+            this.verificacion(errores, 0);
+            return errores;
+        }else if(this.tipo.equals("Cantidad")){
+            this.verificacion(errores, 1);
+            return errores;
+        }else if(this.tipo.equals("Porcentaje")){
+            this.verificacion(errores, 0);
+            return errores;
+        }else{
+            errores.add("Grafica de Pie, la definicion de \"tipo\" no es correcta");
+            return errores;
+        }
+    }
+    private void verificacion(ArrayList<String> errores,int tipo){
+        if(this.titulo==null){
+            errores.add("Grafica de Pie, no esta definido el parametro \"titulo\"");
+        }
+        if(this.etiquetas == null){
+            errores.add("Grafica de Pie, no esta definido el parametro \"etiquetas\"");
+        }
+        if(this.valores == null){
+            errores.add("Grafica de Pie, no esta definido el parametro \"valores\"");
+        }
+        if(tipo == 1){
+            if(this.total == null){
+                errores.add("Grafica de Pie, no esta definido el parametro \"total\"");
+            }
+        }
+        if(this.unir == null){
+            errores.add("Grafica de Pie, no esta definido el parametro \"unir\"");
+        }
+    }
+
     @Override
     public String toString() {
         return "GraficaPie{" + "titulo=" + titulo + ", tipo=" + tipo + ", etiquetas=" + etiquetas + ", valores=" + valores + ", unir=" + unir + ", total=" + total + ", extra=" + extra + '}';

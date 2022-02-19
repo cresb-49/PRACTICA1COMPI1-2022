@@ -59,6 +59,23 @@ public class GraficaBarra {
         this.unir.add(unir);
     }
 
+    public ArrayList<String> verificarGrafica(){
+        ArrayList<String> errores = new ArrayList<>();
+        if(this.titulo==null){
+            errores.add("Grafica de Barras, no esta definido el parametro \"titulo\"");
+        }
+        if(this.ejex == null){
+            errores.add("Grafica de Barras, no esta definido el parametro \"etiquetas\"");
+        }
+        if(this.ejey == null){
+            errores.add("Grafica de Barras, no esta definido el parametro \"valores\"");
+        }
+        if(this.unir == null){
+            errores.add("Grafica de Barras, no esta definido el parametro \"unir\"");
+        }
+        return errores;
+    }
+
     @Override
     public String toString() {
         return "GraficaBarra{" + "titulo=" + titulo + ", ejex=" + ejex + ", ejey=" + ejey + ", unir=" + unir + '}';
