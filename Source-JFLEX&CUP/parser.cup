@@ -68,12 +68,12 @@ non terminal Double         e,t,f;
 
 s   ::= s DEF GRAPHICBARRA contBarra:gb LLA_C   {:
                                                     if(gb!=null){
-                                                        System.out.println("Grafica: "+gb.getTitulo());
+                                                        System.out.println("Grafica: "+gb.toString());
                                                     }
                                                 :}
     |   s DEF GRAPHICPIE contPie:gp LLA_C   {:
                                                 if(gp!=null){
-                                                    System.out.println("Grafica: "+gp.getTitulo());
+                                                    System.out.println("Grafica: "+gp.toString());
                                                 }
                                             :}
     |   s EXECUTE PA_A STRING:gn PA_C PUNTOCOMA {:
@@ -81,12 +81,12 @@ s   ::= s DEF GRAPHICBARRA contBarra:gb LLA_C   {:
                                                 :}
     |   DEF GRAPHICBARRA contBarra:gb LLA_C {:
                                                 if(gb!=null){
-                                                    System.out.println("Grafica: "+gb.getTitulo());
+                                                    System.out.println("Grafica: "+gb.toString());
                                                 }
                                             :}
     |   DEF GRAPHICPIE contPie:gp LLA_C {:
                                             if(gp!=null){
-                                                System.out.println("Grafica: "+gp.getTitulo());
+                                                System.out.println("Grafica: "+gp.toString());
                                             }
                                         :}
     ;

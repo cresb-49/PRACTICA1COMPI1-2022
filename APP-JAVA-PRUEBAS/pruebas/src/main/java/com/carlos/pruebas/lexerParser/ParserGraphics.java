@@ -306,7 +306,7 @@ class CUP$ParserGraphics$actions {
 		GraficaBarra gb = (GraficaBarra)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
                                                     if(gb!=null){
-                                                        System.out.println("Grafica: "+gb.getTitulo());
+                                                        System.out.println("Grafica: "+gb.toString());
                                                     }
                                                 
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
@@ -336,7 +336,7 @@ class CUP$ParserGraphics$actions {
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
                                                 if(gp!=null){
-                                                    System.out.println("Grafica: "+gp.getTitulo());
+                                                    System.out.println("Grafica: "+gp.toString());
                                                 }
                                             
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
@@ -366,7 +366,7 @@ class CUP$ParserGraphics$actions {
 		GraficaBarra gb = (GraficaBarra)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
                                                 if(gb!=null){
-                                                    System.out.println("Grafica: "+gb.getTitulo());
+                                                    System.out.println("Grafica: "+gb.toString());
                                                 }
                                             
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
@@ -382,7 +382,7 @@ class CUP$ParserGraphics$actions {
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
                                             if(gp!=null){
-                                                System.out.println("Grafica: "+gp.getTitulo());
+                                                System.out.println("Grafica: "+gp.toString());
                                             }
                                         
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
