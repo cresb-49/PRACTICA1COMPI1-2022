@@ -9,16 +9,16 @@ public class GraficaPie {
     private Double[] valores;
     private ArrayList<Union> unir;
     private Double total;
-    private String resto;
+    private String extra;
 
-    public GraficaPie(String titulo, String tipo, String[] etiquetas, Double[] valores, ArrayList<Union> unir, Double total, String resto) {
+    public GraficaPie(String titulo, String tipo, String[] etiquetas, Double[] valores, ArrayList<Union> unir, Double total, String extra) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.etiquetas = etiquetas;
         this.valores = valores;
         this.unir = unir;
         this.total = total;
-        this.resto = resto;
+        this.extra = extra;
     }
 
     public GraficaPie() {
@@ -76,17 +76,16 @@ public class GraficaPie {
         this.total = total;
     }
 
-    public String getResto() {
-        return resto;
+    public String getExtra() {
+        return extra;
     }
 
-    public void setResto(String resto) {
-        this.resto = resto;
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 
     @Override
     public String toString() {
-        return "GraficaPie{" + "titulo=" + titulo + ", tipo=" + tipo + ", etiquetas=" + etiquetas + ", valores=" + valores + ", unir=" + unir + ", total=" + total + ", resto=" + resto + '}';
+        return "GraficaPie{" + "titulo=" + titulo + ", tipo=" + tipo + ", etiquetas=" + etiquetas + ", valores=" + valores + ", unir=" + unir + ", total=" + total + ", extra=" + extra + '}';
     }
-    
 }

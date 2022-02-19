@@ -138,60 +138,54 @@ contBarra   ::= contBarra:gb TITTLE DOSPUNTOS STRING:titulo PUNTOCOMA  {:
             |   contBarra error
             ;
 
-contEjeY    ::= e:num1 COMA contEjeY:pila   {:
-                                                RESULT = pila;
-                                                if(RESULT != null){
-                                                    RESULT.push(num1);
-                                                }
-                                            :}
-            |   e:num1 CO_C {:
-                                RESULT = new Pila<>();
-                                RESULT.push(num1);
-                            :}
-            ;
-
-contEjeX    ::= STRING:cadena COMA contEjeX:pila    {:
-                                                        RESULT = pila;
-                                                        if(RESULT!=null){
-                                                            String strin = (String)((Token)cadena).getValue();
-                                                            RESULT.push(strin);                    
-                                                        }
-                                                    :}
-            |   STRING:cadena CO_C  {:
-                                        RESULT = new Pila<>();
-                                        String strin = (String)((Token)cadena).getValue();
-                                        RESULT.push(strin);
-                                    :}
-            ;
-
-contUnir    ::= LLA_A e:num1 COMA e:num2 LLA_C COMA contUnir:pila   {:
-                                                                        RESULT = pila;
-                                                                        if(RESULT!=null){
-                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));    
+contPie     ::= contPie:gp TITTLE DOSPUNTOS STRING:titulo PUNTOCOMA {:
+                                                                        if(gp!=null){
+                                                                            RESULT = gp;
+                                                                            RESULT.setTitulo((String)((Token)titulo).getValue());
                                                                         }
                                                                     :}
-            |   LLA_A e:num1 COMA e:num2 LLA_C CO_C                 {:
-                                                                        RESULT = new Pila<>();
-                                                                        RESULT.push(new Union(num1.intValue(),num2.intValue()));
-                                                                    :}
-            ;
-
-contPie     ::= contPie:gp TITTLE DOSPUNTOS STRING:titulo PUNTOCOMA {:
-
-                                                                    :}
             |   contPie:gp TYPE DOSPUNTOS TYPEVALUE:tipo PUNTOCOMA  {:
+                                                                        if(gp!=null){
+                                                                            RESULT = gp;
+                                                                            RESULT.setTipo((String)((Token)tipo).getValue());
+                                                                        }
                                                                     :}
             |   contPie:gp LABEL DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA {:
+                                                                            if(pila!=null){
+                                                                                if(gp!=null){
+                                                                                    RESULT = gp;
+                                                                                    //RESULT.setEtiquetas();
+                                                                                }
+                                                                            }
                                                                         :}
             |   contPie:gp VALUES DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA    {:
+                                                                                if(pila!=null){
+                                                                                    if(gp!=null){
+                                                                                        RESULT = gp;
+                                                                                        //RESULT.setValores();
+                                                                                    }
+                                                                                }
                                                                             :} 
             |   contPie:gp TOTAL DOSPUNTOS e:num PUNTOCOMA  {:
+                                                                if(gp!=null){
+                                                                    RESULT = gp;
+                                                                    if(num!=null){
+                                                                        RESULT.setTotal(num);
+                                                                    }
+                                                                }
                                                             :}
             |   contPie:gp LINK DOSPUNTOS CO_A contUnir:pila PUNTOCOMA  {:
+                                                                            if(pila!=null){
+                                                                                if(gp!=null){
+                                                                                    RESULT = gp;
+                                                                                    RESULT.setUnir(pila.toArrayList());
+                                                                                }
+                                                                            }
                                                                         :}
             |   contPie:gp EXTRA DOSPUNTOS STRING:extra PUNTOCOMA   {:
                                                                         if(gp!=null){
                                                                             RESULT = gp;
+                                                                            RESULT.setExtra((String)((Token)extra).getValue());
                                                                         }
                                                                     :}
             |   LLA_A   {:
@@ -236,3 +230,41 @@ f   ::= NUMBERS:num     {:
                         :}
     |   error f
     ;
+// recuperacion de vectores del lenguaje
+contEjeY    ::= e:num1 COMA contEjeY:pila   {:
+                                                RESULT = pila;
+                                                if(RESULT != null){
+                                                    RESULT.push(num1);
+                                                }
+                                            :}
+            |   e:num1 CO_C {:
+                                RESULT = new Pila<>();
+                                RESULT.push(num1);
+                            :}
+            ;
+
+contEjeX    ::= STRING:cadena COMA contEjeX:pila    {:
+                                                        RESULT = pila;
+                                                        if(RESULT!=null){
+                                                            String strin = (String)((Token)cadena).getValue();
+                                                            RESULT.push(strin);                    
+                                                        }
+                                                    :}
+            |   STRING:cadena CO_C  {:
+                                        RESULT = new Pila<>();
+                                        String strin = (String)((Token)cadena).getValue();
+                                        RESULT.push(strin);
+                                    :}
+            ;
+
+contUnir    ::= LLA_A e:num1 COMA e:num2 LLA_C COMA contUnir:pila   {:
+                                                                        RESULT = pila;
+                                                                        if(RESULT!=null){
+                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));    
+                                                                        }
+                                                                    :}
+            |   LLA_A e:num1 COMA e:num2 LLA_C CO_C                 {:
+                                                                        RESULT = new Pila<>();
+                                                                        RESULT.push(new Union(num1.intValue(),num2.intValue()));
+                                                                    :}
+            ;
