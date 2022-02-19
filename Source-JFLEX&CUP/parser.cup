@@ -138,7 +138,7 @@ contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
                                                                                 if(pila!=null){
                                                                                     if(gb !=null){
                                                                                         RESULT = gb;
-                                                                                        if(RESULT.getEjey()!=null){
+                                                                                        if(RESULT.getUnir()!=null){
                                                                                             semantic_error(((Token)e),"la propiedad ya habia sido definida");
                                                                                         }else{
                                                                                             RESULT.setUnir(pila.toArrayList());

@@ -408,13 +408,12 @@ class CUP$ParserGraphics$actions {
 		int tituloright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Object titulo = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
-                                                                            String tittle = (String)((Token)titulo).getValue();
-                                                                            //System.out.println("Titulo de grafico: "+tittle);
                                                                             if(gb !=null){
                                                                                 RESULT = gb;
                                                                                 if(RESULT.getTitulo()!=null){
                                                                                     semantic_error(((Token)e),"la propiedad ya habia sido definida");
                                                                                 }else{
+                                                                                    String tittle = (String)((Token)titulo).getValue();
                                                                                     RESULT.setTitulo(tittle);
                                                                                 }
                                                                             }
@@ -439,8 +438,6 @@ class CUP$ParserGraphics$actions {
 		Pila<String> pila = (Pila<String>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
                                                                                 if(pila!=null){
-                                                                                    //System.out.println("Datos del eje x");
-                                                                                    //pila.imprimirPila();
                                                                                     if(gb !=null){
                                                                                         RESULT = gb;
                                                                                         if(RESULT.getEjex()!=null){
@@ -470,8 +467,6 @@ class CUP$ParserGraphics$actions {
 		Pila<Double> pila = (Pila<Double>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
                                                                                 if(pila!=null){
-                                                                                    //System.out.println("Datos del eje y");
-                                                                                    //pila.imprimirPila();
                                                                                     if(gb !=null){
                                                                                         RESULT = gb;
                                                                                         if(RESULT.getEjey()!=null){
@@ -501,12 +496,13 @@ class CUP$ParserGraphics$actions {
 		Pila<Union> pila = (Pila<Union>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
                                                                                 if(pila!=null){
-                                                                                    //System.out.println("Datos de union");
-                                                                                    //pila.imprimirPila();
                                                                                     if(gb !=null){
                                                                                         RESULT = gb;
-                                                                                        sdfjsdfjgsdf
-                                                                                        RESULT.setUnir(pila.toArrayList());
+                                                                                        if(RESULT.getUnir()!=null){
+                                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                        }else{
+                                                                                            RESULT.setUnir(pila.toArrayList());
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             
