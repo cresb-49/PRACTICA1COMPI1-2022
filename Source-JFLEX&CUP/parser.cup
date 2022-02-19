@@ -108,39 +108,39 @@ contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
                                                                                     RESULT.setTitulo(tittle);
                                                                                 }
                                                                             }
-
                                                                         :}
             |   contBarra:gb EJEX:e DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA  {:
-                                                                                if(pila!=null){
-                                                                                    if(gb !=null){
-                                                                                        RESULT = gb;
-                                                                                        if(RESULT.getEjex()!=null){
-                                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
-                                                                                        }else{
+                                                                                if(gb !=null){
+                                                                                    RESULT = gb;
+                                                                                    if(RESULT.getEjex()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
                                                                                             //RESULT.setEjex();
                                                                                         }
                                                                                     }
                                                                                 }
                                                                             :}
             |   contBarra:gb EJEY:e DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA  {:
-                                                                                if(pila!=null){
-                                                                                    if(gb !=null){
-                                                                                        RESULT = gb;
-                                                                                        if(RESULT.getEjey()!=null){
-                                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
-                                                                                        }else{
+                                                                                if(gb !=null){
+                                                                                    RESULT = gb;
+                                                                                    if(RESULT.getEjey()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
                                                                                             //RESULT.setEjey();
                                                                                         }
                                                                                     }
                                                                                 }
                                                                             :}
             |   contBarra:gb LINK:e DOSPUNTOS CO_A contUnir:pila PUNTOCOMA  {:
-                                                                                if(pila!=null){
-                                                                                    if(gb !=null){
-                                                                                        RESULT = gb;
-                                                                                        if(RESULT.getUnir()!=null){
-                                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
-                                                                                        }else{
+                                                                                
+                                                                                if(gb !=null){
+                                                                                    RESULT = gb;
+                                                                                    if(RESULT.getUnir()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
                                                                                             RESULT.setUnir(pila.toArrayList());
                                                                                         }
                                                                                     }
@@ -152,54 +152,87 @@ contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
             |   contBarra error
             ;
 
-contPie     ::= contPie:gp TITTLE DOSPUNTOS STRING:titulo PUNTOCOMA {:
-                                                                        if(gp!=null){
-                                                                            RESULT = gp;
-                                                                            RESULT.setTitulo((String)((Token)titulo).getValue());
-                                                                        }
-                                                                    :}
-            |   contPie:gp TYPE DOSPUNTOS TYPEVALUE:tipo PUNTOCOMA  {:
-                                                                        if(gp!=null){
-                                                                            RESULT = gp;
-                                                                            RESULT.setTipo((String)((Token)tipo).getValue());
-                                                                        }
-                                                                    :}
-            |   contPie:gp LABEL DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA {:
-                                                                            if(pila!=null){
-                                                                                if(gp!=null){
-                                                                                    RESULT = gp;
-                                                                                    //RESULT.setEtiquetas();
+contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
+                                                                            if(gp!=null){
+                                                                                RESULT = gp;
+                                                                                if(RESULT.getTitulo()!=null){
+                                                                                    semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                }else{
+                                                                                    RESULT.setTitulo((String)((Token)titulo).getValue());
                                                                                 }
                                                                             }
                                                                         :}
-            |   contPie:gp VALUES DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA    {:
-                                                                                if(pila!=null){
-                                                                                    if(gp!=null){
-                                                                                        RESULT = gp;
-                                                                                        //RESULT.setValores();
+            |   contPie:gp TYPE:e DOSPUNTOS TYPEVALUE:tipo PUNTOCOMA    {:
+                                                                            if(gp!=null){
+                                                                                RESULT = gp;
+                                                                                if(RESULT.getTipo()!=null){
+                                                                                    semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                }else{
+                                                                                    RESULT.setTipo((String)((Token)tipo).getValue());
+                                                                                }
+                                                                                
+                                                                            }
+                                                                        :}
+            |   contPie:gp LABEL:e DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA   {:
+                                                                                
+                                                                                if(gp!=null){
+                                                                                    RESULT = gp;
+                                                                                    if(RESULT.getEtiquetas()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
+                                                                                            //RESULT.setEtiquetas();
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            :}
+            |   contPie:gp VALUES:e DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA  {:
+                                                                                
+                                                                                if(gp!=null){
+                                                                                    RESULT = gp;
+                                                                                    if(RESULT.getValores()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
+                                                                                            //RESULT.setValores();
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             :} 
-            |   contPie:gp TOTAL DOSPUNTOS e:num PUNTOCOMA  {:
-                                                                if(gp!=null){
-                                                                    RESULT = gp;
-                                                                    if(num!=null){
-                                                                        RESULT.setTotal(num);
+            |   contPie:gp TOTAL:e DOSPUNTOS e:num PUNTOCOMA    {:
+                                                                    if(gp!=null){
+                                                                        RESULT = gp;
+                                                                        if(RESULT.getTotal()!=null){
+                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                        }else{
+                                                                            if(num!=null){
+                                                                                RESULT.setTotal(num);
+                                                                            }
+                                                                        }
                                                                     }
-                                                                }
-                                                            :}
-            |   contPie:gp LINK DOSPUNTOS CO_A contUnir:pila PUNTOCOMA  {:
-                                                                            if(pila!=null){
+                                                                :}
+            |   contPie:gp LINK:e DOSPUNTOS CO_A contUnir:pila PUNTOCOMA    {:
+                                                                                
                                                                                 if(gp!=null){
                                                                                     RESULT = gp;
-                                                                                    RESULT.setUnir(pila.toArrayList());
+                                                                                    if(RESULT.getUnir()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
+                                                                                            RESULT.setUnir(pila.toArrayList());
+                                                                                        }
+                                                                                    }
                                                                                 }
-                                                                            }
-                                                                        :}
-            |   contPie:gp EXTRA DOSPUNTOS STRING:extra PUNTOCOMA   {:
+                                                                                
+                                                                            :}
+            |   contPie:gp EXTRA:e DOSPUNTOS STRING:extra PUNTOCOMA   {:
                                                                         if(gp!=null){
                                                                             RESULT = gp;
-                                                                            RESULT.setExtra((String)((Token)extra).getValue());
+                                                                            if(RESULT.getExtra()!=null){
+                                                                                semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                            }else{
+                                                                                RESULT.setExtra((String)((Token)extra).getValue());
+                                                                            }
                                                                         }
                                                                     :}
             |   LLA_A   {:

@@ -417,7 +417,6 @@ class CUP$ParserGraphics$actions {
                                                                                     RESULT.setTitulo(tittle);
                                                                                 }
                                                                             }
-
                                                                         
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contBarra",2, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
@@ -437,12 +436,12 @@ class CUP$ParserGraphics$actions {
 		int pilaright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Pila<String> pila = (Pila<String>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
-                                                                                if(pila!=null){
-                                                                                    if(gb !=null){
-                                                                                        RESULT = gb;
-                                                                                        if(RESULT.getEjex()!=null){
-                                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
-                                                                                        }else{
+                                                                                if(gb !=null){
+                                                                                    RESULT = gb;
+                                                                                    if(RESULT.getEjex()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
                                                                                             //RESULT.setEjex();
                                                                                         }
                                                                                     }
@@ -466,12 +465,12 @@ class CUP$ParserGraphics$actions {
 		int pilaright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Pila<Double> pila = (Pila<Double>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
-                                                                                if(pila!=null){
-                                                                                    if(gb !=null){
-                                                                                        RESULT = gb;
-                                                                                        if(RESULT.getEjey()!=null){
-                                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
-                                                                                        }else{
+                                                                                if(gb !=null){
+                                                                                    RESULT = gb;
+                                                                                    if(RESULT.getEjey()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
                                                                                             //RESULT.setEjey();
                                                                                         }
                                                                                     }
@@ -495,12 +494,13 @@ class CUP$ParserGraphics$actions {
 		int pilaright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Pila<Union> pila = (Pila<Union>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
-                                                                                if(pila!=null){
-                                                                                    if(gb !=null){
-                                                                                        RESULT = gb;
-                                                                                        if(RESULT.getUnir()!=null){
-                                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
-                                                                                        }else{
+                                                                                
+                                                                                if(gb !=null){
+                                                                                    RESULT = gb;
+                                                                                    if(RESULT.getUnir()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
                                                                                             RESULT.setUnir(pila.toArrayList());
                                                                                         }
                                                                                     }
@@ -537,15 +537,22 @@ class CUP$ParserGraphics$actions {
 		int gpleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).left;
 		int gpright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).right;
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).value;
 		int tituloleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int tituloright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Object titulo = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
-                                                                        if(gp!=null){
-                                                                            RESULT = gp;
-                                                                            RESULT.setTitulo((String)((Token)titulo).getValue());
-                                                                        }
-                                                                    
+                                                                            if(gp!=null){
+                                                                                RESULT = gp;
+                                                                                if(RESULT.getTitulo()!=null){
+                                                                                    semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                }else{
+                                                                                    RESULT.setTitulo((String)((Token)titulo).getValue());
+                                                                                }
+                                                                            }
+                                                                        
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contPie",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -557,15 +564,23 @@ class CUP$ParserGraphics$actions {
 		int gpleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).left;
 		int gpright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).right;
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Object tipo = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
-                                                                        if(gp!=null){
-                                                                            RESULT = gp;
-                                                                            RESULT.setTipo((String)((Token)tipo).getValue());
-                                                                        }
-                                                                    
+                                                                            if(gp!=null){
+                                                                                RESULT = gp;
+                                                                                if(RESULT.getTipo()!=null){
+                                                                                    semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                }else{
+                                                                                    RESULT.setTipo((String)((Token)tipo).getValue());
+                                                                                }
+                                                                                
+                                                                            }
+                                                                        
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contPie",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -577,17 +592,25 @@ class CUP$ParserGraphics$actions {
 		int gpleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).left;
 		int gpright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).right;
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).value;
 		int pilaleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int pilaright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Pila<String> pila = (Pila<String>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
-                                                                            if(pila!=null){
+                                                                                
                                                                                 if(gp!=null){
                                                                                     RESULT = gp;
-                                                                                    //RESULT.setEtiquetas();
+                                                                                    if(RESULT.getEtiquetas()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
+                                                                                            //RESULT.setEtiquetas();
+                                                                                        }
+                                                                                    }
                                                                                 }
-                                                                            }
-                                                                        
+                                                                            
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contPie",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -599,14 +622,22 @@ class CUP$ParserGraphics$actions {
 		int gpleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).left;
 		int gpright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).right;
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).value;
 		int pilaleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int pilaright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Pila<Double> pila = (Pila<Double>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
-                                                                                if(pila!=null){
-                                                                                    if(gp!=null){
-                                                                                        RESULT = gp;
-                                                                                        //RESULT.setValores();
+                                                                                
+                                                                                if(gp!=null){
+                                                                                    RESULT = gp;
+                                                                                    if(RESULT.getValores()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
+                                                                                            //RESULT.setValores();
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             
@@ -621,17 +652,24 @@ class CUP$ParserGraphics$actions {
 		int gpleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).left;
 		int gpright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).right;
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).value;
 		int numleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int numright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Double num = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
-                                                                if(gp!=null){
-                                                                    RESULT = gp;
-                                                                    if(num!=null){
-                                                                        RESULT.setTotal(num);
+                                                                    if(gp!=null){
+                                                                        RESULT = gp;
+                                                                        if(RESULT.getTotal()!=null){
+                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                        }else{
+                                                                            if(num!=null){
+                                                                                RESULT.setTotal(num);
+                                                                            }
+                                                                        }
                                                                     }
-                                                                }
-                                                            
+                                                                
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contPie",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -643,17 +681,26 @@ class CUP$ParserGraphics$actions {
 		int gpleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).left;
 		int gpright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).right;
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).value;
 		int pilaleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int pilaright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Pila<Union> pila = (Pila<Union>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
-                                                                            if(pila!=null){
+                                                                                
                                                                                 if(gp!=null){
                                                                                     RESULT = gp;
-                                                                                    RESULT.setUnir(pila.toArrayList());
+                                                                                    if(RESULT.getUnir()!=null){
+                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    }else{
+                                                                                        if(pila!=null){
+                                                                                            RESULT.setUnir(pila.toArrayList());
+                                                                                        }
+                                                                                    }
                                                                                 }
-                                                                            }
-                                                                        
+                                                                                
+                                                                            
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contPie",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -665,13 +712,20 @@ class CUP$ParserGraphics$actions {
 		int gpleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).left;
 		int gpright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).right;
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).value;
 		int extraleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int extraright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		Object extra = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		
                                                                         if(gp!=null){
                                                                             RESULT = gp;
-                                                                            RESULT.setExtra((String)((Token)extra).getValue());
+                                                                            if(RESULT.getExtra()!=null){
+                                                                                semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                            }else{
+                                                                                RESULT.setExtra((String)((Token)extra).getValue());
+                                                                            }
                                                                         }
                                                                     
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contPie",1, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
