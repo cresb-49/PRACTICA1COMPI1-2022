@@ -43,7 +43,7 @@ import java_cup.runtime.*;
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = {LineTerminator} | [ \t\f]
 
-Comment = [#][^\n]*[\n]
+Comment = [#][^\n]*
 Def = def|Def
 GraphicBarras = Barras
 GraphicPie = Pie

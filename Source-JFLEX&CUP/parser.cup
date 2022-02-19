@@ -39,6 +39,9 @@ parser code {:
         }
     }
 
+    protected int error_sync_size() {
+		return 1;
+	}
 :}
 
 /* define how to connect to the scanner! */
@@ -52,7 +55,7 @@ terminal            DEF, GRAPHICBARRA,GRAPHICPIE, TITTLE, EJEX, EJEY, LABEL, VAL
 
 
 /* Non terminals */
-non terminal                s,graps,ej;
+non terminal                s;
 non terminal GraficaPie     contPie;
 non terminal GraficaBarra   contBarra;
 non terminal Pila<Double>   contEjeY;
@@ -63,53 +66,76 @@ non terminal Double         e,t,f;
 
 /* The grammar rules */
 
-s   ::= graps s
-    |   graps ej
-    |   graps
+s   ::= s DEF GRAPHICBARRA contBarra:gb LLA_C   {:
+                                                    if(gb!=null){
+                                                        System.out.println("Grafica: "+gb.getTitulo());
+                                                    }
+                                                :}
+    |   s DEF GRAPHICPIE contPie:gp LLA_C   {:
+                                                if(gp!=null){
+                                                    System.out.println("Grafica: "+gp.getTitulo());
+                                                }
+                                            :}
+    |   s EXECUTE PA_A STRING:gn PA_C PUNTOCOMA {:
+                                                    System.out.println("Grafico ejecutar: "+(String)((Token)gn).getValue());
+                                                :}
+    |   DEF GRAPHICBARRA contBarra:gb LLA_C {:
+                                                if(gb!=null){
+                                                    System.out.println("Grafica: "+gb.getTitulo());
+                                                }
+                                            :}
+    |   DEF GRAPHICPIE contPie:gp LLA_C {:
+                                            if(gp!=null){
+                                                System.out.println("Grafica: "+gp.getTitulo());
+                                            }
+                                        :}
     ;
-
-graps   ::= DEF GRAPHICBARRA LLA_A contBarra    {:
-                                                    System.out.println("Grafica de barra");
-                                                :}
-        |   DEF GRAPHICPIE LLA_A contPie        {:
-                                                    System.out.println("Grafica de pie");
-                                                :}
-        ;
-
-ej  ::= EXECUTE PA_A STRING PA_C PUNTOCOMA ej   {:
-                                                    System.out.println("Instruccion de ejecucion");
-                                                :}
-    |   EXECUTE PA_A STRING PA_C PUNTOCOMA      {:
-                                                    System.out.println("Instruccion de ejecucion");
-                                                :}
-    ;
-
 
 //CONTENIDO DE UNA GRAFICA DE BARRAS
 
-contBarra   ::= TITTLE DOSPUNTOS STRING:titulo PUNTOCOMA contBarra  {:
-                                                                        //String tittle = (String)((Token)titulo).getValue();
-                                                                        //System.out.println("Titulo de grafico: "+tittle);
-                                                                    :}
-            |   EJEX DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA contBarra   {:
-                                                                            if(pila!=null){
-                                                                                //System.out.println("Datos del eje x");
-                                                                                //pila.imprimirPila();
+contBarra   ::= contBarra:gb TITTLE DOSPUNTOS STRING:titulo PUNTOCOMA  {:
+                                                                            String tittle = (String)((Token)titulo).getValue();
+                                                                            //System.out.println("Titulo de grafico: "+tittle);
+                                                                            if(gb !=null){
+                                                                                RESULT = gb;
+                                                                                RESULT.setTitulo(tittle);
                                                                             }
+
                                                                         :}
-            |   EJEY DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA contBarra   {:
-                                                                            if(pila!=null){
-                                                                                //System.out.println("Datos del eje y");
-                                                                                //pila.imprimirPila();
-                                                                            }
-                                                                        :}
-            |   LINK DOSPUNTOS CO_A contUnir:pila PUNTOCOMA contBarra   {:
-                                                                            if(pila!=null){
-                                                                                //System.out.println("Datos de union");
-                                                                                //pila.imprimirPila();
-                                                                            }
-                                                                        :}
-            |   LLA_C
+            |   contBarra:gb EJEX DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA   {:
+                                                                                if(pila!=null){
+                                                                                    //System.out.println("Datos del eje x");
+                                                                                    //pila.imprimirPila();
+                                                                                    if(gb !=null){
+                                                                                        RESULT = gb;
+                                                                                        //RESULT.setEjex();
+                                                                                    }
+                                                                                }
+                                                                            :}
+            |   contBarra:gb EJEY DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA    {:
+                                                                                if(pila!=null){
+                                                                                    //System.out.println("Datos del eje y");
+                                                                                    //pila.imprimirPila();
+                                                                                    if(gb !=null){
+                                                                                        RESULT = gb;
+                                                                                        //RESULT.setEjey();
+                                                                                    }
+                                                                                }
+                                                                            :}
+            |   contBarra:gb LINK DOSPUNTOS CO_A contUnir:pila PUNTOCOMA    {:
+                                                                                if(pila!=null){
+                                                                                    //System.out.println("Datos de union");
+                                                                                    //pila.imprimirPila();
+                                                                                    if(gb !=null){
+                                                                                        RESULT = gb;
+                                                                                        RESULT.setUnir(pila.toArrayList());
+                                                                                    }
+                                                                                }
+                                                                            :}
+            |   LLA_A                                                       {:
+                                                                                RESULT = new GraficaBarra();
+                                                                            :}
+            |   contBarra error
             ;
 
 contEjeY    ::= e:num1 COMA contEjeY:pila   {:
@@ -150,14 +176,28 @@ contUnir    ::= LLA_A e:num1 COMA e:num2 LLA_C COMA contUnir:pila   {:
                                                                     :}
             ;
 
-contPie     ::= TITTLE DOSPUNTOS STRING PUNTOCOMA contPie
-            |   TYPE DOSPUNTOS TYPEVALUE PUNTOCOMA contPie
-            |   LABEL DOSPUNTOS CO_A contEjeX PUNTOCOMA contPie
-            |   VALUES DOSPUNTOS CO_A contEjeY PUNTOCOMA contPie
-            |   TOTAL DOSPUNTOS e PUNTOCOMA contPie
-            |   LINK DOSPUNTOS CO_A contUnir PUNTOCOMA contPie
-            |   EXTRA DOSPUNTOS STRING PUNTOCOMA contPie
-            |   LLA_C
+contPie     ::= contPie:gp TITTLE DOSPUNTOS STRING:titulo PUNTOCOMA {:
+
+                                                                    :}
+            |   contPie:gp TYPE DOSPUNTOS TYPEVALUE:tipo PUNTOCOMA  {:
+                                                                    :}
+            |   contPie:gp LABEL DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA {:
+                                                                        :}
+            |   contPie:gp VALUES DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA    {:
+                                                                            :} 
+            |   contPie:gp TOTAL DOSPUNTOS e:num PUNTOCOMA  {:
+                                                            :}
+            |   contPie:gp LINK DOSPUNTOS CO_A contUnir:pila PUNTOCOMA  {:
+                                                                        :}
+            |   contPie:gp EXTRA DOSPUNTOS STRING:extra PUNTOCOMA   {:
+                                                                        if(gp!=null){
+                                                                            RESULT = gp;
+                                                                        }
+                                                                    :}
+            |   LLA_A   {:
+                            RESULT = new GraficaPie();
+                        :}
+            |   contPie error
             ;
 
 
