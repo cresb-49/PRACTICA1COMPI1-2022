@@ -116,7 +116,7 @@ contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
                                                                                         semantic_error(((Token)e),"la propiedad ya habia sido definida");
                                                                                     }else{
                                                                                         if(pila!=null){
-                                                                                            //RESULT.setEjex();
+                                                                                            RESULT.setEjex(pila.toArray());
                                                                                         }
                                                                                     }
                                                                                 }
@@ -128,7 +128,7 @@ contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
                                                                                         semantic_error(((Token)e),"la propiedad ya habia sido definida");
                                                                                     }else{
                                                                                         if(pila!=null){
-                                                                                            //RESULT.setEjey();
+                                                                                            RESULT.setEjey(pila.toArray());
                                                                                         }
                                                                                     }
                                                                                 }
@@ -181,7 +181,7 @@ contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
                                                                                         semantic_error(((Token)e),"la propiedad ya habia sido definida");
                                                                                     }else{
                                                                                         if(pila!=null){
-                                                                                            //RESULT.setEtiquetas();
+                                                                                            RESULT.setEtiquetas(pila.toArray());
                                                                                         }
                                                                                     }
                                                                                 }
@@ -194,7 +194,7 @@ contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
                                                                                         semantic_error(((Token)e),"la propiedad ya habia sido definida");
                                                                                     }else{
                                                                                         if(pila!=null){
-                                                                                            //RESULT.setValores();
+                                                                                            RESULT.setValores(pila.toArray());
                                                                                         }
                                                                                     }
                                                                                 }

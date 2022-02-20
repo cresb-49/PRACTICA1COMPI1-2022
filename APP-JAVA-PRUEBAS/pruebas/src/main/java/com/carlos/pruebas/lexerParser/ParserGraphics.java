@@ -442,7 +442,7 @@ class CUP$ParserGraphics$actions {
                                                                                         semantic_error(((Token)e),"la propiedad ya habia sido definida");
                                                                                     }else{
                                                                                         if(pila!=null){
-                                                                                            //RESULT.setEjex();
+                                                                                            RESULT.setEjex(pila.toArray());
                                                                                         }
                                                                                     }
                                                                                 }
@@ -471,7 +471,7 @@ class CUP$ParserGraphics$actions {
                                                                                         semantic_error(((Token)e),"la propiedad ya habia sido definida");
                                                                                     }else{
                                                                                         if(pila!=null){
-                                                                                            //RESULT.setEjey();
+                                                                                            RESULT.setEjey(pila.toArray());
                                                                                         }
                                                                                     }
                                                                                 }
@@ -606,7 +606,7 @@ class CUP$ParserGraphics$actions {
                                                                                         semantic_error(((Token)e),"la propiedad ya habia sido definida");
                                                                                     }else{
                                                                                         if(pila!=null){
-                                                                                            //RESULT.setEtiquetas();
+                                                                                            RESULT.setEtiquetas(pila.toArray());
                                                                                         }
                                                                                     }
                                                                                 }
@@ -636,7 +636,7 @@ class CUP$ParserGraphics$actions {
                                                                                         semantic_error(((Token)e),"la propiedad ya habia sido definida");
                                                                                     }else{
                                                                                         if(pila!=null){
-                                                                                            //RESULT.setValores();
+                                                                                            RESULT.setValores(pila.toArray());
                                                                                         }
                                                                                     }
                                                                                 }

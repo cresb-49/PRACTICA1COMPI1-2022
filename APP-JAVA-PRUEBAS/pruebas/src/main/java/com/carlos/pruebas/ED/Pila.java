@@ -112,6 +112,7 @@ public class Pila<T> {
     public T[] toArray(){
         T[] array = null;
         if(this.toArrayList()!=null){
+            array = (T[]) new Object[toArrayList().size()]; 
             this.toArrayList().toArray(array);
         }
         return array;
