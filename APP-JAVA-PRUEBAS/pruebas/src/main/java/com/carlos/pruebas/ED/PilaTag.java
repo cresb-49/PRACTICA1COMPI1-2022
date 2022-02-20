@@ -154,6 +154,18 @@ public class PilaTag<T> {
         }
         return data;
     }
+    
+    /**
+     * Retorna la pila en forma de Array
+     * @return 
+     */
+    public T[] toArray(){
+        T[] array = null;
+        if(this.toArrayList()!=null){
+            this.toArrayList().toArray(array);
+        }
+        return array;
+    }
 
     public void imprimirPila() {
         if (this.raiz == null) {
