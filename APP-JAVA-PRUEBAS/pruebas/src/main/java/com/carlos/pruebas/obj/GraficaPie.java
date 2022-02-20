@@ -1,6 +1,7 @@
 package com.carlos.pruebas.obj;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GraficaPie {
     private String titulo;
@@ -123,6 +124,6 @@ public class GraficaPie {
 
     @Override
     public String toString() {
-        return "GraficaPie{" + "titulo=" + titulo + ", tipo=" + tipo + ", etiquetas=" + etiquetas + ", valores=" + valores + ", unir=" + unir + ", total=" + total + ", extra=" + extra + '}';
+        return "GraficaPie{" + "titulo=" + titulo + ", tipo=" + tipo + ", etiquetas=" + Arrays.toString(etiquetas) + ", valores=" + Arrays.toString(valores) + ", unir=" + unir + ", total=" + total + ", extra=" + extra + '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.carlos.pruebas.obj;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -78,7 +79,7 @@ public class GraficaBarra {
 
     @Override
     public String toString() {
-        return "GraficaBarra{" + "titulo=" + titulo + ", ejex=" + ejex + ", ejey=" + ejey + ", unir=" + unir + '}';
+        return "GraficaBarra{" + "titulo=" + titulo + ", ejex=" + Arrays.toString(ejex) + ", ejey=" + Arrays.toString(ejey) + ", unir=" + unir + '}';
     }
 
 }

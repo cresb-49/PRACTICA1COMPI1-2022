@@ -157,14 +157,20 @@ public class PilaTag<T> {
     
     /**
      * Retorna la pila en forma de Array
-     * @return 
+     *
+     * @return
      */
-    public T[] toArray(){
-        T[] array = null;
-        if(this.toArrayList()!=null){
-            this.toArrayList().toArray(array);
+    public T[] toArray(Class<T[]> arrayType) {
+        T[] res = null;
+        if (this.toArrayList() == null) {
+            return null;
+        } else {
+            res = arrayType.cast(java.lang.reflect.Array.newInstance(arrayType.getComponentType(), this.toArrayList().size()));
+            for (int i = 0; i < res.length; i++) {
+                res[i] = this.toArrayList().get(i);
+            }
         }
-        return array;
+        return res;
     }
 
     public void imprimirPila() {
