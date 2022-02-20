@@ -1045,6 +1045,14 @@ class CUP$ParserGraphics$actions {
 		
                                                                         RESULT = pila;
                                                                         if(RESULT!=null){
+
+                                                                            Double mod = num1 % 2;
+                                                                            if(mod==1||mod==0){
+                                                                                System.out.println("El numero: "+num1+", es entero");
+                                                                            }else{
+                                                                                System.out.println("El numero: "+num1+", es decimal");
+                                                                            }
+
                                                                             RESULT.push(new Union(num1.intValue(),num2.intValue()));    
                                                                         }
                                                                     
@@ -1064,6 +1072,12 @@ class CUP$ParserGraphics$actions {
 		Double num2 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
 		
                                                                         RESULT = new Pila<>();
+                                                                        Double mod = num1 % 2;
+                                                                        if(mod==1||mod==0){
+                                                                            System.out.println("El numero: "+num1+", es entero");
+                                                                        }else{
+                                                                            System.out.println("El numero: "+num1+", es decimal");
+                                                                        }
                                                                         RESULT.push(new Union(num1.intValue(),num2.intValue()));
                                                                     
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contUnir",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);

@@ -339,11 +339,25 @@ contEjeX    ::= STRING:cadena COMA contEjeX:pila    {:
 contUnir    ::= LLA_A e:num1 COMA e:num2 LLA_C COMA contUnir:pila   {:
                                                                         RESULT = pila;
                                                                         if(RESULT!=null){
+
+                                                                            Double mod = num1 % 2;
+                                                                            if(mod==1||mod==0){
+                                                                                System.out.println("El numero: "+num1+", es entero");
+                                                                            }else{
+                                                                                System.out.println("El numero: "+num1+", es decimal");
+                                                                            }
+
                                                                             RESULT.push(new Union(num1.intValue(),num2.intValue()));    
                                                                         }
                                                                     :}
             |   LLA_A e:num1 COMA e:num2 LLA_C CO_C                 {:
                                                                         RESULT = new Pila<>();
+                                                                        Double mod = num1 % 2;
+                                                                        if(mod==1||mod==0){
+                                                                            System.out.println("El numero: "+num1+", es entero");
+                                                                        }else{
+                                                                            System.out.println("El numero: "+num1+", es decimal");
+                                                                        }
                                                                         RESULT.push(new Union(num1.intValue(),num2.intValue()));
                                                                     :}
             ;
