@@ -5,6 +5,7 @@
 
 package com.carlos.pruebas.lexerParser;
 
+import java.util.ArrayList;
 import com.carlos.pruebas.ED.Pila;
 import com.carlos.pruebas.obj.Token;
 import com.carlos.pruebas.obj.Union;
@@ -273,6 +274,16 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         System.out.println(String.format("Linea: %d,Columna: %d", token.getLinea(), token.getColumna()));
     }
 
+    public boolean definition_error(Token ini,Token fin,ArrayList<String> errores){
+        boolean status = false;
+        for (String errore : errores) {
+            status = true;
+            String error = "Error, "+errore+"\nUbicacion general --> Linea: "+ini.getLinea()+" a Linea: "+fin.getLinea();
+            System.out.println(error);
+        }
+        return status;
+    }
+
     protected int error_sync_size() {
 		return 1;
 	}
@@ -306,14 +317,25 @@ class CUP$ParserGraphics$actions {
           case 0: // s ::= s DEF GRAPHICBARRA contBarra LLA_C 
             {
               Object RESULT =null;
+		int inileft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).left;
+		int iniright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).right;
+		Object ini = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).value;
 		int gbleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int gbright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		GraficaBarra gb = (GraficaBarra)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
+		int finleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
+		int finright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
+		Object fin = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
 		
-                                                    if(gb!=null){
-                                                        System.out.println("Grafica: "+gb.toString());
-                                                    }
-                                                
+                                                            if(gb!=null){
+                                                                System.out.println("Grafica: "+gb.getTitulo());
+                                                                if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
+                                                                    System.out.println("Grafica Valida");
+                                                                }else{
+                                                                    System.out.println("Grafica No Valida");
+                                                                }
+                                                            }
+                                                        
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -336,14 +358,25 @@ class CUP$ParserGraphics$actions {
           case 2: // s ::= s DEF GRAPHICPIE contPie LLA_C 
             {
               Object RESULT =null;
+		int inileft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).left;
+		int iniright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).right;
+		Object ini = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).value;
 		int gpleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int gpright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
+		int finleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
+		int finright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
+		Object fin = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
 		
-                                                if(gp!=null){
-                                                    System.out.println("Grafica: "+gp.toString());
-                                                }
-                                            
+                                                        if(gp!=null){
+                                                            System.out.println("Grafica: "+gp.getTitulo());
+                                                            if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
+                                                                System.out.println("Grafica Valida");
+                                                            }else{
+                                                                System.out.println("Grafica No Valida");
+                                                            }
+                                                        }
+                                                    
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -352,12 +385,15 @@ class CUP$ParserGraphics$actions {
           case 3: // s ::= s EXECUTE PA_A STRING PA_C PUNTOCOMA 
             {
               Object RESULT =null;
+		int exleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).left;
+		int exright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).right;
+		Object ex = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).value;
 		int gnleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
 		int gnright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).right;
 		Object gn = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
 		
-                                                    System.out.println("Grafico ejecutar: "+(String)((Token)gn).getValue());
-                                                
+                                                        System.out.println("Grafico ejecutar: "+(String)((Token)gn).getValue());
+                                                    
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -366,14 +402,25 @@ class CUP$ParserGraphics$actions {
           case 4: // s ::= DEF GRAPHICBARRA contBarra LLA_C 
             {
               Object RESULT =null;
+		int inileft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).left;
+		int iniright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).right;
+		Object ini = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).value;
 		int gbleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int gbright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		GraficaBarra gb = (GraficaBarra)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
+		int finleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
+		int finright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
+		Object fin = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
 		
-                                                if(gb!=null){
-                                                    System.out.println("Grafica: "+gb.toString());
-                                                }
-                                            
+                                                        if(gb!=null){
+                                                            System.out.println("Grafica: "+gb.getTitulo());
+                                                            if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
+                                                                System.out.println("Grafica Valida");
+                                                            }else{
+                                                                System.out.println("Grafica No Valida");
+                                                            }
+                                                        }
+                                                    
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -382,14 +429,25 @@ class CUP$ParserGraphics$actions {
           case 5: // s ::= DEF GRAPHICPIE contPie LLA_C 
             {
               Object RESULT =null;
+		int inileft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).left;
+		int iniright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).right;
+		Object ini = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).value;
 		int gpleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
 		int gpright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
 		GraficaPie gp = (GraficaPie)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
+		int finleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
+		int finright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
+		Object fin = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
 		
-                                            if(gp!=null){
-                                                System.out.println("Grafica: "+gp.toString());
-                                            }
-                                        
+                                                    if(gp!=null){
+                                                        System.out.println("Grafica: "+gp.getTitulo());
+                                                        if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
+                                                            System.out.println("Grafica Valida");
+                                                        }else{
+                                                            System.out.println("Grafica No Valida");
+                                                        }
+                                                    }
+                                                
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;

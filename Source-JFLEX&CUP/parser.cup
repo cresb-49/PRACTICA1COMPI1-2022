@@ -1,5 +1,7 @@
 package com.carlos.pruebas.lexerParser;
 
+import java.util.ArrayList;
+
 import com.carlos.pruebas.ED.Pila;
 import com.carlos.pruebas.obj.Token;
 import com.carlos.pruebas.obj.Union;
@@ -44,6 +46,16 @@ parser code {:
         System.out.println(String.format("Linea: %d,Columna: %d", token.getLinea(), token.getColumna()));
     }
 
+    public boolean definition_error(Token ini,Token fin,ArrayList<String> errores){
+        boolean status = false;
+        for (String errore : errores) {
+            status = true;
+            String error = "Error, "+errore+"\nUbicacion general --> Linea: "+ini.getLinea()+" a Linea: "+fin.getLinea();
+            System.out.println(error);
+        }
+        return status;
+    }
+
     protected int error_sync_size() {
 		return 1;
 	}
@@ -71,29 +83,49 @@ non terminal Double         e,t,f;
 
 /* The grammar rules */
 
-s   ::= s DEF GRAPHICBARRA contBarra:gb LLA_C   {:
-                                                    if(gb!=null){
-                                                        System.out.println("Grafica: "+gb.toString());
+s   ::= s DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin   {:
+                                                            if(gb!=null){
+                                                                System.out.println("Grafica: "+gb.getTitulo());
+                                                                if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
+                                                                    System.out.println("Grafica Valida");
+                                                                }else{
+                                                                    System.out.println("Grafica No Valida");
+                                                                }
+                                                            }
+                                                        :}
+    |   s DEF:ini GRAPHICPIE contPie:gp LLA_C:fin   {:
+                                                        if(gp!=null){
+                                                            System.out.println("Grafica: "+gp.getTitulo());
+                                                            if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
+                                                                System.out.println("Grafica Valida");
+                                                            }else{
+                                                                System.out.println("Grafica No Valida");
+                                                            }
+                                                        }
+                                                    :}
+    |   s EXECUTE:ex PA_A STRING:gn PA_C PUNTOCOMA  {:
+                                                        System.out.println("Grafico ejecutar: "+(String)((Token)gn).getValue());
+                                                    :}
+    |   DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin {:
+                                                        if(gb!=null){
+                                                            System.out.println("Grafica: "+gb.getTitulo());
+                                                            if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
+                                                                System.out.println("Grafica Valida");
+                                                            }else{
+                                                                System.out.println("Grafica No Valida");
+                                                            }
+                                                        }
+                                                    :}
+    |   DEF:ini GRAPHICPIE contPie:gp LLA_C:fin {:
+                                                    if(gp!=null){
+                                                        System.out.println("Grafica: "+gp.getTitulo());
+                                                        if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
+                                                            System.out.println("Grafica Valida");
+                                                        }else{
+                                                            System.out.println("Grafica No Valida");
+                                                        }
                                                     }
                                                 :}
-    |   s DEF GRAPHICPIE contPie:gp LLA_C   {:
-                                                if(gp!=null){
-                                                    System.out.println("Grafica: "+gp.toString());
-                                                }
-                                            :}
-    |   s EXECUTE PA_A STRING:gn PA_C PUNTOCOMA {:
-                                                    System.out.println("Grafico ejecutar: "+(String)((Token)gn).getValue());
-                                                :}
-    |   DEF GRAPHICBARRA contBarra:gb LLA_C {:
-                                                if(gb!=null){
-                                                    System.out.println("Grafica: "+gb.toString());
-                                                }
-                                            :}
-    |   DEF GRAPHICPIE contPie:gp LLA_C {:
-                                            if(gp!=null){
-                                                System.out.println("Grafica: "+gp.toString());
-                                            }
-                                        :}
     ;
 
 //CONTENIDO DE UNA GRAFICA DE BARRAS

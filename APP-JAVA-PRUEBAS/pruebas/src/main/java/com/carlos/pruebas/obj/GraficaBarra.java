@@ -66,10 +66,10 @@ public class GraficaBarra {
             errores.add("Grafica de Barras, no esta definido el parametro \"titulo\"");
         }
         if(this.ejex == null){
-            errores.add("Grafica de Barras, no esta definido el parametro \"etiquetas\"");
+            errores.add("Grafica de Barras, no esta definido el parametro \"ejex\"");
         }
         if(this.ejey == null){
-            errores.add("Grafica de Barras, no esta definido el parametro \"valores\"");
+            errores.add("Grafica de Barras, no esta definido el parametro \"ejey\"");
         }
         if(this.unir == null){
             errores.add("Grafica de Barras, no esta definido el parametro \"unir\"");
