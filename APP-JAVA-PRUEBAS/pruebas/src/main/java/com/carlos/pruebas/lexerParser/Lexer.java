@@ -333,10 +333,10 @@ public class Lexer implements java_cup.runtime.Scanner {
     private Token actual;
     private int stringColumnInit = 0; 
     private StringBuffer string = new StringBuffer();
-    private ArrayList<ErrorAnalisis> errors = new ArrayList<>();
+    private ArrayList<ErrorAnalisis> errors;
     
-    public Lexer(ArrayList<ErrorAnalisis> errors){
-        this.errors=errors;
+    public void setErrors(ArrayList<ErrorAnalisis> errors) {
+        this.errors = errors;
     }
 
     public ArrayList<ErrorAnalisis> getLexErrors() {

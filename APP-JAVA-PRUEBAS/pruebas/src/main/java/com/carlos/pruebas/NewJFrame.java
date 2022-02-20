@@ -8,6 +8,7 @@ import com.carlos.pruebas.lexerParser.Lexer;
 import com.carlos.pruebas.lexerParser.ParserGraphics;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 /**
  *
@@ -78,6 +79,7 @@ public class NewJFrame extends javax.swing.JFrame {
         
         Reader reader = new StringReader(jTextArea1.getText());
         lexer = new Lexer(reader);
+        lexer.setErrors(new ArrayList<>());
         parser = new ParserGraphics(lexer);
         try {
             parser.parse();
