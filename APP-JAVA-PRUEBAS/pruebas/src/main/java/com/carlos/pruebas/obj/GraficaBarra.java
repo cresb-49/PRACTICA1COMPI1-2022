@@ -7,29 +7,20 @@ import java.util.Arrays;
  *
  * @author benjamin
  */
-public class GraficaBarra {
-
-    private String titulo;
+public class GraficaBarra extends Grafica{
     private String[] ejex;
     private Double[] ejey;
     private ArrayList<Union> unir;
 
     public GraficaBarra() {
+        super();
     }
 
     public GraficaBarra(String titulo, String[] ejex, Double[] ejey, ArrayList<Union> unir) {
-        this.titulo = titulo;
+        super(titulo);
         this.ejex = ejex;
         this.ejey = ejey;
         this.unir = unir;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
     }
 
     public String[] getEjex() {
@@ -62,7 +53,7 @@ public class GraficaBarra {
 
     public ArrayList<String> verificarGrafica(){
         ArrayList<String> errores = new ArrayList<>();
-        if(this.titulo==null){
+        if(this.getTitulo()==null){
             errores.add("Grafica de Barras, no esta definido el parametro \"titulo\"");
         }
         if(this.ejex == null){
@@ -79,7 +70,7 @@ public class GraficaBarra {
 
     @Override
     public String toString() {
-        return "GraficaBarra{" + "titulo=" + titulo + ", ejex=" + Arrays.toString(ejex) + ", ejey=" + Arrays.toString(ejey) + ", unir=" + unir + '}';
+        return "GraficaBarra{" + "titulo=" + this.getTitulo() + ", ejex=" + Arrays.toString(ejex) + ", ejey=" + Arrays.toString(ejey) + ", unir=" + unir + '}';
     }
 
 }

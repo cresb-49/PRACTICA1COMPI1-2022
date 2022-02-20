@@ -3,8 +3,7 @@ package com.carlos.pruebas.obj;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GraficaPie {
-    private String titulo;
+public class GraficaPie extends Grafica{
     private String tipo;
     private String[] etiquetas;
     private Double[] valores;
@@ -13,7 +12,7 @@ public class GraficaPie {
     private String extra;
 
     public GraficaPie(String titulo, String tipo, String[] etiquetas, Double[] valores, ArrayList<Union> unir, Double total, String extra) {
-        this.titulo = titulo;
+        super(titulo);
         this.tipo = tipo;
         this.etiquetas = etiquetas;
         this.valores = valores;
@@ -23,14 +22,7 @@ public class GraficaPie {
     }
 
     public GraficaPie() {
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+        super();
     }
 
     public String getTipo() {
@@ -103,7 +95,7 @@ public class GraficaPie {
         }
     }
     private void verificacion(ArrayList<String> errores,int tipo){
-        if(this.titulo==null){
+        if(this.getTitulo()==null){
             errores.add("Grafica de Pie, no esta definido el parametro \"titulo\"");
         }
         if(this.etiquetas == null){
@@ -124,6 +116,6 @@ public class GraficaPie {
 
     @Override
     public String toString() {
-        return "GraficaPie{" + "titulo=" + titulo + ", tipo=" + tipo + ", etiquetas=" + Arrays.toString(etiquetas) + ", valores=" + Arrays.toString(valores) + ", unir=" + unir + ", total=" + total + ", extra=" + extra + '}';
+        return "GraficaPie{" + "titulo=" + this.getTitulo() + ", tipo=" + tipo + ", etiquetas=" + Arrays.toString(etiquetas) + ", valores=" + Arrays.toString(valores) + ", unir=" + unir + ", total=" + total + ", extra=" + extra + '}';
     }
 }
