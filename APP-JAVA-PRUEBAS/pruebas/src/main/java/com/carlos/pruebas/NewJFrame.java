@@ -8,6 +8,7 @@ import com.carlos.pruebas.lexerParser.Lexer;
 import com.carlos.pruebas.lexerParser.ParserGraphics;
 import com.carlos.pruebas.lexerParser.ProcesadorGraficos;
 import com.carlos.pruebas.obj.ErrorAnalisis;
+import com.carlos.pruebas.obj.Grafica;
 import com.carlos.pruebas.obj.OcurrenciaOperador;
 import java.io.Reader;
 import java.io.StringReader;
@@ -90,7 +91,14 @@ public class NewJFrame extends javax.swing.JFrame {
         for (OcurrenciaOperador object : graficos.getOcurrenciaOperador()) {
             System.out.println(object.toString());
         }
-        
+        System.out.println("-------------Graficas Recuperadas----------");
+        for (Grafica object : graficos.getGraficasGeneradas()) {
+            System.out.println(object.toString());
+        }
+        System.out.println("-------------Graficas A Ejecutar----------");
+        for (String object : graficos.getGraficasEjecutar()) {
+            System.out.println(object);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
