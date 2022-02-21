@@ -4,6 +4,7 @@
 
 package com.carlos.pruebas.lexerParser;
 
+import com.carlos.pruebas.ED.Pila;
 import com.carlos.pruebas.obj.ErrorAnalisis;
 import com.carlos.pruebas.obj.Token;
 
@@ -333,19 +334,18 @@ public class Lexer implements java_cup.runtime.Scanner {
     private Token actual;
     private int stringColumnInit = 0; 
     private StringBuffer string = new StringBuffer();
-    private ArrayList<ErrorAnalisis> errors;
+    private Pila<ErrorAnalisis> errors;
     
-    public void setErrors(ArrayList<ErrorAnalisis> errors) {
+    public void setErrors(Pila<ErrorAnalisis> errors) {
         this.errors = errors;
     }
 
-    public ArrayList<ErrorAnalisis> getErrors() {
+    public Pila<ErrorAnalisis> getErrors() {
         return errors;
     }
 
     private void addError(ErrorAnalisis error){
-        this.errors.add(error);
-        System.out.println("Se decto un error");
+        this.errors.push(error);
     }
 
 
@@ -756,7 +756,7 @@ public class Lexer implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { String des ="El simbolo no existe en el lenguaje";
+            { String des ="El simbolo/cadena no existe en el lenguaje";
                         this.addError(new ErrorAnalisis(this.ERROR_TYPE,yytext(),(yyline+1),(yycolumn+1),des));
                         System.out.println("Simbolo Ilegal: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
             }

@@ -267,29 +267,30 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         Token tok = (Token) cur_token.value;
         String er = "Error sintactico: " + tok.getLexema()+" ,Posibles parametros Esperados: "+
                 simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString()+
-                "\n"+String.format("Linea: %d, Columna: %d", cur_token.left, cur_token.right);
+                "\n"+String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right);
         //System.out.println("Error sintactico: " + ParserGraphicsSym.terminalNames[cur_token.sym]);
-        this.lexer.getErrors().add(new ErrorAnalisis(ERROR_TYPE_SIN, "", tok.getLinea(), tok.getColumna(), er));
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN, "", tok.getLinea(), tok.getColumna(), er));
         System.out.println(er);
     }
 
     public void unrecovered_syntax_error(Symbol cur_token) {
         if (cur_token.sym == ParserGraphicsSym.EOF) {
             String er = "Error irrecuperable se llego al final del archivo";
-            this.lexer.getErrors().add(new ErrorAnalisis(ERROR_TYPE_SIN, "", cur_token.left, cur_token.right, er));
+            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN, "", cur_token.left, cur_token.right, er));
             System.out.println(er);
         } else {
             Token tok = (Token) cur_token.value;
-            String er = "Error irrecuperable -->  \"" + tok.getLexema() + "\" ,"
-                        + String.format("Linea: %d, Columna: %d", cur_token.left, cur_token.right);
-            this.lexer.getErrors().add(new ErrorAnalisis(ERROR_TYPE_SIN, "", tok.getLinea(), tok.getColumna(), er));
+            String er = "Error irrecuperable: " + tok.getLexema() + " ,Posibles parametros Esperados: "
+                    + simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString()
+                    + "\n" + String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right);
+            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN, "", tok.getLinea(), tok.getColumna(), er));
             System.out.println(er);
         }
     }
 
     public void semantic_error(Token token,String contexto) {
-        String er = "Error semantico: " + token.getLexema()+" , "+contexto + "\n"+String.format("Linea: %d, Columna: %d", token.getLinea(), token.getColumna());
-        this.lexer.getErrors().add(new ErrorAnalisis(ERROR_TYPE_SEM, "", token.getLinea(), token.getColumna(), er));
+        String er = "Error semantico: " + token.getLexema()+" , "+contexto + "\n"+String.format("Linea: %d,Columna: %d", token.getLinea(), token.getColumna());
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "", token.getLinea(), token.getColumna(), er));
         System.out.println(er);
     }
 
@@ -298,14 +299,14 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         for (String errore : errores) {
             status = true;
             String error = "Error, "+errore+"\nUbicacion general --> Linea: "+ini.getLinea()+" a Linea: "+fin.getLinea();
-            this.lexer.getErrors().add(new ErrorAnalisis(ERROR_TYPE_SEM, "", 0, 0, error));
+            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "", 0, 0, error));
             System.out.println(error);
         }
         return status;
     }
 
     protected int error_sync_size() {
-		return 2;
+		return 1;
 	}
 
 

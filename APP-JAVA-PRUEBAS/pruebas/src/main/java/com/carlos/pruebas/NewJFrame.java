@@ -6,6 +6,7 @@ package com.carlos.pruebas;
 
 import com.carlos.pruebas.lexerParser.Lexer;
 import com.carlos.pruebas.lexerParser.ParserGraphics;
+import com.carlos.pruebas.lexerParser.ProcesadorGraficos;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -77,16 +78,12 @@ public class NewJFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        Reader reader = new StringReader(jTextArea1.getText());
-        lexer = new Lexer(reader);
-        lexer.setErrors(new ArrayList<>());
-        parser = new ParserGraphics(lexer);
-        try {
-            parser.parse();
-        } catch (Exception e) {
-            e.printStackTrace();
+        ProcesadorGraficos graficos = new ProcesadorGraficos();
+        graficos.ejecutar(jTextArea1.getText());
+        System.out.println("-------------Reporte Final----------");
+        for (String reporteFinalErrore : graficos.getReporteFinalErrores()) {
+            System.out.println(reporteFinalErrore);
         }
-        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
