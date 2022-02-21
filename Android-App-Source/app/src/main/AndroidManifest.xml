@@ -10,6 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidPractica1">
         <activity
+            android:name=".activities.Reportes"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ContendersGraphics"
+            android:exported="false"
+            android:label="@string/title_activity_contenedor_graficas"
+            android:theme="@style/Theme.AndroidPractica1.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
