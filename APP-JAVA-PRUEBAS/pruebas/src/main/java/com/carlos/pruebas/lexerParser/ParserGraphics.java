@@ -403,6 +403,7 @@ class CUP$ParserGraphics$actions {
                                                                     if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
                                                                         errorAnalisisesTmp = gb.analizarUnir();
                                                                         if(errorAnalisisesTmp.isEmpty()){
+                                                                            gb.triangularUniones();
                                                                             graficasGeneradas.add(gb);
                                                                             System.out.println("Grafica Valida");
                                                                         }else{
@@ -458,6 +459,7 @@ class CUP$ParserGraphics$actions {
                                                                 if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
                                                                     errorAnalisisesTmp = gp.analizarUnir();
                                                                     if(errorAnalisisesTmp.isEmpty()){
+                                                                        gp.triangularUniones();
                                                                         graficasGeneradas.add(gp);
                                                                         System.out.println("Grafica Valida");
                                                                     }else{
@@ -524,6 +526,7 @@ class CUP$ParserGraphics$actions {
                                                                 if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
                                                                     errorAnalisisesTmp = gb.analizarUnir();
                                                                     if(errorAnalisisesTmp.isEmpty()){
+                                                                        gb.triangularUniones();
                                                                         graficasGeneradas.add(gb);
                                                                         System.out.println("Grafica Valida");
                                                                     }else{
@@ -565,8 +568,9 @@ class CUP$ParserGraphics$actions {
                                                             if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
                                                                 errorAnalisisesTmp = gp.analizarUnir();
                                                                 if(errorAnalisisesTmp.isEmpty()){
+                                                                    gp.triangularUniones();
                                                                     graficasGeneradas.add(gp);
-                                                                        System.out.println("Grafica Valida");
+                                                                    System.out.println("Grafica Valida");
                                                                 }else{
                                                                     System.out.println("Grafica No Valida");
                                                                     for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {

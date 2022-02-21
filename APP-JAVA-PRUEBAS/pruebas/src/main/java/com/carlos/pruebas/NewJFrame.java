@@ -13,6 +13,7 @@ import com.carlos.pruebas.obj.OcurrenciaOperador;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -94,6 +95,8 @@ public class NewJFrame extends javax.swing.JFrame {
         System.out.println("-------------Graficas Recuperadas----------");
         for (Grafica object : graficos.getGraficasGeneradas()) {
             System.out.println(object.toString());
+            System.out.println(Arrays.toString(object.getTag()));
+            System.out.println(Arrays.toString(object.getVal()));
         }
         System.out.println("-------------Graficas A Ejecutar----------");
         for (String object : graficos.getGraficasEjecutar()) {
