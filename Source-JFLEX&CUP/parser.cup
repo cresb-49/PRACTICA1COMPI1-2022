@@ -94,6 +94,10 @@ parser code {:
         return graficasGeneradas;
     }
 
+    public ArrayList<String> getGraficasEjecutar() {
+        return graficasEjecutar;
+    }
+
     private boolean buscarGrafica(String nombre){
         for (Grafica graficasGenerada : this.graficasGeneradas) {
             if(graficasGenerada.getTitulo().equals(nombre)){

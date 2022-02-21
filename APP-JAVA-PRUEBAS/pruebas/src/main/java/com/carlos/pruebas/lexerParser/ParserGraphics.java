@@ -322,6 +322,10 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         return graficasGeneradas;
     }
 
+    public ArrayList<String> getGraficasEjecutar() {
+        return graficasEjecutar;
+    }
+
     private boolean buscarGrafica(String nombre){
         for (Grafica graficasGenerada : this.graficasGeneradas) {
             if(graficasGenerada.getTitulo().equals(nombre)){

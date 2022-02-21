@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.carlos.pruebas.ED.Pila;
 import com.carlos.pruebas.obj.ErrorAnalisis;
+import com.carlos.pruebas.obj.Grafica;
 import com.carlos.pruebas.obj.OcurrenciaOperador;
 
 public class ProcesadorGraficos {
@@ -131,5 +132,13 @@ public class ProcesadorGraficos {
 
     public ArrayList<OcurrenciaOperador> getOcurrenciaOperador(){
         return this.parserGraphics.getOcurrencias();
+    }
+    
+    public ArrayList<Grafica> getGraficasGeneradas(){
+        return this.parserGraphics.getGraficasGeneradas();
+    }
+    
+    public ArrayList<String> getGraficasEjecutar(){
+        return this.parserGraphics.getGraficasEjecutar();
     }
 }
