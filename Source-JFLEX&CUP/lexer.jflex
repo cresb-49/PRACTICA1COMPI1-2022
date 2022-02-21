@@ -26,7 +26,7 @@ import java_cup.runtime.*;
         this.errors = errors;
     }
 
-    public ArrayList<ErrorAnalisis> getLexErrors() {
+    public ArrayList<ErrorAnalisis> getErrors() {
         return errors;
     }
 

@@ -339,7 +339,7 @@ public class Lexer implements java_cup.runtime.Scanner {
         this.errors = errors;
     }
 
-    public ArrayList<ErrorAnalisis> getLexErrors() {
+    public ArrayList<ErrorAnalisis> getErrors() {
         return errors;
     }
 

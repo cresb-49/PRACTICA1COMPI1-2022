@@ -6,6 +6,7 @@
 package com.carlos.pruebas.lexerParser;
 
 import java.util.ArrayList;
+import com.carlos.pruebas.obj.ErrorAnalisis;
 import com.carlos.pruebas.ED.Pila;
 import com.carlos.pruebas.obj.Token;
 import com.carlos.pruebas.obj.Union;
@@ -243,6 +244,8 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
 
 
     // Connect this parser to a scanner!
+    private static final String ERROR_TYPE_SIN = "Sintactico";
+    private static final String ERROR_TYPE_SEM = "Semantico";
     private Lexer lexer;
     
     public ParserGraphics (Lexer lexer){ 
@@ -270,8 +273,9 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     }
 
     public void semantic_error(Token token,String contexto) {
-        System.out.println("Error semantico: " + token.getLexema()+" , "+contexto);
-        System.out.println(String.format("Linea: %d,Columna: %d", token.getLinea(), token.getColumna()));
+        String er = "Error semantico: " + token.getLexema()+" , "+contexto + "\n"+String.format("Linea: %d,Columna: %d", token.getLinea(), token.getColumna());
+        this.lexer.getErrors().add(new ErrorAnalisis(ERROR_TYPE_SEM, "", token.getLinea(), token.getColumna(), er));
+        System.out.println(er);
     }
 
     public boolean definition_error(Token ini,Token fin,ArrayList<String> errores){
@@ -279,6 +283,7 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         for (String errore : errores) {
             status = true;
             String error = "Error, "+errore+"\nUbicacion general --> Linea: "+ini.getLinea()+" a Linea: "+fin.getLinea();
+            this.lexer.getErrors().add(new ErrorAnalisis(ERROR_TYPE_SEM, "", 0, 0, error));
             System.out.println(error);
         }
         return status;
