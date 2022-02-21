@@ -7,6 +7,7 @@ package com.carlos.pruebas;
 import com.carlos.pruebas.lexerParser.Lexer;
 import com.carlos.pruebas.lexerParser.ParserGraphics;
 import com.carlos.pruebas.lexerParser.ProcesadorGraficos;
+import com.carlos.pruebas.obj.ErrorAnalisis;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -81,8 +82,8 @@ public class NewJFrame extends javax.swing.JFrame {
         ProcesadorGraficos graficos = new ProcesadorGraficos();
         graficos.ejecutar(jTextArea1.getText());
         System.out.println("-------------Reporte Final----------");
-        for (String reporteFinalErrore : graficos.getReporteFinalErrores()) {
-            System.out.println(reporteFinalErrore);
+        for (ErrorAnalisis reporteFinalErrore : graficos.getReporteFinalErrores()) {
+            System.out.println(reporteFinalErrore.getLexema()+"|"+reporteFinalErrore.getLinea()+"|"+reporteFinalErrore.getColumna()+"|"+reporteFinalErrore.getTipo()+"|"+reporteFinalErrore.getDescipcion());
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed

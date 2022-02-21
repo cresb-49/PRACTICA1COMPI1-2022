@@ -265,11 +265,8 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
 
     public void syntax_error(Symbol cur_token) {
         Token tok = (Token) cur_token.value;
-        String er = "Error sintactico: " + tok.getLexema()+" ,Posibles parametros Esperados: "+
-                simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString()+
-                "\n"+String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right);
-        //System.out.println("Error sintactico: " + ParserGraphicsSym.terminalNames[cur_token.sym]);
-        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN, "", tok.getLinea(), tok.getColumna(), er));
+        String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,tok.getLexema(), tok.getLinea(), tok.getColumna(), er));
         System.out.println(er);
     }
 
@@ -280,26 +277,22 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
             System.out.println(er);
         } else {
             Token tok = (Token) cur_token.value;
-            String er = "Error irrecuperable: " + tok.getLexema() + " ,Posibles parametros Esperados: "
-                    + simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString()
-                    + "\n" + String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right);
+            String er = "Error irrecuperable, un posible simbolo esperado: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
             this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN, "", tok.getLinea(), tok.getColumna(), er));
             System.out.println(er);
         }
     }
 
     public void semantic_error(Token token,String contexto) {
-        String er = "Error semantico: " + token.getLexema()+" , "+contexto + "\n"+String.format("Linea: %d,Columna: %d", token.getLinea(), token.getColumna());
-        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "", token.getLinea(), token.getColumna(), er));
-        System.out.println(er);
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM,token.getLexema(), token.getLinea(), token.getColumna(), contexto));
     }
 
     public boolean definition_error(Token ini,Token fin,ArrayList<String> errores){
         boolean status = false;
         for (String errore : errores) {
             status = true;
-            String error = "Error, "+errore+"\nUbicacion general --> Linea: "+ini.getLinea()+" a Linea: "+fin.getLinea();
-            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "", 0, 0, error));
+            String error = "Error en definicion, "+errore+"\nUbicacion general --> Linea: "+ini.getLinea()+" a Linea: "+fin.getLinea();
+            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "", ini.getLinea(), ini.getColumna(), error));
             System.out.println(error);
         }
         return status;
@@ -490,7 +483,7 @@ class CUP$ParserGraphics$actions {
                                                                             if(gb !=null){
                                                                                 RESULT = gb;
                                                                                 if(RESULT.getTitulo()!=null){
-                                                                                    semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                                 }else{
                                                                                     String tittle = (String)((Token)titulo).getValue();
                                                                                     RESULT.setTitulo(tittle);
@@ -518,7 +511,7 @@ class CUP$ParserGraphics$actions {
                                                                                 if(gb !=null){
                                                                                     RESULT = gb;
                                                                                     if(RESULT.getEjex()!=null){
-                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                        semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                                     }else{
                                                                                         if(pila!=null){
                                                                                             RESULT.setEjex(pila.toArray(String[].class));
@@ -547,7 +540,7 @@ class CUP$ParserGraphics$actions {
                                                                                 if(gb !=null){
                                                                                     RESULT = gb;
                                                                                     if(RESULT.getEjey()!=null){
-                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                        semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                                     }else{
                                                                                         if(pila!=null){
                                                                                             RESULT.setEjey(pila.toArray(Double[].class));
@@ -577,7 +570,7 @@ class CUP$ParserGraphics$actions {
                                                                                 if(gb !=null){
                                                                                     RESULT = gb;
                                                                                     if(RESULT.getUnir()!=null){
-                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                        semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                                     }else{
                                                                                         if(pila!=null){
                                                                                             RESULT.setUnir(pila.toArrayList());
@@ -626,7 +619,7 @@ class CUP$ParserGraphics$actions {
                                                                             if(gp!=null){
                                                                                 RESULT = gp;
                                                                                 if(RESULT.getTitulo()!=null){
-                                                                                    semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                                 }else{
                                                                                     RESULT.setTitulo((String)((Token)titulo).getValue());
                                                                                 }
@@ -653,7 +646,7 @@ class CUP$ParserGraphics$actions {
                                                                             if(gp!=null){
                                                                                 RESULT = gp;
                                                                                 if(RESULT.getTipo()!=null){
-                                                                                    semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                    semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                                 }else{
                                                                                     RESULT.setTipo((String)((Token)tipo).getValue());
                                                                                 }
@@ -682,7 +675,7 @@ class CUP$ParserGraphics$actions {
                                                                                 if(gp!=null){
                                                                                     RESULT = gp;
                                                                                     if(RESULT.getEtiquetas()!=null){
-                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                        semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                                     }else{
                                                                                         if(pila!=null){
                                                                                             RESULT.setEtiquetas(pila.toArray(String[].class));
@@ -712,7 +705,7 @@ class CUP$ParserGraphics$actions {
                                                                                 if(gp!=null){
                                                                                     RESULT = gp;
                                                                                     if(RESULT.getValores()!=null){
-                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                        semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                                     }else{
                                                                                         if(pila!=null){
                                                                                             RESULT.setValores(pila.toArray(Double[].class));
@@ -741,7 +734,7 @@ class CUP$ParserGraphics$actions {
                                                                     if(gp!=null){
                                                                         RESULT = gp;
                                                                         if(RESULT.getTotal()!=null){
-                                                                            semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                            semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                         }else{
                                                                             if(num!=null){
                                                                                 RESULT.setTotal(num);
@@ -771,7 +764,7 @@ class CUP$ParserGraphics$actions {
                                                                                 if(gp!=null){
                                                                                     RESULT = gp;
                                                                                     if(RESULT.getUnir()!=null){
-                                                                                        semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                        semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                                     }else{
                                                                                         if(pila!=null){
                                                                                             RESULT.setUnir(pila.toArrayList());
@@ -801,7 +794,7 @@ class CUP$ParserGraphics$actions {
                                                                         if(gp!=null){
                                                                             RESULT = gp;
                                                                             if(RESULT.getExtra()!=null){
-                                                                                semantic_error(((Token)e),"la propiedad ya habia sido definida");
+                                                                                semantic_error(((Token)e),"La propiedad ya habia sido definida en el grafico");
                                                                             }else{
                                                                                 RESULT.setExtra((String)((Token)extra).getValue());
                                                                             }

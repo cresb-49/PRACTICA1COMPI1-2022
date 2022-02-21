@@ -10,10 +10,16 @@ import com.carlos.pruebas.obj.ErrorAnalisis;
 public class ProcesadorGraficos {
     
     private Pila<ErrorAnalisis> errores;
-    private ArrayList<String> reporteFinalErrores;
+    private ArrayList<ErrorAnalisis> reporteFinalErrores;
     private Lexer lexer;
     private ParserGraphics parserGraphics;
     private int contUnir = -1;
+    
+
+    //Cantidad de graficos definidos
+    private int graficoPie = 0;
+    private int graficoBarra = 0;
+
     
 
     private static final String ERROR_TYPE_LEX = "Léxico";
@@ -82,18 +88,17 @@ public class ProcesadorGraficos {
             ArrayList<ErrorAnalisis> temp = pila.toArrayList();
             for (ErrorAnalisis errores : temp) {
                 if(errores.getTipo().equals(ERROR_TYPE_LEX)){
-                    String tmp = "";
+                    ErrorAnalisis tmp = null;
                     int ref = errores.getLexema().length();
                     if(ref >1){
                         StringBuilder reversa = new StringBuilder(errores.getLexema());
-                        tmp = "Error Lexico: "+reversa.reverse().toString()+" "+errores.getDescipcion()+"\nLinea: "+errores.getLinea()+", Columna: "+(errores.getColumna()-ref+1);
+                        tmp = new ErrorAnalisis(ERROR_TYPE_LEX, reversa.reverse().toString(),errores.getLinea(), (errores.getColumna()-ref+1),errores.getDescipcion());
                     }else{
-                        tmp = "Error Lexico: "+errores.getLexema()+" "+errores.getDescipcion()+"\nLinea: "+errores.getLinea()+", Columna: "+errores.getColumna();
+                        tmp = errores;
                     }
-                    
                     this.reporteFinalErrores.add(tmp);
                 }else{
-                    this.reporteFinalErrores.add(errores.getDescipcion());
+                    this.reporteFinalErrores.add(errores);
                 }
             }
         }
@@ -115,7 +120,7 @@ public class ProcesadorGraficos {
     /**
      * @return the reporteFinalErrores
      */
-    public ArrayList<String> getReporteFinalErrores() {
+    public ArrayList<ErrorAnalisis> getReporteFinalErrores() {
         return reporteFinalErrores;
     }
 }
