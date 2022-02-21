@@ -325,6 +325,10 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_CRE, nameGra, token.getLinea(), token.getColumna(), ", Ya existe una grafica con ese titulo asigne uno distinto"));
     }
 
+    private void referencia_numerica_incorrecta(Token token,Double valor){
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,valor.toString(), token.getLinea(),(token.getColumna()+1), ", Se espera un valor entero o una operacion con resultado entero"));
+    }
+
     public ArrayList<OcurrenciaOperador> getOcurrencias() {
         return ocurrencias;
     }
@@ -1168,9 +1172,15 @@ class CUP$ParserGraphics$actions {
           case 35: // contUnir ::= LLA_A e COMA e LLA_C COMA contUnir 
             {
               Pila<Union> RESULT =null;
+		int ref1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-6)).left;
+		int ref1right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-6)).right;
+		Object ref1 = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-6)).value;
 		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).left;
 		int num1right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).right;
 		Double num1 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).value;
+		int ref2left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).left;
+		int ref2right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).right;
+		Object ref2 = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).value;
 		int num2left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).left;
 		int num2right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).right;
 		Double num2 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).value;
@@ -1178,20 +1188,25 @@ class CUP$ParserGraphics$actions {
 		int pilaright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
 		Pila<Union> pila = (Pila<Union>)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
 		
-                                                                        RESULT = pila;
-                                                                        if(RESULT!=null){
-                                                                            if(num1!=null && num2!=null){
-                                                                                Double mod1 = num1 % 2;
-                                                                                Double mod2 = num2 % 2;
-                                                                                if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
-                                                                                    System.out.println("El numero: "+num1+", es entero");
-                                                                                }else{
-                                                                                    System.out.println("El numero: "+num1+", es decimal");
+                                                                                RESULT = pila;
+                                                                                if(RESULT!=null){
+                                                                                    if(num1!=null && num2!=null){
+                                                                                        Double mod1 = num1 % 2;
+                                                                                        Double mod2 = num2 % 2;
+                                                                                        if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
+                                                                                            System.out.println("Los dos datos son enteros");
+                                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));
+                                                                                        }else{
+                                                                                            if(!(mod1==1||mod1==0)){
+                                                                                                referencia_numerica_incorrecta((Token) ref1, num1);
+                                                                                            }
+                                                                                            if(!(mod2==1||mod2==0)){
+                                                                                                referencia_numerica_incorrecta((Token) ref2, num2);
+                                                                                            }
+                                                                                        }
+                                                                                    }
                                                                                 }
-                                                                                RESULT.push(new Union(num1.intValue(),num2.intValue()));
-                                                                            }
-                                                                        }
-                                                                    
+                                                                            
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contUnir",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-6)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
@@ -1200,26 +1215,37 @@ class CUP$ParserGraphics$actions {
           case 36: // contUnir ::= LLA_A e COMA e LLA_C CO_C 
             {
               Pila<Union> RESULT =null;
+		int ref1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).left;
+		int ref1right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).right;
+		Object ref1 = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)).value;
 		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).left;
 		int num1right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).right;
 		Double num1 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-4)).value;
+		int ref2left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).left;
+		int ref2right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).right;
+		Object ref2 = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-3)).value;
 		int num2left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
 		int num2right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).right;
 		Double num2 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
 		
-                                                                        
-                                                                        if(num1!=null && num2!=null){
-                                                                            RESULT = new Pila<>();
-                                                                            Double mod1 = num1 % 2;
-                                                                            Double mod2 = num2 % 2;
-                                                                            if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
-                                                                                System.out.println("El numero: "+num1+", es entero");
-                                                                            }else{
-                                                                                System.out.println("El numero: "+num1+", es decimal");
+                                                                            if(num1!=null && num2!=null){
+                                                                                RESULT = new Pila<>();
+                                                                                Double mod1 = num1 % 2;
+                                                                                Double mod2 = num2 % 2;
+
+                                                                                if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
+                                                                                    System.out.println("Los dos datos son enteros");
+                                                                                    RESULT.push(new Union(num1.intValue(),num2.intValue()));
+                                                                                }else{
+                                                                                    if(!(mod1==1||mod1==0)){
+                                                                                        referencia_numerica_incorrecta((Token) ref1, num1);
+                                                                                    }
+                                                                                    if(!(mod2==1||mod2==0)){
+                                                                                        referencia_numerica_incorrecta((Token) ref2, num2);
+                                                                                    }
+                                                                                }
                                                                             }
-                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));
-                                                                        }
-                                                                    
+                                                                        
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contUnir",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }
           return CUP$ParserGraphics$result;
