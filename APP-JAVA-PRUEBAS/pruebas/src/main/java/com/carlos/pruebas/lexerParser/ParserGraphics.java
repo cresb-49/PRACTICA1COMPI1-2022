@@ -8,6 +8,7 @@ package com.carlos.pruebas.lexerParser;
 import java.util.ArrayList;
 import com.carlos.pruebas.obj.ErrorAnalisis;
 import com.carlos.pruebas.ED.Pila;
+import com.carlos.pruebas.obj.Grafica;
 import com.carlos.pruebas.obj.Token;
 import com.carlos.pruebas.obj.Union;
 import com.carlos.pruebas.obj.OcurrenciaOperador;
@@ -252,6 +253,7 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     private Lexer lexer;
     private SimbolosTerminales simbolosTerminales;
     private ArrayList<OcurrenciaOperador> ocurrencias;
+    private ArrayList<Grafica> graficasGeneradas;
 
     
     public ParserGraphics (Lexer lexer){ 
@@ -306,6 +308,10 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
 
     public ArrayList<OcurrenciaOperador> getOcurrencias() {
         return ocurrencias;
+    }
+
+    public ArrayList<Grafica> getGraficasGeneradas() {
+        return graficasGeneradas;
     }
 
     protected int error_sync_size() {

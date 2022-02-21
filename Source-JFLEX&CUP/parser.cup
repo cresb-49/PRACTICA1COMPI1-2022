@@ -24,6 +24,7 @@ parser code {:
     private Lexer lexer;
     private SimbolosTerminales simbolosTerminales;
     private ArrayList<OcurrenciaOperador> ocurrencias;
+    private ArrayList<Grafica> graficasGeneradas;
 
     
     public ParserGraphics (Lexer lexer){ 
@@ -78,6 +79,10 @@ parser code {:
 
     public ArrayList<OcurrenciaOperador> getOcurrencias() {
         return ocurrencias;
+    }
+
+    public ArrayList<Grafica> getGraficasGeneradas() {
+        return graficasGeneradas;
     }
 
     protected int error_sync_size() {
