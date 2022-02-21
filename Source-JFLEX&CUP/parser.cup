@@ -29,6 +29,7 @@ parser code {:
     private ArrayList<OcurrenciaOperador> ocurrencias;
     private ArrayList<Grafica> graficasGeneradas;
     private ArrayList<String> graficasEjecutar;
+    private ArrayList<ErrorAnalisis> errorAnalisisesTmp;
 
     
     public ParserGraphics (Lexer lexer){ 
@@ -158,8 +159,16 @@ s   ::= s DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin   {:
                                                                     error_grap_def((Token) ini, gb.getTitulo());
                                                                 }else{
                                                                     if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
-                                                                        graficasGeneradas.add(gb);
-                                                                        System.out.println("Grafica Valida");
+                                                                        errorAnalisisesTmp = gb.analizarUnir();
+                                                                        if(errorAnalisisesTmp.isEmpty()){
+                                                                            graficasGeneradas.add(gb);
+                                                                            System.out.println("Grafica Valida");
+                                                                        }else{
+                                                                            System.out.println("Grafica No Valida");
+                                                                            for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
+                                                                                lexer.getErrors().push(errorAnalisis);
+                                                                            }
+                                                                        }
                                                                     }else{
                                                                         System.out.println("Grafica No Valida");
                                                                     }
@@ -174,8 +183,16 @@ s   ::= s DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin   {:
                                                                 error_grap_def((Token) ini, gp.getTitulo());
                                                             }else{
                                                                 if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
-                                                                    graficasGeneradas.add(gp);
-                                                                    System.out.println("Grafica Valida");
+                                                                    errorAnalisisesTmp = gp.analizarUnir();
+                                                                    if(errorAnalisisesTmp.isEmpty()){
+                                                                        graficasGeneradas.add(gp);
+                                                                        System.out.println("Grafica Valida");
+                                                                    }else{
+                                                                        System.out.println("Grafica No Valida");
+                                                                        for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
+                                                                            lexer.getErrors().push(errorAnalisis);
+                                                                        }
+                                                                    }
                                                                 }else{
                                                                     System.out.println("Grafica No Valida");
                                                                 }
@@ -201,8 +218,16 @@ s   ::= s DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin   {:
                                                                 error_grap_def((Token) ini, gb.getTitulo());
                                                             }else{
                                                                 if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
-                                                                    graficasGeneradas.add(gb);
-                                                                    System.out.println("Grafica Valida");
+                                                                    errorAnalisisesTmp = gb.analizarUnir();
+                                                                    if(errorAnalisisesTmp.isEmpty()){
+                                                                        graficasGeneradas.add(gb);
+                                                                        System.out.println("Grafica Valida");
+                                                                    }else{
+                                                                        System.out.println("Grafica No Valida");
+                                                                        for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
+                                                                            lexer.getErrors().push(errorAnalisis);
+                                                                        }
+                                                                    }
                                                                 }else{
                                                                     System.out.println("Grafica No Valida");
                                                                 }
@@ -217,8 +242,16 @@ s   ::= s DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin   {:
                                                             error_grap_def((Token) ini, gp.getTitulo());
                                                         }else{
                                                             if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
-                                                                graficasGeneradas.add(gp);
-                                                                System.out.println("Grafica Valida");
+                                                                errorAnalisisesTmp = gp.analizarUnir();
+                                                                if(errorAnalisisesTmp.isEmpty()){
+                                                                    graficasGeneradas.add(gp);
+                                                                        System.out.println("Grafica Valida");
+                                                                }else{
+                                                                    System.out.println("Grafica No Valida");
+                                                                    for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
+                                                                        lexer.getErrors().push(errorAnalisis);
+                                                                    }
+                                                                }
                                                             }else{
                                                                 System.out.println("Grafica No Valida");
                                                             }
@@ -468,7 +501,8 @@ contUnir    ::= LLA_A:ref1 e:num1 COMA:ref2 e:num2 LLA_C COMA contUnir:pila {:
                                                                                         Double mod2 = num2 % 2;
                                                                                         if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
                                                                                             System.out.println("Los dos datos son enteros");
-                                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));
+                                                                                            Token tok = (Token)ref1;
+                                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue(),tok.getLinea(),tok.getColumna()));
                                                                                         }else{
                                                                                             if(!(mod1==1||mod1==0)){
                                                                                                 referencia_numerica_incorrecta((Token) ref1, num1);
@@ -488,7 +522,8 @@ contUnir    ::= LLA_A:ref1 e:num1 COMA:ref2 e:num2 LLA_C COMA contUnir:pila {:
 
                                                                                 if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
                                                                                     System.out.println("Los dos datos son enteros");
-                                                                                    RESULT.push(new Union(num1.intValue(),num2.intValue()));
+                                                                                    Token tok = (Token)ref1;
+                                                                                    RESULT.push(new Union(num1.intValue(),num2.intValue(),tok.getLinea(),tok.getColumna()));
                                                                                 }else{
                                                                                     if(!(mod1==1||mod1==0)){
                                                                                         referencia_numerica_incorrecta((Token) ref1, num1);

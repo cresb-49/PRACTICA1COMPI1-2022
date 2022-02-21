@@ -257,6 +257,7 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     private ArrayList<OcurrenciaOperador> ocurrencias;
     private ArrayList<Grafica> graficasGeneradas;
     private ArrayList<String> graficasEjecutar;
+    private ArrayList<ErrorAnalisis> errorAnalisisesTmp;
 
     
     public ParserGraphics (Lexer lexer){ 
@@ -400,8 +401,16 @@ class CUP$ParserGraphics$actions {
                                                                     error_grap_def((Token) ini, gb.getTitulo());
                                                                 }else{
                                                                     if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
-                                                                        graficasGeneradas.add(gb);
-                                                                        System.out.println("Grafica Valida");
+                                                                        errorAnalisisesTmp = gb.analizarUnir();
+                                                                        if(errorAnalisisesTmp.isEmpty()){
+                                                                            graficasGeneradas.add(gb);
+                                                                            System.out.println("Grafica Valida");
+                                                                        }else{
+                                                                            System.out.println("Grafica No Valida");
+                                                                            for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
+                                                                                lexer.getErrors().push(errorAnalisis);
+                                                                            }
+                                                                        }
                                                                     }else{
                                                                         System.out.println("Grafica No Valida");
                                                                     }
@@ -447,8 +456,16 @@ class CUP$ParserGraphics$actions {
                                                                 error_grap_def((Token) ini, gp.getTitulo());
                                                             }else{
                                                                 if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
-                                                                    graficasGeneradas.add(gp);
-                                                                    System.out.println("Grafica Valida");
+                                                                    errorAnalisisesTmp = gp.analizarUnir();
+                                                                    if(errorAnalisisesTmp.isEmpty()){
+                                                                        graficasGeneradas.add(gp);
+                                                                        System.out.println("Grafica Valida");
+                                                                    }else{
+                                                                        System.out.println("Grafica No Valida");
+                                                                        for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
+                                                                            lexer.getErrors().push(errorAnalisis);
+                                                                        }
+                                                                    }
                                                                 }else{
                                                                     System.out.println("Grafica No Valida");
                                                                 }
@@ -505,8 +522,16 @@ class CUP$ParserGraphics$actions {
                                                                 error_grap_def((Token) ini, gb.getTitulo());
                                                             }else{
                                                                 if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
-                                                                    graficasGeneradas.add(gb);
-                                                                    System.out.println("Grafica Valida");
+                                                                    errorAnalisisesTmp = gb.analizarUnir();
+                                                                    if(errorAnalisisesTmp.isEmpty()){
+                                                                        graficasGeneradas.add(gb);
+                                                                        System.out.println("Grafica Valida");
+                                                                    }else{
+                                                                        System.out.println("Grafica No Valida");
+                                                                        for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
+                                                                            lexer.getErrors().push(errorAnalisis);
+                                                                        }
+                                                                    }
                                                                 }else{
                                                                     System.out.println("Grafica No Valida");
                                                                 }
@@ -538,8 +563,16 @@ class CUP$ParserGraphics$actions {
                                                             error_grap_def((Token) ini, gp.getTitulo());
                                                         }else{
                                                             if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
-                                                                graficasGeneradas.add(gp);
-                                                                System.out.println("Grafica Valida");
+                                                                errorAnalisisesTmp = gp.analizarUnir();
+                                                                if(errorAnalisisesTmp.isEmpty()){
+                                                                    graficasGeneradas.add(gp);
+                                                                        System.out.println("Grafica Valida");
+                                                                }else{
+                                                                    System.out.println("Grafica No Valida");
+                                                                    for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
+                                                                        lexer.getErrors().push(errorAnalisis);
+                                                                    }
+                                                                }
                                                             }else{
                                                                 System.out.println("Grafica No Valida");
                                                             }
@@ -1195,7 +1228,8 @@ class CUP$ParserGraphics$actions {
                                                                                         Double mod2 = num2 % 2;
                                                                                         if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
                                                                                             System.out.println("Los dos datos son enteros");
-                                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));
+                                                                                            Token tok = (Token)ref1;
+                                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue(),tok.getLinea(),tok.getColumna()));
                                                                                         }else{
                                                                                             if(!(mod1==1||mod1==0)){
                                                                                                 referencia_numerica_incorrecta((Token) ref1, num1);
@@ -1235,7 +1269,8 @@ class CUP$ParserGraphics$actions {
 
                                                                                 if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
                                                                                     System.out.println("Los dos datos son enteros");
-                                                                                    RESULT.push(new Union(num1.intValue(),num2.intValue()));
+                                                                                    Token tok = (Token)ref1;
+                                                                                    RESULT.push(new Union(num1.intValue(),num2.intValue(),tok.getLinea(),tok.getColumna()));
                                                                                 }else{
                                                                                     if(!(mod1==1||mod1==0)){
                                                                                         referencia_numerica_incorrecta((Token) ref1, num1);

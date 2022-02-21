@@ -3,11 +3,22 @@ package com.carlos.pruebas.obj;
 public class Union {
     private int etiqueta_x;
     private int valor_y;
-
+    
+    private int linea;
+    private int columna;
+    
     public Union(int etiqueta_x, int valor_y) {
         this.etiqueta_x = etiqueta_x;
         this.valor_y = valor_y;
     }
+
+    public Union(int etiqueta_x, int valor_y, int linea, int columna) {
+        this.etiqueta_x = etiqueta_x;
+        this.valor_y = valor_y;
+        this.linea = linea;
+        this.columna = columna;
+    }
+    
     public Union() {
     }
     public int getEtiqueta_x() {
@@ -22,8 +33,25 @@ public class Union {
     public void setValor_y(int valor_y) {
         this.valor_y = valor_y;
     }
+
+    public int getLinea() {
+        return linea;
+    }
+
+    public void setLinea(int linea) {
+        this.linea = linea;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+    
     @Override
     public String toString() {
-        return "Union{" + "etiqueta_x=" + etiqueta_x + ", valor_y=" + valor_y + '}';
+        return "Union{" + "et_x=" + etiqueta_x + ", val_y=" + valor_y + '}';
     }
 }

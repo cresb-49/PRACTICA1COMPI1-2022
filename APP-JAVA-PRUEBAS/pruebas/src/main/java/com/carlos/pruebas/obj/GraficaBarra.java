@@ -67,6 +67,37 @@ public class GraficaBarra extends Grafica{
         }
         return errores;
     }
+    
+    public ArrayList<ErrorAnalisis> analizarUnir() {
+        ArrayList<ErrorAnalisis> errores = new ArrayList<>();
+        for (Union union : this.unir) {
+            if (!(union.getEtiqueta_x() < this.ejex.length)) {
+                errores.add(new ErrorAnalisis("Sintactico", String.valueOf(union.getEtiqueta_x()), union.getLinea(), union.getColumna(), "Grafica de Barras, no esta definido un valor en el espacio solictado del ejex"));
+            }
+            if (!(union.getValor_y() < this.ejey.length)) {
+                errores.add(new ErrorAnalisis("Sintactico", String.valueOf(union.getValor_y()), union.getLinea(), union.getColumna(), "Grafica de Barras, no esta definido un valor en el espacio solictado del ejey"));
+            }
+        }
+        return errores;
+    }
+
+    public void triangularUniones() {
+        ArrayList<String> x = new ArrayList<>();
+        ArrayList<Double> y = new ArrayList<>();
+        for (Union union : this.unir) {
+            if ((union.getEtiqueta_x() < this.ejex.length)) {
+                x.add(this.ejex[union.getEtiqueta_x()]);
+            }
+            if ((union.getValor_y() < this.ejey.length)) {
+                y.add(this.ejey[union.getValor_y()]);
+            }
+        }
+        String[]x_2 = x.toArray(new String[x.size()]);
+        Double[]y_2 = y.toArray(new Double[y.size()]);
+        this.setTag(x_2);
+        this.setVal(y_2);
+        
+    }
 
     @Override
     public String toString() {
