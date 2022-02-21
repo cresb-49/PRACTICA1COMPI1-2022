@@ -335,7 +335,18 @@ public class Lexer implements java_cup.runtime.Scanner {
     private int stringColumnInit = 0; 
     private StringBuffer string = new StringBuffer();
     private Pila<ErrorAnalisis> errors;
+
+    private int countBarras=0;
+    private int countPie=0;
     
+    public int getCountBarras() {
+        return countBarras;
+    }
+
+    public int getCountPie() {
+        return countPie;
+    }
+
     public void setErrors(Pila<ErrorAnalisis> errors) {
         this.errors = errors;
     }
@@ -347,6 +358,7 @@ public class Lexer implements java_cup.runtime.Scanner {
     private void addError(ErrorAnalisis error){
         this.errors.push(error);
     }
+
 
 
   /**
@@ -922,7 +934,8 @@ public class Lexer implements java_cup.runtime.Scanner {
             // fall through
           case 57: break;
           case 23:
-            { this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
+            { this.countPie++;
+                        this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
                         return new Symbol(ParserGraphicsSym.GRAPHICPIE,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));
@@ -978,7 +991,8 @@ public class Lexer implements java_cup.runtime.Scanner {
             // fall through
           case 64: break;
           case 30:
-            { this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
+            { this.countBarras++;
+                        this.actual = new Token(yytext(),yytext(),yyline+1,yycolumn+1,null,this.anterior);
                         this.anterior = this.actual;
                         return new Symbol(ParserGraphicsSym.GRAPHICBARRA,yyline+1,yycolumn+1,this.actual);
                         //System.out.println("Grafico: "+yytext()+", Linea: "+(yyline+1)+", Columna: "+(yycolumn+1));

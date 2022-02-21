@@ -244,10 +244,14 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
 
 
     // Connect this parser to a scanner!
+
     private static final String ERROR_TYPE_SIN = "Sintactico";
     private static final String ERROR_TYPE_SEM = "Semantico";
+
     private Lexer lexer;
     private SimbolosTerminales simbolosTerminales;
+
+
     
     public ParserGraphics (Lexer lexer){ 
         super(lexer);

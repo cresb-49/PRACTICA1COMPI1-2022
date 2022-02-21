@@ -17,10 +17,6 @@ public class ProcesadorGraficos {
     
 
     //Cantidad de graficos definidos
-    private int graficoPie = 0;
-    private int graficoBarra = 0;
-
-    
 
     private static final String ERROR_TYPE_LEX = "Léxico";
 
@@ -122,5 +118,13 @@ public class ProcesadorGraficos {
      */
     public ArrayList<ErrorAnalisis> getReporteFinalErrores() {
         return reporteFinalErrores;
+    }
+    
+    public int cantidadGraficosBarra(){
+        return this.lexer.getCountBarras();
+    }
+    
+    public int cantidadGraficosPie(){
+        return this.lexer.getCountPie();
     }
 }
