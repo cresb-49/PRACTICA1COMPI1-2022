@@ -247,10 +247,12 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     private static final String ERROR_TYPE_SIN = "Sintactico";
     private static final String ERROR_TYPE_SEM = "Semantico";
     private Lexer lexer;
+    private SimbolosTerminales simbolosTerminales;
     
     public ParserGraphics (Lexer lexer){ 
         super(lexer);
         this.lexer=lexer;
+        this.simbolosTerminales = new SimbolosTerminales();
     }
 
     public void report_error(String message, Object info) {
@@ -263,7 +265,9 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
 
     public void syntax_error(Symbol cur_token) {
         Token tok = (Token) cur_token.value;
-        String er = "Error sintactico: " + tok.getLexema()+" ,Posibles parametros Esperados: "+expected_token_ids().toString()+"\n"+String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right);
+        String er = "Error sintactico: " + tok.getLexema()+" ,Posibles parametros Esperados: "+
+                simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString()+
+                "\n"+String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right);
         //System.out.println("Error sintactico: " + ParserGraphicsSym.terminalNames[cur_token.sym]);
         System.out.println(er);
     }
