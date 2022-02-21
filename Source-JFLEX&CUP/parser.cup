@@ -6,6 +6,7 @@ import com.carlos.pruebas.obj.ErrorAnalisis;
 import com.carlos.pruebas.ED.Pila;
 import com.carlos.pruebas.obj.Token;
 import com.carlos.pruebas.obj.Union;
+import com.carlos.pruebas.obj.OcurrenciaOperador;
 
 import com.carlos.pruebas.obj.GraficaBarra;
 import com.carlos.pruebas.obj.GraficaPie;
@@ -22,13 +23,14 @@ parser code {:
 
     private Lexer lexer;
     private SimbolosTerminales simbolosTerminales;
-
+    private ArrayList<OcurrenciaOperador> ocurrencias;
 
     
     public ParserGraphics (Lexer lexer){ 
         super(lexer);
         this.lexer=lexer;
         this.simbolosTerminales = new SimbolosTerminales();
+        this.ocurrencias = new ArrayList<>();
     }
 
     public void report_error(String message, Object info) {
@@ -72,6 +74,10 @@ parser code {:
             System.out.println(error);
         }
         return status;
+    }
+
+    public ArrayList<OcurrenciaOperador> getOcurrencias() {
+        return ocurrencias;
     }
 
     protected int error_sync_size() {
@@ -293,10 +299,13 @@ contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
 
 
 //GRAMAICA PARA EL RECONOCIMIENTO DE NUMEROS ENTEROS Y DECIMALES
-e   ::= e:num1 MAS t:num2   {:
+e   ::= e:num1 MAS:s t:num2   {:
+                                Token operador = (Token) s;
+                                String ocu = operador.getAntToken().getLexema() + " + ";
+                                ocurrencias.add(new OcurrenciaOperador("MAS",operador.getLinea(),operador.getColumna(),ocu));
                                 RESULT = (num1 + num2);
                             :}
-    |   e:num1 MENOS t:num2 {:
+    |   e:num1 MENOS:s t:num2 {:
                                 RESULT = (num1 - num2);
                             :}
     |   t:exp               {:
@@ -304,10 +313,10 @@ e   ::= e:num1 MAS t:num2   {:
                             :}
     ;
 
-t   ::= t:num1 MUL f:num2   {:
+t   ::= t:num1 MUL:s f:num2   {:
                                 RESULT = (num1*num2);
                             :}
-    |   t:num1 DIV f:num2   {:
+    |   t:num1 DIV:s f:num2   {:
                                 RESULT = (num1/num2);
                             :}             
     |   f:exp               {:

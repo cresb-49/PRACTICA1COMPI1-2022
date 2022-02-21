@@ -10,6 +10,7 @@ import com.carlos.pruebas.obj.ErrorAnalisis;
 import com.carlos.pruebas.ED.Pila;
 import com.carlos.pruebas.obj.Token;
 import com.carlos.pruebas.obj.Union;
+import com.carlos.pruebas.obj.OcurrenciaOperador;
 import com.carlos.pruebas.obj.GraficaBarra;
 import com.carlos.pruebas.obj.GraficaPie;
 import java_cup.runtime.*;
@@ -250,13 +251,14 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
 
     private Lexer lexer;
     private SimbolosTerminales simbolosTerminales;
-
+    private ArrayList<OcurrenciaOperador> ocurrencias;
 
     
     public ParserGraphics (Lexer lexer){ 
         super(lexer);
         this.lexer=lexer;
         this.simbolosTerminales = new SimbolosTerminales();
+        this.ocurrencias = new ArrayList<>();
     }
 
     public void report_error(String message, Object info) {
@@ -300,6 +302,10 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
             System.out.println(error);
         }
         return status;
+    }
+
+    public ArrayList<OcurrenciaOperador> getOcurrencias() {
+        return ocurrencias;
     }
 
     protected int error_sync_size() {
@@ -835,10 +841,16 @@ class CUP$ParserGraphics$actions {
 		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
 		int num1right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).right;
 		Double num1 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
+		int sleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
+		Object s = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		int num2left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
 		int num2right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
 		Double num2 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
 		
+                                Token operador = (Token) s;
+                                String ocu = operador.getAntToken().getLexema() + " + ";
+                                ocurrencias.add(new OcurrenciaOperador("MAS",operador.getLinea(),operador.getColumna(),ocu));
                                 RESULT = (num1 + num2);
                             
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("e",6, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
@@ -852,6 +864,9 @@ class CUP$ParserGraphics$actions {
 		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
 		int num1right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).right;
 		Double num1 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
+		int sleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
+		Object s = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		int num2left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
 		int num2right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
 		Double num2 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
@@ -883,6 +898,9 @@ class CUP$ParserGraphics$actions {
 		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
 		int num1right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).right;
 		Double num1 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
+		int sleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
+		Object s = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		int num2left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
 		int num2right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
 		Double num2 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
@@ -900,6 +918,9 @@ class CUP$ParserGraphics$actions {
 		int num1left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).left;
 		int num1right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).right;
 		Double num1 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
+		int sleft = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).right;
+		Object s = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-1)).value;
 		int num2left = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).left;
 		int num2right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()).right;
 		Double num2 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.peek()).value;
