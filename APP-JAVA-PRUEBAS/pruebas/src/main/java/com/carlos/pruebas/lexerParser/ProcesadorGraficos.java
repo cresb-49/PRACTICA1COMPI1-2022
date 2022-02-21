@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.carlos.pruebas.ED.Pila;
 import com.carlos.pruebas.obj.ErrorAnalisis;
+import com.carlos.pruebas.obj.OcurrenciaOperador;
 
 public class ProcesadorGraficos {
     
@@ -126,5 +127,9 @@ public class ProcesadorGraficos {
     
     public int cantidadGraficosPie(){
         return this.lexer.getCountPie();
+    }
+
+    public ArrayList<OcurrenciaOperador> getOcurrenciaOperador(){
+        return this.parserGraphics.getOcurrencias();
     }
 }

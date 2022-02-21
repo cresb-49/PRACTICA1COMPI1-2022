@@ -8,6 +8,7 @@ import com.carlos.pruebas.lexerParser.Lexer;
 import com.carlos.pruebas.lexerParser.ParserGraphics;
 import com.carlos.pruebas.lexerParser.ProcesadorGraficos;
 import com.carlos.pruebas.obj.ErrorAnalisis;
+import com.carlos.pruebas.obj.OcurrenciaOperador;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -81,9 +82,13 @@ public class NewJFrame extends javax.swing.JFrame {
         
         ProcesadorGraficos graficos = new ProcesadorGraficos();
         graficos.ejecutar(jTextArea1.getText());
-        System.out.println("-------------Reporte Final----------");
+        System.out.println("-------------Reporte Errores----------");
         for (ErrorAnalisis reporteFinalErrore : graficos.getReporteFinalErrores()) {
             System.out.println(reporteFinalErrore.getLexema()+"|"+reporteFinalErrore.getLinea()+"|"+reporteFinalErrore.getColumna()+"|"+reporteFinalErrore.getTipo()+"|"+reporteFinalErrore.getDescipcion());
+        }
+        System.out.println("-------------Reporte Ocurrencias----------");
+        for (OcurrenciaOperador object : graficos.getOcurrenciaOperador()) {
+            System.out.println(object.toString());
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed

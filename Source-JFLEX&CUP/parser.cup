@@ -96,13 +96,14 @@ terminal            DEF, GRAPHICBARRA,GRAPHICPIE, TITTLE, EJEX, EJEY, LABEL, VAL
 
 
 /* Non terminals */
-non terminal                s;
-non terminal GraficaPie     contPie;
-non terminal GraficaBarra   contBarra;
-non terminal Pila<Double>   contEjeY;
-non terminal Pila<String>   contEjeX;
-non terminal Pila<Union>    contUnir;   
-non terminal Double         e,t,f;
+non terminal                    s;
+non terminal GraficaPie         contPie;
+non terminal GraficaBarra       contBarra;
+non terminal Pila<Double>       contEjeY;
+non terminal Pila<String>       contEjeX;
+non terminal Pila<Union>        contUnir;   
+non terminal Double             e;
+non terminal InicioOperacion    t,f;
 
 
 /* The grammar rules */
@@ -301,23 +302,44 @@ contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
 //GRAMAICA PARA EL RECONOCIMIENTO DE NUMEROS ENTEROS Y DECIMALES
 e   ::= e:num1 MAS:s t:num2   {:
                                 Token operador = (Token) s;
-                                String ocu = operador.getAntToken().getLexema() + " + ";
-                                ocurrencias.add(new OcurrenciaOperador("MAS",operador.getLinea(),operador.getColumna(),ocu));
-                                RESULT = (num1 + num2);
+                                if(num2!=null&&num1!=null){
+                                    String ocu = operador.getAntToken().getLexema() + " + " +num2.getToken().getLexema();
+                                    ocurrencias.add(new OcurrenciaOperador("MAS",operador.getLinea(),operador.getColumna(),ocu));
+                                    RESULT = num1+num2.getValue();
+                                }
                             :}
-    |   e:num1 MENOS:s t:num2 {:
-                                RESULT = (num1 - num2);
-                            :}
+    |   e:num1 MENOS:s t:num2   {:
+                                    Token operador = (Token) s;
+                                    if(num2!=null&&num1!=null){
+                                        String ocu = operador.getAntToken().getLexema() + " - " +num2.getToken().getLexema();
+                                        ocurrencias.add(new OcurrenciaOperador("MENOS",operador.getLinea(),operador.getColumna(),ocu));
+                                        RESULT = num1-num2.getValue();
+                                    }
+                                :}
     |   t:exp               {:
-                                RESULT = exp;
+                                if(exp!=null){
+                                    RESULT = exp.getValue();
+                                }
                             :}
     ;
 
-t   ::= t:num1 MUL:s f:num2   {:
-                                RESULT = (num1*num2);
+t   ::= t:num1 MUL:s f:num2 {:
+                                Token operador = (Token) s;
+                                if(num1!=null&&num2!=null){
+                                    num2.setValue(num1.getValue()*num2.getValue());
+                                    String ocu = operador.getAntToken().getLexema() + " * " +num2.getToken().getLexema();
+                                    ocurrencias.add(new OcurrenciaOperador("Multiplicación",operador.getLinea(),operador.getColumna(),ocu));
+                                }
+                                RESULT = num2;
                             :}
-    |   t:num1 DIV:s f:num2   {:
-                                RESULT = (num1/num2);
+    |   t:num1 DIV:s f:num2 {:
+                                Token operador = (Token) s;
+                                if(num1!=null&&num2!=null){
+                                    num2.setValue(num1.getValue()/num2.getValue());
+                                    String ocu = operador.getAntToken().getLexema() + " / " +num2.getToken().getLexema();
+                                    ocurrencias.add(new OcurrenciaOperador("División",operador.getLinea(),operador.getColumna(),ocu));
+                                }
+                                RESULT = num2;
                             :}             
     |   f:exp               {:
                                 RESULT = exp;
@@ -325,15 +347,16 @@ t   ::= t:num1 MUL:s f:num2   {:
     ;
 
 f   ::= NUMBERS:num     {:
-                            RESULT = (Double) ((Token)num).getValue();
+                            Token tmp = (Token) num;
+                            RESULT = new InicioOperacion((Double) tmp.getValue(),tmp);
                         :}
     |   DECIMAL:num     {:
-                            RESULT = (Double) ((Token)num).getValue();
+                            Token tmp = (Token) num;
+                            RESULT = new InicioOperacion((Double) tmp.getValue(),tmp);
                         :}
-    |   PA_A e:exp PA_C
-                        {:
-                            RESULT = exp;
-                        :}
+    |   PA_A:ini e:exp PA_C {:
+                                RESULT = new InicioOperacion(exp,(Token)ini);
+                            :}
     |   error f
     ;
 // recuperacion de vectores del lenguaje
