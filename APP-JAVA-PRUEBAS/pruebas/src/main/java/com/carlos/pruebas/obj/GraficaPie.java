@@ -110,7 +110,7 @@ public class GraficaPie extends Grafica{
             }
         }else{
             if(this.total != null){
-                errores.add("Grafica de Pie, es necesario definir el parametro \"total\"");
+                errores.add("Grafica de Pie, no es necesario definir el parametro \"total\"");
             }
         }
         if(this.unir == null){

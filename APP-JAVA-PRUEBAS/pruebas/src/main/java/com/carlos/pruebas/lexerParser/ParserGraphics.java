@@ -303,8 +303,8 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         boolean status = false;
         for (String errore : errores) {
             status = true;
-            String error = "Error en definicion, "+errore+"\nUbicacion general --> Linea: "+ini.getLinea()+" a Linea: "+fin.getLinea();
-            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "", ini.getLinea(), ini.getColumna(), error));
+            String error = "Error en definicion, "+errore+" Ubicacion general --> Linea: "+ini.getLinea()+" a Linea: "+fin.getLinea();
+            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, ini.getLexema(), ini.getLinea(), ini.getColumna(), error));
             System.out.println(error);
         }
         return status;
