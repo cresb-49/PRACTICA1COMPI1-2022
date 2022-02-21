@@ -108,9 +108,16 @@ public class GraficaPie extends Grafica{
             if(this.total == null){
                 errores.add("Grafica de Pie, no esta definido el parametro \"total\"");
             }
+        }else{
+            if(this.total != null){
+                errores.add("Grafica de Pie, es necesario definir el parametro \"total\"");
+            }
         }
         if(this.unir == null){
             errores.add("Grafica de Pie, no esta definido el parametro \"unir\"");
+        }
+        if(this.extra == null){
+            errores.add("Grafica de Pie, no esta definido el parametro \"extra\"");
         }
     }
 
