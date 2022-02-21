@@ -262,8 +262,10 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     }
 
     public void syntax_error(Symbol cur_token) {
-        System.out.println("Error sintactico: " + ParserGraphicsSym.terminalNames[cur_token.sym]);
-        System.out.println(String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right));
+        Token tok = (Token) cur_token.value;
+        String er = "Error sintactico: " + tok.getLexema()+" ,Posibles parametros Esperados: "+expected_token_ids().toString()+"\n"+String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right);
+        //System.out.println("Error sintactico: " + ParserGraphicsSym.terminalNames[cur_token.sym]);
+        System.out.println(er);
     }
 
     public void unrecovered_syntax_error(Symbol cur_token) {
@@ -1050,15 +1052,16 @@ class CUP$ParserGraphics$actions {
 		
                                                                         RESULT = pila;
                                                                         if(RESULT!=null){
-
-                                                                            Double mod = num1 % 2;
-                                                                            if(mod==1||mod==0){
-                                                                                System.out.println("El numero: "+num1+", es entero");
-                                                                            }else{
-                                                                                System.out.println("El numero: "+num1+", es decimal");
+                                                                            if(num1!=null && num2!=null){
+                                                                                Double mod1 = num1 % 2;
+                                                                                Double mod2 = num2 % 2;
+                                                                                if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
+                                                                                    System.out.println("El numero: "+num1+", es entero");
+                                                                                }else{
+                                                                                    System.out.println("El numero: "+num1+", es decimal");
+                                                                                }
+                                                                                RESULT.push(new Union(num1.intValue(),num2.intValue()));
                                                                             }
-
-                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));    
                                                                         }
                                                                     
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contUnir",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-6)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
@@ -1076,14 +1079,18 @@ class CUP$ParserGraphics$actions {
 		int num2right = ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).right;
 		Double num2 = (Double)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
 		
-                                                                        RESULT = new Pila<>();
-                                                                        Double mod = num1 % 2;
-                                                                        if(mod==1||mod==0){
-                                                                            System.out.println("El numero: "+num1+", es entero");
-                                                                        }else{
-                                                                            System.out.println("El numero: "+num1+", es decimal");
+                                                                        
+                                                                        if(num1!=null && num2!=null){
+                                                                            RESULT = new Pila<>();
+                                                                            Double mod1 = num1 % 2;
+                                                                            Double mod2 = num2 % 2;
+                                                                            if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
+                                                                                System.out.println("El numero: "+num1+", es entero");
+                                                                            }else{
+                                                                                System.out.println("El numero: "+num1+", es decimal");
+                                                                            }
+                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));
                                                                         }
-                                                                        RESULT.push(new Union(num1.intValue(),num2.intValue()));
                                                                     
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contUnir",5, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }

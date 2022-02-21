@@ -3,7 +3,6 @@ package com.carlos.pruebas.lexerParser;
 import java.util.ArrayList;
 
 import com.carlos.pruebas.obj.ErrorAnalisis;
-
 import com.carlos.pruebas.ED.Pila;
 import com.carlos.pruebas.obj.Token;
 import com.carlos.pruebas.obj.Union;
@@ -35,8 +34,10 @@ parser code {:
     }
 
     public void syntax_error(Symbol cur_token) {
-        System.out.println("Error sintactico: " + ParserGraphicsSym.terminalNames[cur_token.sym]);
-        System.out.println(String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right));
+        Token tok = (Token) cur_token.value;
+        String er = "Error sintactico: " + tok.getLexema()+" ,Posibles simbolos esperados: "+expected_token_ids().toString()+"\n"+String.format("Linea: %d,Columna: %d", cur_token.left, cur_token.right);
+        //System.out.println("Error sintactico: " + ParserGraphicsSym.terminalNames[cur_token.sym]);
+        System.out.println(er);
     }
 
     public void unrecovered_syntax_error(Symbol cur_token) {
@@ -345,25 +346,30 @@ contEjeX    ::= STRING:cadena COMA contEjeX:pila    {:
 contUnir    ::= LLA_A e:num1 COMA e:num2 LLA_C COMA contUnir:pila   {:
                                                                         RESULT = pila;
                                                                         if(RESULT!=null){
-
-                                                                            Double mod = num1 % 2;
-                                                                            if(mod==1||mod==0){
+                                                                            if(num1!=null && num2!=null){
+                                                                                Double mod1 = num1 % 2;
+                                                                                Double mod2 = num2 % 2;
+                                                                                if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
+                                                                                    System.out.println("El numero: "+num1+", es entero");
+                                                                                }else{
+                                                                                    System.out.println("El numero: "+num1+", es decimal");
+                                                                                }
+                                                                                RESULT.push(new Union(num1.intValue(),num2.intValue()));
+                                                                            }
+                                                                        }
+                                                                    :}
+            |   LLA_A e:num1 COMA e:num2 LLA_C CO_C                 {:
+                                                                        
+                                                                        if(num1!=null && num2!=null){
+                                                                            RESULT = new Pila<>();
+                                                                            Double mod1 = num1 % 2;
+                                                                            Double mod2 = num2 % 2;
+                                                                            if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
                                                                                 System.out.println("El numero: "+num1+", es entero");
                                                                             }else{
                                                                                 System.out.println("El numero: "+num1+", es decimal");
                                                                             }
-
-                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));    
+                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue()));
                                                                         }
-                                                                    :}
-            |   LLA_A e:num1 COMA e:num2 LLA_C CO_C                 {:
-                                                                        RESULT = new Pila<>();
-                                                                        Double mod = num1 % 2;
-                                                                        if(mod==1||mod==0){
-                                                                            System.out.println("El numero: "+num1+", es entero");
-                                                                        }else{
-                                                                            System.out.println("El numero: "+num1+", es decimal");
-                                                                        }
-                                                                        RESULT.push(new Union(num1.intValue(),num2.intValue()));
                                                                     :}
             ;
