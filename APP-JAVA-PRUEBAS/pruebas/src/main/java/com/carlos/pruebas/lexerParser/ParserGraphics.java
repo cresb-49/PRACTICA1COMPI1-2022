@@ -250,6 +250,7 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     private static final String ERROR_TYPE_SIN = "Sintactico";
     private static final String ERROR_TYPE_SEM = "Semantico";
     private static final String ERROR_TYPE_EJE = "Ejecucion";
+    private static final String ERROR_TYPE_CRE = "Creacion";
 
     private Lexer lexer;
     private SimbolosTerminales simbolosTerminales;
@@ -277,20 +278,26 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
 
     public void syntax_error(Symbol cur_token) {
         Token tok = (Token) cur_token.value;
-        String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
-        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,tok.getLexema(), tok.getLinea(), tok.getColumna(), er));
-        System.out.println(er);
+        if(tok!=null){
+            String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,tok.getLexema(), tok.getLinea(), tok.getColumna(), er));
+            System.out.println(er);
+        }else{
+            String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,"FIN ARCHIVO", cur_token.left, cur_token.right, er));
+            System.out.println(er);
+        }
     }
 
     public void unrecovered_syntax_error(Symbol cur_token) {
         if (cur_token.sym == ParserGraphicsSym.EOF) {
             String er = "Error irrecuperable se llego al final del archivo";
-            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN, "", cur_token.left, cur_token.right, er));
+            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,"FIN ARCHIVO", cur_token.left, cur_token.right, er));
             System.out.println(er);
         } else {
             Token tok = (Token) cur_token.value;
             String er = "Error irrecuperable, un posible simbolo esperado: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
-            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN, "", tok.getLinea(), tok.getColumna(), er));
+            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN, tok.getLexema(), tok.getLinea(), tok.getColumna(), er));
             System.out.println(er);
         }
     }
@@ -312,6 +319,10 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
 
     private void execution_error_grap(Token token,String nameGra){
         this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_EJE, nameGra, token.getLinea(), token.getColumna(), "La grafica que desea ejecutar no existe"));
+    }
+
+    private void error_grap_def(Token token,String nameGra){
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_CRE, nameGra, token.getLinea(), token.getColumna(), ", Ya existe una grafica con ese titulo asigne uno distinto"));
     }
 
     public ArrayList<OcurrenciaOperador> getOcurrencias() {
@@ -380,11 +391,16 @@ class CUP$ParserGraphics$actions {
 		
                                                             if(gb!=null){
                                                                 System.out.println("Grafica: "+gb.getTitulo());
-                                                                if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
-                                                                    graficasGeneradas.add(gb);
-                                                                    System.out.println("Grafica Valida");
+                                                                if(buscarGrafica(gb.getTitulo())){
+                                                                    System.out.println("La Grafica: "+gb.getTitulo()+", ya existe");
+                                                                    error_grap_def((Token) ini, gb.getTitulo());
                                                                 }else{
-                                                                    System.out.println("Grafica No Valida");
+                                                                    if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
+                                                                        graficasGeneradas.add(gb);
+                                                                        System.out.println("Grafica Valida");
+                                                                    }else{
+                                                                        System.out.println("Grafica No Valida");
+                                                                    }
                                                                 }
                                                             }
                                                         
@@ -422,11 +438,16 @@ class CUP$ParserGraphics$actions {
 		
                                                         if(gp!=null){
                                                             System.out.println("Grafica: "+gp.getTitulo());
-                                                            if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
-                                                                graficasGeneradas.add(gp);
-                                                                System.out.println("Grafica Valida");
+                                                            if(buscarGrafica(gp.getTitulo())){
+                                                                System.out.println("La Grafica: "+gp.getTitulo()+", ya existe");
+                                                                error_grap_def((Token) ini, gp.getTitulo());
                                                             }else{
-                                                                System.out.println("Grafica No Valida");
+                                                                if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
+                                                                    graficasGeneradas.add(gp);
+                                                                    System.out.println("Grafica Valida");
+                                                                }else{
+                                                                    System.out.println("Grafica No Valida");
+                                                                }
                                                             }
                                                         }
                                                     
@@ -475,11 +496,16 @@ class CUP$ParserGraphics$actions {
 		
                                                         if(gb!=null){
                                                             System.out.println("Grafica: "+gb.getTitulo());
-                                                            if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
-                                                                graficasGeneradas.add(gb);
-                                                                System.out.println("Grafica Valida");
+                                                            if(buscarGrafica(gb.getTitulo())){
+                                                                System.out.println("La Grafica: "+gb.getTitulo()+", ya existe");
+                                                                error_grap_def((Token) ini, gb.getTitulo());
                                                             }else{
-                                                                System.out.println("Grafica No Valida");
+                                                                if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
+                                                                    graficasGeneradas.add(gb);
+                                                                    System.out.println("Grafica Valida");
+                                                                }else{
+                                                                    System.out.println("Grafica No Valida");
+                                                                }
                                                             }
                                                         }
                                                     
@@ -503,11 +529,16 @@ class CUP$ParserGraphics$actions {
 		
                                                     if(gp!=null){
                                                         System.out.println("Grafica: "+gp.getTitulo());
-                                                        if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
-                                                            graficasGeneradas.add(gp);
-                                                            System.out.println("Grafica Valida");
+                                                        if(buscarGrafica(gp.getTitulo())){
+                                                            System.out.println("La Grafica: "+gp.getTitulo()+", ya existe");
+                                                            error_grap_def((Token) ini, gp.getTitulo());
                                                         }else{
-                                                            System.out.println("Grafica No Valida");
+                                                            if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
+                                                                graficasGeneradas.add(gp);
+                                                                System.out.println("Grafica Valida");
+                                                            }else{
+                                                                System.out.println("Grafica No Valida");
+                                                            }
                                                         }
                                                     }
                                                 
