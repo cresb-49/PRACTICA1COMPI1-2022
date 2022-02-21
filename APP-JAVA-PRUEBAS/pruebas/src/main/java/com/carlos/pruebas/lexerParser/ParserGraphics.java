@@ -255,6 +255,7 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     private SimbolosTerminales simbolosTerminales;
     private ArrayList<OcurrenciaOperador> ocurrencias;
     private ArrayList<Grafica> graficasGeneradas;
+    private ArrayList<String> graficasEjecutar;
 
     
     public ParserGraphics (Lexer lexer){ 
@@ -263,6 +264,7 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         this.simbolosTerminales = new SimbolosTerminales();
         this.ocurrencias = new ArrayList<>();
         this.graficasGeneradas = new ArrayList<>();
+        this.graficasEjecutar = new ArrayList<>();
     }
 
     public void report_error(String message, Object info) {
@@ -293,11 +295,11 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         }
     }
 
-    public void semantic_error(Token token,String contexto) {
+    private void semantic_error(Token token,String contexto) {
         this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM,token.getLexema(), token.getLinea(), token.getColumna(), contexto));
     }
 
-    public boolean definition_error(Token ini,Token fin,ArrayList<String> errores){
+    private boolean definition_error(Token ini,Token fin,ArrayList<String> errores){
         boolean status = false;
         for (String errore : errores) {
             status = true;
@@ -308,7 +310,9 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         return status;
     }
 
-    asfjjkafgsd
+    private void execution_error_grap(Token token,String nameGra){
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_EJE, nameGra, token.getLinea(), token.getColumna(), "La grafica que desea ejecutar no existe"));
+    }
 
     public ArrayList<OcurrenciaOperador> getOcurrencias() {
         return ocurrencias;
@@ -438,6 +442,14 @@ class CUP$ParserGraphics$actions {
 		Object gn = (Object)((java_cup.runtime.Symbol) CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)).value;
 		
                                                         System.out.println("Grafico ejecutar: "+(String)((Token)gn).getValue());
+                                                        Token strin = (Token) gn;
+                                                        Token exe = (Token) ex;
+                                                        if(buscarGrafica((String) strin.getValue())){
+                                                            graficasEjecutar.add((String) strin.getValue());
+                                                        }else{
+                                                            System.out.println("---La Grafica no existe");
+                                                            execution_error_grap(exe, (String) strin.getValue());
+                                                        }
                                                     
               CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-5)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
             }

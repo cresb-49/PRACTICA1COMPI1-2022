@@ -27,6 +27,7 @@ parser code {:
     private SimbolosTerminales simbolosTerminales;
     private ArrayList<OcurrenciaOperador> ocurrencias;
     private ArrayList<Grafica> graficasGeneradas;
+    private ArrayList<String> graficasEjecutar;
 
     
     public ParserGraphics (Lexer lexer){ 
@@ -35,6 +36,7 @@ parser code {:
         this.simbolosTerminales = new SimbolosTerminales();
         this.ocurrencias = new ArrayList<>();
         this.graficasGeneradas = new ArrayList<>();
+        this.graficasEjecutar = new ArrayList<>();
     }
 
     public void report_error(String message, Object info) {
@@ -80,8 +82,8 @@ parser code {:
         return status;
     }
 
-    private void execution_error(Token token,String name,String nameGra){
-        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_EJE, name, token.getLinea(), token.getColumna(), "La grafica que desea ejecutar no existe"));
+    private void execution_error_grap(Token token,String nameGra){
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_EJE, nameGra, token.getLinea(), token.getColumna(), "La grafica que desea ejecutar no existe"));
     }
 
     public ArrayList<OcurrenciaOperador> getOcurrencias() {
@@ -153,6 +155,14 @@ s   ::= s DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin   {:
                                                     :}
     |   s EXECUTE:ex PA_A STRING:gn PA_C PUNTOCOMA  {:
                                                         System.out.println("Grafico ejecutar: "+(String)((Token)gn).getValue());
+                                                        Token strin = (Token) gn;
+                                                        Token exe = (Token) ex;
+                                                        if(buscarGrafica((String) strin.getValue())){
+                                                            graficasEjecutar.add((String) strin.getValue());
+                                                        }else{
+                                                            System.out.println("---La Grafica no existe");
+                                                            execution_error_grap(exe, (String) strin.getValue());
+                                                        }
                                                     :}
     |   DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin {:
                                                         if(gb!=null){
