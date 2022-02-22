@@ -20,7 +20,7 @@ public class ConvertRow {
     public ArrayList<String[]> ejemplo(){
         ArrayList<String[]> erros = new ArrayList<>();
         String[] tmp;
-        for(int i =0;i<3;i++){
+        for(int i =0;i<20;i++){
             tmp = new String[] {"&", "2", "13", "Léxico", "Símbolo no existe en el lenguaje"};
             erros.add(tmp);
         }

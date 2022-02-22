@@ -43,7 +43,7 @@ public class TableDynamicError {
     private void newCell(){
         txtCell = new TextView(context);
         txtCell.setGravity(Gravity.CENTER);
-        txtCell.setTextSize(25);
+        txtCell.setTextSize(17);
     }
 
     private void createHeader(){
