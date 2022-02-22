@@ -19,10 +19,4 @@ class ContendersGraphics : AppCompatActivity() {
         layout = findViewById(R.id.LinearLayout)
 
     }
-
-    fun agregarGraficas(){
-        var pieChart : PieChart
-        var barChart : BarChart
-
-    }
 }
