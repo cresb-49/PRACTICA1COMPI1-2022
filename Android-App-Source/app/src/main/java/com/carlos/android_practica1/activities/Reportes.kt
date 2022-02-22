@@ -9,16 +9,24 @@ import com.carlos.android_practica1.backened.obj.ConvertRow
 
 class Reportes : AppCompatActivity() {
 
-    private lateinit var tableLayout : TableLayout
-    private val header = arrayOf("Lexema","Línea","Columna","Tipo","Descripción")
+    private lateinit var tableLayoutError : TableLayout
+    private lateinit var tableLayoutGraphics : TableLayout
+    private lateinit var tableLayoutOcurrencias : TableLayout
+    private val headerError = arrayOf("Lexema","Línea","Columna","Tipo","Descripción")
+    private val headerGraphics = arrayOf("Operador","Línea","Columna","Ejemplo de Ocurrencia")
+    private val headerOcurrencias = arrayOf("Objeto","Cantidad de Definiciones")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reportes)
-        tableLayout = findViewById(R.id.tableError);
+        tableLayoutError = findViewById(R.id.tableError);
+        tableLayoutGraphics = findViewById(R.id.tableGraphics);
+        tableLayoutOcurrencias = findViewById(R.id.tableOcurrencias);
         recibirDatos()
-        rellenarTabla();
+        rellenarTablaErrores()
+        rellenarTablaGraficos()
+        rellenarTablaOcurrencias()
     }
 
     fun recibirDatos(){
@@ -27,10 +35,24 @@ class Reportes : AppCompatActivity() {
         println("Datos recibidos: "+datos)
     }
 
-    fun rellenarTabla(){
-        val tableDynamicError = TableDynamicError(tableLayout,applicationContext)
-        tableDynamicError.addHeader(header)
+    fun rellenarTablaErrores(){
+        val tableDynamicError = TableDynamicError(tableLayoutError,applicationContext)
+        tableDynamicError.addHeader(headerError)
         val convertRow = ConvertRow()
-        tableDynamicError.addData(convertRow.ejemplo())
+        tableDynamicError.addData(convertRow.ejemplo1())
+    }
+
+    fun rellenarTablaGraficos(){
+        val tableDynamicError = TableDynamicError(tableLayoutGraphics,applicationContext)
+        tableDynamicError.addHeader(headerGraphics)
+        val convertRow = ConvertRow()
+        tableDynamicError.addData(convertRow.ejemplo2())
+    }
+
+    fun rellenarTablaOcurrencias(){
+        val tableDynamicError = TableDynamicError(tableLayoutOcurrencias,applicationContext)
+        tableDynamicError.addHeader(headerOcurrencias)
+        val convertRow = ConvertRow()
+        tableDynamicError.addData(convertRow.ejemplo3())
     }
 }
