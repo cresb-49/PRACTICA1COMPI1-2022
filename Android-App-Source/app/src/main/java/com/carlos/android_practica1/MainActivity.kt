@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
                 if(info!=null){
                     val procesador = ProcesadorGraficos()
                     procesador.ejecutar(info)
-
                     val errores = procesador.reporteFinalErrores
                     println(errores.toString())
 
