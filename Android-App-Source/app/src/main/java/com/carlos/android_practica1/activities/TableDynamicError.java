@@ -6,6 +6,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class TableDynamicError {
@@ -16,7 +18,9 @@ public class TableDynamicError {
     private String[]header;
     private TableRow tableRow;
     private TextView txtCell;
+    private int primercolor,segundocolor;
 
+    private boolean multicolor =false;
     private int indexC;
     private int indexR;
 
@@ -71,9 +75,62 @@ public class TableDynamicError {
             tableLayout.addView(tableRow,newTableRowParams());
         }
     }
+
+    public void backgroundHeader(int color){
+        indexC = 0;
+        while (indexC<header.length){
+            txtCell=getCell(0,indexC++);
+            txtCell.setBackgroundColor(color);
+        }
+    }
+
+    public void lineColor(int color){
+        indexR =0;
+        while(indexR<data.size()){
+            getRow(indexR++).setBackgroundColor(color);
+        }
+    }
+
+    public void textColorData(int color){
+        for(indexR=1;indexR<=data.size();indexR++){
+            for(indexC=0;indexC<header.length;indexC++){
+                getCell(indexR,indexC).setTextColor(color);
+            }
+        }
+    }
+
+    public void textColorHeader(int color){
+        indexC=0;
+        while (indexC<header.length){
+            getCell(0,indexC++).setTextColor(color);
+        }
+    }
+
+    public void backgroundData(int primercolor,int segundocolor){
+        for(indexR=1;indexR<=data.size();indexR++){
+            multicolor=!multicolor;
+            for(indexC=0;indexC<header.length;indexC++){
+                txtCell=getCell(indexR,indexC);
+                txtCell.setBackgroundColor((multicolor)?primercolor:segundocolor);
+            }
+        }
+        this.primercolor =primercolor;
+        this.segundocolor =segundocolor;
+    }
+
+
+    private TableRow getRow(int index){
+        return (TableRow) tableLayout.getChildAt(index);
+    }
+
+    private TextView getCell(int rowIndex,int columnIndex){
+        tableRow = getRow(rowIndex);
+        return (TextView) tableRow.getChildAt(columnIndex);
+    }
+
     private TableRow.LayoutParams newTableRowParams(){
         TableRow.LayoutParams params = new TableRow.LayoutParams();
-        params.setMargins(1,1,3,1);
+        params.setMargins(5,1,5,1);
         params.weight=1;
         return params;
     }

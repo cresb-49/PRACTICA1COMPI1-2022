@@ -1,6 +1,7 @@
 package com.carlos.android_practica1.activities
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TableLayout
@@ -40,6 +41,10 @@ class Reportes : AppCompatActivity() {
         tableDynamicError.addHeader(headerError)
         val convertRow = ConvertRow()
         tableDynamicError.addData(convertRow.ejemplo1())
+        tableDynamicError.backgroundHeader(Color.rgb(10,109,125))
+        tableDynamicError.backgroundData(Color.rgb(177,217,223),Color.rgb(230,245,247))
+        tableDynamicError.textColorData(Color.BLACK)
+        tableDynamicError.textColorHeader(Color.BLACK)
     }
 
     fun rellenarTablaGraficos(){
@@ -47,6 +52,10 @@ class Reportes : AppCompatActivity() {
         tableDynamicError.addHeader(headerGraphics)
         val convertRow = ConvertRow()
         tableDynamicError.addData(convertRow.ejemplo2())
+        tableDynamicError.backgroundHeader(Color.rgb(118,68,138))
+        tableDynamicError.backgroundData(Color.rgb(195,155,211),Color.rgb(235,222,240))
+        tableDynamicError.textColorData(Color.BLACK)
+        tableDynamicError.textColorHeader(Color.BLACK)
     }
 
     fun rellenarTablaOcurrencias(){
@@ -54,5 +63,9 @@ class Reportes : AppCompatActivity() {
         tableDynamicError.addHeader(headerOcurrencias)
         val convertRow = ConvertRow()
         tableDynamicError.addData(convertRow.ejemplo3())
+        tableDynamicError.backgroundHeader(Color.rgb(236,120,70))
+        tableDynamicError.backgroundData(Color.rgb(249,164,127),Color.rgb(254,214,196))
+        tableDynamicError.textColorData(Color.BLACK)
+        tableDynamicError.textColorHeader(Color.BLACK)
     }
 }
