@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TableLayout
 import com.carlos.android_practica1.R
+import com.carlos.android_practica1.backened.obj.ConvertRow
 
 class Reportes : AppCompatActivity() {
 
@@ -15,8 +16,9 @@ class Reportes : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reportes)
-        tableLayout = findViewById(R.id.TabLinearLayout)
+        tableLayout = findViewById(R.id.tableError);
         recibirDatos()
+        rellenarTabla();
     }
 
     fun recibirDatos(){
@@ -27,7 +29,8 @@ class Reportes : AppCompatActivity() {
 
     fun rellenarTabla(){
         val tableDynamicError = TableDynamicError(tableLayout,applicationContext)
-        tableDynamicError.addHeader(header);
-
+        tableDynamicError.addHeader(header)
+        val convertRow = ConvertRow()
+        tableDynamicError.addData(convertRow.ejemplo())
     }
 }

@@ -28,10 +28,12 @@ public class TableDynamicError {
 
     public void addHeader(String[]header){
         this.header = header;
+        createHeader();
     }
 
     public void addData(ArrayList<String[]>data){
         this.data =data;
+        createDataTable();
     }
 
     private void newRow(){
@@ -55,9 +57,9 @@ public class TableDynamicError {
         tableLayout.addView(tableRow);
     }
 
-    private void CreateDataTable(){
+    private void createDataTable(){
         String info;
-        for(indexR=1;indexR<=header.length;indexR++){
+        for(indexR=1;indexR<=data.size();indexR++){
             newRow();
             for(indexC=0;indexC<header.length;indexC++){
                 newCell();
