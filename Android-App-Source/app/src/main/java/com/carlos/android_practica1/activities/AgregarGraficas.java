@@ -2,6 +2,8 @@ package com.carlos.android_practica1.activities;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -20,6 +22,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;
 
@@ -44,31 +48,35 @@ public class AgregarGraficas {
 
     public void agregarPie(){
         pieChart = new PieChart(context);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        pieChart.setLayoutParams(layoutParams);
-
-
-        this.linearLayout.addView(pieChart);
+        pieChart.setMinimumHeight(700);
+        linearLayout.addView(pieChart);
     }
 
     public void agregarBarra(){
         barChart = new BarChart(context);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        barChart.setLayoutParams(layoutParams);
-
-        this.linearLayout.addView(barChart);
+        barChart.setMinimumHeight(700);
+        linearLayout.addView(barChart);
     }
 
-    private Chart getSameChart(Chart chart,String descripcion,int textColor,int backgroudColor,int timeAnimation){
+    private Chart getSameChartBarra(Chart chart,String descripcion,int textColor,int backgroudColor,int timeAnimation){
+        //chart.getDescription().setText(descripcion);
+        //chart.getDescription().setTextSize(25);
+        chart.setBackgroundColor(backgroudColor);
+        chart.animateY(timeAnimation);
+        leyendaBarr(chart,descripcion);
+        return chart;
+    }
+
+    private Chart getSameChartPie(Chart chart,String descripcion,int textColor,int backgroudColor,int timeAnimation){
         chart.getDescription().setText(descripcion);
         chart.getDescription().setTextSize(25);
         chart.setBackgroundColor(backgroudColor);
         chart.animateY(timeAnimation);
-        leyenda(chart);
+        leyendaPie(chart);
         return chart;
     }
 
-    private void leyenda(Chart chart){
+    private void leyendaPie(Chart chart){
         Legend legend = chart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
@@ -80,6 +88,18 @@ public class AgregarGraficas {
             entry.label=meses[i];
             entries.add(entry);
         }
+        legend.setCustom(entries);
+    }
+    private void leyendaBarr(Chart chart,String description){
+        Legend legend = chart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setTextSize(25);
+        ArrayList<LegendEntry>entries = new ArrayList<>();
+        LegendEntry entry = new LegendEntry();
+        entry.formColor=Color.rgb(93,109,126);
+        entry.label=description;
+        entries.add(entry);
         legend.setCustom(entries);
     }
 
@@ -115,7 +135,8 @@ public class AgregarGraficas {
     }
 
     public void createChart(){
-        barChart= (BarChart) getSameChart(barChart,"Series",Color.RED,Color.CYAN,3000);
+        barChart= (BarChart) getSameChartBarra(barChart,"Series",Color.RED,Color.rgb(220, 118, 51),3000);
+        barChart.setTouchEnabled(false);
         barChart.setDrawGridBackground(true);
         barChart.setDrawBarShadow(true);
         barChart.setData(getBarData());
@@ -124,16 +145,23 @@ public class AgregarGraficas {
         axisYLeft(barChart.getAxisLeft());
         axisYRigth(barChart.getAxisRight());
 
-        pieChart=(PieChart) getSameChart(pieChart,"Ventas",Color.GRAY,Color.MAGENTA,3000);
+
+        pieChart=(PieChart) getSameChartPie(pieChart,"Ventas",Color.GRAY,Color.MAGENTA,3000);
+        pieChart.setTouchEnabled(false);
         pieChart.setHoleRadius(10);
         pieChart.setTransparentCircleRadius(12);
         pieChart.setData(getPieData());
         pieChart.invalidate();
         //pieChart.setDrawHoleEnabled(false);
-
     }
 
-    private DataSet getData(DataSet dataSet){
+    private DataSet getDataBarra(DataSet dataSet){
+        dataSet.setColor(Color.rgb(93,109,126));
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setValueTextSize(10);
+        return dataSet;
+    }
+    private DataSet getDataPie(DataSet dataSet){
         dataSet.setColors(colors);
         dataSet.setValueTextColor(Color.WHITE);
         dataSet.setValueTextSize(10);
@@ -141,19 +169,18 @@ public class AgregarGraficas {
     }
 
     private BarData getBarData(){
-        BarDataSet barDataSet = (BarDataSet)getData(new BarDataSet(getBarEntries(),""));
-        barDataSet.setBarShadowColor(Color.GRAY);
+        BarDataSet barDataSet = (BarDataSet)getDataBarra(new BarDataSet(getBarEntries(),""));
+        barDataSet.setBarShadowColor(Color.TRANSPARENT);
         BarData barData = new BarData((barDataSet));
         barData.setBarWidth(0.45f);
         return  barData;
     }
 
     private PieData getPieData(){
-        PieDataSet pieDataSet = (PieDataSet)getData(new PieDataSet(getPieEntries(),""));
+        PieDataSet pieDataSet = (PieDataSet)getDataPie(new PieDataSet(getPieEntries(),""));
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueFormatter(new PercentFormatter());
         return new PieData(pieDataSet);
     }
-
 
 }
