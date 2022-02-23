@@ -4,7 +4,9 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TableLayout
+import android.widget.TextView
 import com.carlos.android_practica1.R
 import com.carlos.android_practica1.backened.lexerParser.PaqueteReportes
 import com.carlos.android_practica1.backened.obj.ConvertRow
@@ -14,6 +16,10 @@ class Reportes : AppCompatActivity() {
     private lateinit var tableLayoutError : TableLayout
     private lateinit var tableLayoutGraphics : TableLayout
     private lateinit var tableLayoutOcurrencias : TableLayout
+    private lateinit var labelError : TextView
+    private lateinit var labelGraphics: TextView
+    private lateinit var labelOcurrencia : TextView
+
     private val headerError = arrayOf("Lexema","Línea","Columna","Tipo","Descripción")
     private val headerGraphics = arrayOf("Operador","Línea","Columna","Ocurrencia")
     private val headerOcurrencias = arrayOf("Objeto","Cantidad de Definiciones")
@@ -25,6 +31,12 @@ class Reportes : AppCompatActivity() {
         tableLayoutError = findViewById(R.id.tableError);
         tableLayoutGraphics = findViewById(R.id.tableGraphics);
         tableLayoutOcurrencias = findViewById(R.id.tableOcurrencias);
+
+
+        labelError = findViewById(R.id.labelError)
+        labelGraphics = findViewById(R.id.labelGraphics)
+        labelOcurrencia =findViewById(R.id.labelOcurrencia)
+
         recibirDatos()
     }
 
@@ -33,9 +45,15 @@ class Reportes : AppCompatActivity() {
         if(datos!=null){
 
             if(datos.erroresFinal.isEmpty()){
+                labelError.visibility = View.INVISIBLE
+                labelGraphics.visibility =View.VISIBLE
+                labelOcurrencia.visibility =View.VISIBLE
                 rellenarTablaGraficos(datos)
                 rellenarTablaOcurrencias(datos)
             }else{
+                labelError.visibility = View.VISIBLE
+                labelGraphics.visibility =View.INVISIBLE
+                labelOcurrencia.visibility =View.INVISIBLE
                 rellenarTablaErrores(datos)
             }
             println("Se recuperaron los datos")
