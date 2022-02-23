@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         buttonProcesar = findViewById(R.id.buttonProcesar)
         buttonReportes = findViewById(R.id.buttonReportes)
         buttonGraficas = findViewById(R.id.buttonGrafica)
+        buttonGraficas.isEnabled=false
 
         buttonProcesar.setOnClickListener { view ->
 
@@ -40,8 +41,10 @@ class MainActivity : AppCompatActivity() {
                     paqueteReportes = procesador.paqueteReportes
                     if(paqueteReportes.erroresFinal.isEmpty()){
                         graficas = procesador.graficasGraficar
+                        buttonGraficas.isEnabled=true
                         //graficar()
                     }else{
+                        buttonGraficas.isEnabled=false
                         reportes();
                     }
                 }else{
@@ -52,14 +55,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-
         buttonReportes.setOnClickListener { view ->
             reportes()
         }
 
         buttonGraficas.setOnClickListener { view ->
-            reportes()
+            graficar()
         }
     }
 

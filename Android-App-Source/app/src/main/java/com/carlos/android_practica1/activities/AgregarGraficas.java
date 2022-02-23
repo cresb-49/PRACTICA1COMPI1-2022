@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.widget.LinearLayout;
 
+import com.carlos.android_practica1.backened.obj.Grafica;
 import com.carlos.android_practica1.backened.obj.GraficaBarra;
 import com.carlos.android_practica1.backened.obj.GraficaPie;
 import com.github.mikephil.charting.charts.BarChart;
@@ -115,7 +116,7 @@ public class AgregarGraficas {
         yaxis.setEnabled(false);
     }
 
-    public void createBarChart(GraficaBarra graficaBarra){
+    private void createBarChart(GraficaBarra graficaBarra){
         BarChart barChart = new BarChart(context);
         barChart.setMinimumHeight(700);
         linearLayout.addView(barChart);
@@ -134,7 +135,16 @@ public class AgregarGraficas {
 
     }
 
-    public void createPieChart(GraficaPie graficaPie){
+    public void graficar(Grafica grafica){
+        if(grafica instanceof GraficaBarra){
+            System.out.println("Grafica de Barra");
+        }
+        if(grafica instanceof  GraficaPie){
+            System.out.println("Grafica de Pie");
+        }
+    }
+
+    private void createPieChart(GraficaPie graficaPie){
         PieChart pieChart = new PieChart(context);
         pieChart.setMinimumHeight(700);
         linearLayout.addView(pieChart);

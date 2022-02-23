@@ -22,19 +22,22 @@ class ContendersGraphics : AppCompatActivity() {
         setContentView(R.layout.activity_contenedor_graficas)
         layout = findViewById(R.id.LinearLayout)
         recibirDatos()
-        //graficar()
     }
 
     fun recibirDatos(){
         val datos: ArrayList<Grafica>? = intent.extras?.get("graficas") as ArrayList<Grafica>?
         if(datos!=null){
+            graficar(datos)
             println("Se recuperaron los datos")
         }else{
             println("No se recuperaron los datos")
         }
     }
 
-    fun graficar(){
+    fun graficar(graficas:ArrayList<Grafica>){
         val agregarGraficas = AgregarGraficas(layout,applicationContext)
+        for(graf in graficas){
+            agregarGraficas.graficar(graf)
+        }
     }
 }
