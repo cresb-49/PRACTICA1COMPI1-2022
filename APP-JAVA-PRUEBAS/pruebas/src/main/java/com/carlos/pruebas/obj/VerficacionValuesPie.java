@@ -23,8 +23,9 @@ public class VerficacionValuesPie {
         double tmpSum = 0;
         Double[] tmpVal = new Double[gp.getVal().length];
         int count = 0;
+        
         for (Double double1 : gp.getVal()) {
-            if (double1 < 0) {
+            if (double1 < 1) {
                 tmpVal[count] = (double1 / 10);
                 tmpSum = tmpSum + (double1 / 10);
             } else {
@@ -33,8 +34,9 @@ public class VerficacionValuesPie {
             }
             count++;
         }
+        
         if (tmpSum > 100) {
-            error = ("Los valores seleccionados a graficar: " + Arrays.toString(gp.getVal()) + ", suman mas del 100%");
+            error = ("Los valores de la Grafica de Pie seleccionados a graficar: " + Arrays.toString(gp.getVal()) + ", suman mas del 100%");
         } else {
             if (tmpSum < 100) {
                 System.out.println("Se agrego un sobrante a la grafica");
@@ -51,7 +53,7 @@ public class VerficacionValuesPie {
         Double[] newValues = new Double[valuePercent.length + 1];
         int cont = 0;
         for (Double double1 : valuePercent) {
-            newValues[0] = double1;
+            newValues[cont] = double1;
             cont++;
         }
         newValues[cont] = (100 - total);
@@ -62,7 +64,7 @@ public class VerficacionValuesPie {
         Double[] newValues = new Double[valuePercent.length + 1];
         int cont = 0;
         for (Double double1 : valuePercent) {
-            newValues[0] = double1;
+            newValues[cont] = double1;
             cont++;
         }
         newValues[cont] = (total - suma);
@@ -73,7 +75,7 @@ public class VerficacionValuesPie {
         String[] newTags = new String[tags.length + 1];
         int cont = 0;
         for (String str : tags) {
-            newTags[0] = str;
+            newTags[cont] = str;
             cont++;
         }
         newTags[cont] = extra;
@@ -91,7 +93,7 @@ public class VerficacionValuesPie {
             count++;
         }
         if (tmpSum > gp.getTotal()) {
-            error = ("Los valores seleccionados a graficar: " + Arrays.toString(gp.getVal()) + ", suman mas que el total: "+gp.getTotal());
+            error = ("Los valores de la Grafica de Pie seleccionados a graficar: " + Arrays.toString(gp.getVal()) + ", suman mas que el total: "+gp.getTotal());
         } else {
             if (tmpSum < gp.getTotal()) {
                 System.out.println("Se agrego un sobrante a la grafica");
