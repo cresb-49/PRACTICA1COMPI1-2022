@@ -36,7 +36,7 @@ public class SimbolosTerminales {
             ":",
             ";",
             "cadena",
-            "numero",
+            "entero",
             "decimal"
     };
 
