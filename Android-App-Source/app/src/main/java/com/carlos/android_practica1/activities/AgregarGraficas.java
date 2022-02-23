@@ -145,7 +145,34 @@ public class AgregarGraficas {
         }
     }
 
-    private void createPieChart(GraficaPie graficaPie){
+    private void logicaGrafPie(GraficaPie graficaPie){
+        if(graficaPie.getTipo().equals("Porcentaje")){
+
+        }else{
+
+        }
+    }
+
+    private void createPieChartPorcentaje(GraficaPie graficaPie){
+        PieChart pieChart = new PieChart(context);
+        pieChart.setMinimumHeight(700);
+        linearLayout.addView(pieChart);
+        /** Generacion de los colores de la grafica **/
+        int[] colors = new int[graficaPie.getTag().length];
+        for (int i = 0; i < colors.length; i++) {
+            colors[i]=randomColor();
+        }
+        /** Personalizacion de la grafica **/
+        pieChart=(PieChart) getSameChartPie(pieChart,graficaPie.getTitulo(),Color.GRAY,randomColor(),3000,colors,graficaPie.getTag());
+        pieChart.setTouchEnabled(false);
+        pieChart.setHoleRadius(10);
+        pieChart.setTransparentCircleRadius(12);
+        pieChart.setData(getPieData(graficaPie.getVal(),colors));
+        pieChart.invalidate();
+        //pieChart.setDrawHoleEnabled(false);
+    }
+
+    private void createPieChartCantidad(GraficaPie graficaPie){
         PieChart pieChart = new PieChart(context);
         pieChart.setMinimumHeight(700);
         linearLayout.addView(pieChart);
