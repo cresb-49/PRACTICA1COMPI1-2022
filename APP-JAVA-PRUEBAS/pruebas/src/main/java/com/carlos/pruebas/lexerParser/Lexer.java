@@ -762,7 +762,9 @@ public class Lexer implements java_cup.runtime.Scanner {
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
             zzDoEOF();
-          {   return new java_cup.runtime.Symbol(ParserGraphicsSym.EOF);
+          {     this.actual = new Token(yytext(),null,yyline+1,yycolumn+1,null,this.anterior);
+    this.anterior = this.actual;
+    return new java_cup.runtime.Symbol(ParserGraphicsSym.EOF,yyline+1,yycolumn+1,this.actual);
  }
       }
       else {

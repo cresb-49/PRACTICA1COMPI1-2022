@@ -56,9 +56,15 @@ parser code {:
     public void syntax_error(Symbol cur_token) {
         Token tok = (Token) cur_token.value;
         if(tok!=null){
-            String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
-            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,tok.getLexema(), tok.getLinea(), tok.getColumna(), er));
-            System.out.println(er);
+            if (cur_token.sym == ParserGraphicsSym.EOF) {
+                String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+                this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,"FIN ARCHIVO", cur_token.left, cur_token.right, er));
+                System.out.println(er);
+            } else {
+                String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+                this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,tok.getLexema(), tok.getLinea(), tok.getColumna(), er));
+                System.out.println(er);
+            }
         }else{
             String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
             this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,"FIN ARCHIVO", cur_token.left, cur_token.right, er));
@@ -73,7 +79,8 @@ parser code {:
             System.out.println(er);
         } else {
             Token tok = (Token) cur_token.value;
-            String er = "Error irrecuperable, un posible simbolo esperado: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+            //String er = "Error irrecuperable, un posible simbolo esperado: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+            String er = "Error irrecuperable resuelva el error anterior";
             this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN, tok.getLexema(), tok.getLinea(), tok.getColumna(), er));
             System.out.println(er);
         }
@@ -356,6 +363,7 @@ contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
                                                                                 RESULT = new GraficaBarra();
                                                                             :}
             |   contBarra error
+            |   error PUNTOCOMA
             ;
 
 contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
@@ -445,6 +453,7 @@ contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
                             RESULT = new GraficaPie();
                         :}
             |   contPie error
+            |   error PUNTOCOMA
             ;
 
 
@@ -470,6 +479,7 @@ e   ::= e:num1 MAS:s t:num2   {:
                                     RESULT = exp.getValue();
                                 }
                             :}
+    |   error
     ;
 
 t   ::= t:num1 MUL:s f:num2 {:

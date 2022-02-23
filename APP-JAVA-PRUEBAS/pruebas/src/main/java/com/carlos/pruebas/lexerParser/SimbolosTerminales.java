@@ -16,7 +16,7 @@ public class SimbolosTerminales {
             "ejey",
             "etiquetas",
             "valores",
-            "union",
+            "unir",
             "tipo",
             "Porcentaje/Cantidad",
             "total",
