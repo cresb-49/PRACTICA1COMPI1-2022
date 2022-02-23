@@ -26,6 +26,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AgregarGraficas {
     private LinearLayout linearLayout;
@@ -35,7 +36,7 @@ public class AgregarGraficas {
 
     private String[] meses = new String[]{"Enero","Febrero","Marzo","Abril","Mayo"};
     private int[]sale = new int[]{25,20,38,10,15};
-    private int[]colors = new int[]{Color.BLACK,Color.RED,Color.GREEN,Color.BLUE,Color.LTGRAY};
+
 
     public AgregarGraficas(){
 
@@ -59,8 +60,8 @@ public class AgregarGraficas {
     }
 
     private Chart getSameChartBarra(Chart chart,String descripcion,int textColor,int backgroudColor,int timeAnimation){
-        //chart.getDescription().setText(descripcion);
-        //chart.getDescription().setTextSize(25);
+        chart.getDescription().setText("");
+        chart.getDescription().setTextSize(25);
         chart.setBackgroundColor(backgroudColor);
         chart.animateY(timeAnimation);
         leyendaBarr(chart,descripcion);
@@ -84,7 +85,7 @@ public class AgregarGraficas {
 
         for (int i = 0; i < meses.length; i++) {
             LegendEntry entry = new LegendEntry();
-            entry.formColor=colors[i];
+            entry.formColor=randomColor();
             entry.label=meses[i];
             entries.add(entry);
         }
@@ -97,7 +98,6 @@ public class AgregarGraficas {
         legend.setTextSize(25);
         ArrayList<LegendEntry>entries = new ArrayList<>();
         LegendEntry entry = new LegendEntry();
-        entry.formColor=Color.rgb(93,109,126);
         entry.label=description;
         entries.add(entry);
         legend.setCustom(entries);
@@ -135,7 +135,7 @@ public class AgregarGraficas {
     }
 
     public void createChart(){
-        barChart= (BarChart) getSameChartBarra(barChart,"Series",Color.RED,Color.rgb(220, 118, 51),3000);
+        barChart= (BarChart) getSameChartBarra(barChart,"Series",Color.RED,randomColor(),3000);
         barChart.setTouchEnabled(false);
         barChart.setDrawGridBackground(true);
         barChart.setDrawBarShadow(true);
@@ -146,7 +146,7 @@ public class AgregarGraficas {
         axisYRigth(barChart.getAxisRight());
 
 
-        pieChart=(PieChart) getSameChartPie(pieChart,"Ventas",Color.GRAY,Color.MAGENTA,3000);
+        pieChart=(PieChart) getSameChartPie(pieChart,"Ventas",Color.GRAY,randomColor(),3000);
         pieChart.setTouchEnabled(false);
         pieChart.setHoleRadius(10);
         pieChart.setTransparentCircleRadius(12);
@@ -156,12 +156,17 @@ public class AgregarGraficas {
     }
 
     private DataSet getDataBarra(DataSet dataSet){
-        dataSet.setColor(Color.rgb(93,109,126));
+        //dataSet.setColor(Color.rgb(93,109,126));
+        dataSet.setColor(randomColor());
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setValueTextSize(10);
         return dataSet;
     }
     private DataSet getDataPie(DataSet dataSet){
+        int[] colors = new int[sale.length];
+        for (int i = 0; i < colors.length; i++) {
+            colors[i]=randomColor();
+        }
         dataSet.setColors(colors);
         dataSet.setValueTextColor(Color.WHITE);
         dataSet.setValueTextSize(10);
@@ -181,6 +186,14 @@ public class AgregarGraficas {
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueFormatter(new PercentFormatter());
         return new PieData(pieDataSet);
+    }
+
+    private int randomColor(){
+        Random rnd = new Random();
+        int min = 68;
+        int max = 205;
+        int color = Color.argb(255, rnd.nextInt(max + min) + min, rnd.nextInt(max + min) + min, rnd.nextInt(max + min) + min);
+        return color;
     }
 
 }
