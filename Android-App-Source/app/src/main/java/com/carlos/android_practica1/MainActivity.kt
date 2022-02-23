@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.carlos.android_practica1.activities.ContendersGraphics
 import com.carlos.android_practica1.activities.Reportes
 import com.carlos.android_practica1.backened.lexerParser.ProcesadorGraficos
 
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        /**
         val buttonReportes: Button = findViewById(R.id.buttonReportes)
         buttonReportes.setOnClickListener { view ->
 
@@ -40,8 +42,14 @@ class MainActivity : AppCompatActivity() {
                 putExtra("text","text")
             }
             startActivity(sendIntent)
+        }**/
+        val buttonReportes: Button = findViewById(R.id.buttonReportes)
+        buttonReportes.setOnClickListener { view ->
+
+            val sendIntent = Intent(this,ContendersGraphics::class.java).apply {
+                putExtra("text","text")
+            }
+            startActivity(sendIntent)
         }
-
-
     }
 }

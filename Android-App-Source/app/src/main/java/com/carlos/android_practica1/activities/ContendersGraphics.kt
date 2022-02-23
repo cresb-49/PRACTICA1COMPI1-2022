@@ -17,6 +17,13 @@ class ContendersGraphics : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contenedor_graficas)
         layout = findViewById(R.id.LinearLayout)
+        graficar()
+    }
 
+    fun graficar(){
+        val agregarGraficas = AgregarGraficas(layout,applicationContext)
+        agregarGraficas.agregarPie()
+        agregarGraficas.agregarBarra()
+        agregarGraficas.createChart()
     }
 }
