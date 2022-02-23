@@ -1,10 +1,12 @@
 package com.carlos.android_practica1.backened.obj;
 
+import java.io.Serializable;
+
 /**
  *
  * @author carlo
  */
-public class Grafica {
+public class Grafica implements Serializable {
     private String titulo;
     
     

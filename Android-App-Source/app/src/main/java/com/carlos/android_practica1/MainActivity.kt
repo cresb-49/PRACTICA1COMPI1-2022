@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                     if(paqueteReportes.erroresFinal.isEmpty()){
                         graficas = procesador.graficasGraficar
                         buttonGraficas.isEnabled=true
-                        //graficar()
+                        graficar()
                     }else{
                         buttonGraficas.isEnabled=false
                         reportes();

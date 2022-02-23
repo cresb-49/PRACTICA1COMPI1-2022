@@ -28,9 +28,9 @@ class ContendersGraphics : AppCompatActivity() {
         val datos: ArrayList<Grafica>? = intent.extras?.get("graficas") as ArrayList<Grafica>?
         if(datos!=null){
             graficar(datos)
-            println("Se recuperaron los datos")
+            println("Se recuperaron los datos graficas")
         }else{
-            println("No se recuperaron los datos")
+            println("No se recuperaron los datos graficas")
         }
     }
 
