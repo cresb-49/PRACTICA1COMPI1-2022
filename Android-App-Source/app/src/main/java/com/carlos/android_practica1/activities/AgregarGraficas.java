@@ -176,7 +176,7 @@ public class AgregarGraficas {
             createPieChartPorcentaje(graficaPie);
         }else{
             System.out.println("Grafica de Pie Cantidad");
-
+            createPieChartCantidad(graficaPie);
         }
     }
 
@@ -227,8 +227,8 @@ public class AgregarGraficas {
     }
     private DataSet getDataPie(DataSet dataSet,int[]colors){
         dataSet.setColors(colors);
-        dataSet.setValueTextColor(Color.WHITE);
-        dataSet.setValueTextSize(10);
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setValueTextSize(15);
         //dataSet.setValueFormatter(new PercentFormatter());
         return dataSet;
     }
