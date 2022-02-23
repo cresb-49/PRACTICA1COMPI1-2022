@@ -7,9 +7,14 @@ import android.widget.Button
 import android.widget.EditText
 import com.carlos.android_practica1.activities.ContendersGraphics
 import com.carlos.android_practica1.activities.Reportes
+import com.carlos.android_practica1.backened.lexerParser.PaqueteReportes
 import com.carlos.android_practica1.backened.lexerParser.ProcesadorGraficos
+import com.carlos.android_practica1.backened.obj.ErrorAnalisis
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var paqueteReportes:PaqueteReportes
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,9 +28,7 @@ class MainActivity : AppCompatActivity() {
                 if(info!=null){
                     val procesador = ProcesadorGraficos()
                     procesador.ejecutar(info)
-                    val errores = procesador.reporteFinalErrores
-                    println(errores.toString())
-
+                    paqueteReportes = procesador.paqueteReportes
                 }else{
                     println("No se puedo recuperar el texto escrito")
                 }
@@ -34,15 +37,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /**
+
         val buttonReportes: Button = findViewById(R.id.buttonReportes)
         buttonReportes.setOnClickListener { view ->
 
             val sendIntent = Intent(this,Reportes::class.java).apply {
-                putExtra("text","text")
+                putExtra("reports",paqueteReportes)
             }
             startActivity(sendIntent)
-        }**/
+        }
+
+        /**
         val buttonReportes: Button = findViewById(R.id.buttonReportes)
         buttonReportes.setOnClickListener { view ->
 
@@ -50,6 +55,6 @@ class MainActivity : AppCompatActivity() {
                 putExtra("text","text")
             }
             startActivity(sendIntent)
-        }
+        }*/
     }
 }

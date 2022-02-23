@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 
 import com.carlos.android_practica1.backened.ED.Pila;
+import com.carlos.android_practica1.backened.obj.ConvertRow;
 import com.carlos.android_practica1.backened.obj.ErrorAnalisis;
 import com.carlos.android_practica1.backened.obj.Grafica;
 import com.carlos.android_practica1.backened.obj.OcurrenciaOperador;
@@ -116,6 +117,24 @@ public class ProcesadorGraficos {
         }
         return false;
     }
+
+    public PaqueteReportes getPaqueteReportes(){
+        ConvertRow convertRow = new ConvertRow();
+        return new PaqueteReportes(convertRow.errorReport(this.reporteFinalErrores),convertRow.reportOcurrencias(this.getOcurrenciaOperador()),convertRow.reportGraficos(this.cantidadGraficosPie(),this.cantidadGraficosBarra()));
+    }
+
+    public ArrayList<Grafica> getGraficasGraficar(){
+        ArrayList<Grafica> tmp = new ArrayList<>();
+        for (String nombre:this.getGraficasEjecutar()){
+            for (Grafica grafica:this.getGraficasGeneradas()){
+                if(grafica.getTitulo().equals(nombre)){
+                    tmp.add(grafica);
+                }
+            }
+        }
+        return tmp;
+    }
+
 
     /**
      * @return the reporteFinalErrores

@@ -13,6 +13,7 @@
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:text='def Barras{ 	titulo: "Grafica 1"; 	ejex:["item1", "item2"]; 	ejey:[5 + (3*3),1+34-2]; 	unir:[{0,1}, {1,0}]; } Def Pie{ 	titulo: "Grafica 2"; 	tipo: Cantidad; 	etiquetas: ["Compi1", "Compi2"]; 	valores:[5, 10]; 	total: 25; 	unir:[{0,1}, {1,0}]; 	extra: "Resto"; } Def Pie{ 	titulo: "Grafica 3"; 	tipo: Porcentaje; 	etiquetas: ["Compi1","Compi2"]; 	valores:[70,120]; 	unir:[{0,1},{1,0}]; 	extra: "Resto"; }'
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
