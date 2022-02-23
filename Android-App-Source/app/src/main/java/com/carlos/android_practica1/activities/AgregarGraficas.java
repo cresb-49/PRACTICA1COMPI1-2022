@@ -138,6 +138,7 @@ public class AgregarGraficas {
     public void graficar(Grafica grafica){
         if(grafica instanceof GraficaBarra){
             System.out.println("Grafica de Barra");
+            createBarChart((GraficaBarra) grafica);
         }
         if(grafica instanceof  GraficaPie){
             System.out.println("Grafica de Pie");
