@@ -10,16 +10,25 @@ import com.carlos.android_practica1.activities.Reportes
 import com.carlos.android_practica1.backened.lexerParser.PaqueteReportes
 import com.carlos.android_practica1.backened.lexerParser.ProcesadorGraficos
 import com.carlos.android_practica1.backened.obj.ErrorAnalisis
+import com.carlos.android_practica1.backened.obj.Grafica
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var paqueteReportes:PaqueteReportes
+    private lateinit var graficas:ArrayList<Grafica>
+
+    private lateinit var buttonProcesar: Button
+    private lateinit var buttonReportes: Button
+    private lateinit var buttonGraficas: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val buttonProcesar: Button = findViewById(R.id.buttonProcesar)
+        buttonProcesar = findViewById(R.id.buttonProcesar)
+        buttonReportes = findViewById(R.id.buttonReportes)
+        buttonGraficas = findViewById(R.id.buttonGrafica)
+
         buttonProcesar.setOnClickListener { view ->
 
             val text : EditText? = findViewById(R.id.editTextTextMultiLine)
@@ -29,6 +38,12 @@ class MainActivity : AppCompatActivity() {
                     val procesador = ProcesadorGraficos()
                     procesador.ejecutar(info)
                     paqueteReportes = procesador.paqueteReportes
+                    if(paqueteReportes.erroresFinal.isEmpty()){
+                        graficas = procesador.graficasGraficar
+                        //graficar()
+                    }else{
+                        reportes();
+                    }
                 }else{
                     println("No se puedo recuperar el texto escrito")
                 }
@@ -38,23 +53,29 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val buttonReportes: Button = findViewById(R.id.buttonReportes)
-        buttonReportes.setOnClickListener { view ->
 
-            val sendIntent = Intent(this,Reportes::class.java).apply {
-                putExtra("reports",paqueteReportes)
-            }
-            startActivity(sendIntent)
+        buttonReportes.setOnClickListener { view ->
+            reportes()
         }
 
-        /**
-        val buttonReportes: Button = findViewById(R.id.buttonReportes)
-        buttonReportes.setOnClickListener { view ->
-
-            val sendIntent = Intent(this,ContendersGraphics::class.java).apply {
-                putExtra("text","text")
-            }
-            startActivity(sendIntent)
-        }*/
+        buttonGraficas.setOnClickListener { view ->
+            reportes()
+        }
     }
+
+    fun reportes(){
+        val sendIntent = Intent(this,Reportes::class.java).apply {
+            putExtra("reports",paqueteReportes)
+        }
+        startActivity(sendIntent)
+    }
+
+    fun graficar(){
+        val sendIntent = Intent(this,ContendersGraphics::class.java).apply {
+            putExtra("graficas",graficas)
+        }
+        startActivity(sendIntent)
+    }
+
+
 }
