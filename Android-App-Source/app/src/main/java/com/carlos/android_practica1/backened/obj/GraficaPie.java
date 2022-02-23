@@ -1,9 +1,10 @@
 package com.carlos.android_practica1.backened.obj;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GraficaPie extends Grafica {
+public class GraficaPie extends Grafica implements Serializable {
 
     private String tipo;
     private String[] etiquetas;

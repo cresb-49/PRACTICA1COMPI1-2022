@@ -1,6 +1,8 @@
 package com.carlos.android_practica1.backened.obj;
 
-public class Union {
+import java.io.Serializable;
+
+public class Union implements Serializable {
     private int etiqueta_x;
     private int valor_y;
     

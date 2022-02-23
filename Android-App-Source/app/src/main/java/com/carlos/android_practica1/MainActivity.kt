@@ -11,6 +11,7 @@ import com.carlos.android_practica1.backened.lexerParser.PaqueteReportes
 import com.carlos.android_practica1.backened.lexerParser.ProcesadorGraficos
 import com.carlos.android_practica1.backened.obj.ErrorAnalisis
 import com.carlos.android_practica1.backened.obj.Grafica
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,8 +42,14 @@ class MainActivity : AppCompatActivity() {
                     paqueteReportes = procesador.paqueteReportes
                     if(paqueteReportes.erroresFinal.isEmpty()){
                         graficas = procesador.graficasGraficar
-                        buttonGraficas.isEnabled=true
-                        graficar()
+                        if(graficas.isEmpty()){
+                            buttonGraficas.isEnabled=false
+                            reportes();
+                        }else{
+                            buttonGraficas.isEnabled=true
+                            graficar()
+                        }
+
                     }else{
                         buttonGraficas.isEnabled=false
                         reportes();
@@ -73,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
     fun graficar(){
         val sendIntent = Intent(this,ContendersGraphics::class.java).apply {
-            putExtra("graficas",graficas)
+            putExtra("graficas",(graficas))
         }
         startActivity(sendIntent)
     }

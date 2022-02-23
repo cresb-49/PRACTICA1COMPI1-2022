@@ -37,6 +37,7 @@ class ContendersGraphics : AppCompatActivity() {
     fun graficar(graficas:ArrayList<Grafica>){
         val agregarGraficas = AgregarGraficas(layout,applicationContext)
         for(graf in graficas){
+            println(graf.toString())
             agregarGraficas.graficar(graf)
         }
     }

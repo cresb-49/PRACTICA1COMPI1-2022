@@ -1,5 +1,6 @@
 package com.carlos.android_practica1.backened.obj;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,7 +8,7 @@ import java.util.Arrays;
  *
  * @author benjamin
  */
-public class GraficaBarra extends Grafica{
+public class GraficaBarra extends Grafica implements Serializable {
     private String[] ejex;
     private Double[] ejey;
     private ArrayList<Union> unir;
