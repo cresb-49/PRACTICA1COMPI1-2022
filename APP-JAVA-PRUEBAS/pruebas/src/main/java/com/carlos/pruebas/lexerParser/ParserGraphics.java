@@ -460,8 +460,30 @@ class CUP$ParserGraphics$actions {
                                                                     errorAnalisisesTmp = gp.analizarUnir();
                                                                     if(errorAnalisisesTmp.isEmpty()){
                                                                         gp.triangularUniones();
-                                                                        graficasGeneradas.add(gp);
-                                                                        System.out.println("Grafica Valida");
+                                                                        
+                                                                        if(gp.getTipo().equals("Porcentaje")){
+                                                                            
+                                                                            double tmpSum = 0;
+                                                                            Double[] tmpVal = new Double[gp.getVal().length];
+                                                                            for (Double double1 : gp.getVal()) {
+                                                                                if(double1<0){
+                                                                                    tmpSum = tmpSum + (double1/10);
+                                                                                }else{
+                                                                                    tmpSum = tmpSum + double1;
+                                                                                }
+                                                                            }
+                                                                            if(tmpSum>100){
+                                                                                
+                                                                            }else{
+                                                                                if(tmpSum<100){
+                                                                                    graficasGeneradas.add(gp);
+                                                                                    System.out.println("Grafica Valida");
+                                                                                }
+                                                                            }
+                                                                            
+                                                                        }else{
+                                                                            
+                                                                        }
                                                                     }else{
                                                                         System.out.println("Grafica No Valida");
                                                                         for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {

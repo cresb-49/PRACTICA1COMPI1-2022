@@ -187,6 +187,12 @@ s   ::= s DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin   {:
                                                                     errorAnalisisesTmp = gp.analizarUnir();
                                                                     if(errorAnalisisesTmp.isEmpty()){
                                                                         gp.triangularUniones();
+                                                                        gp.triangularUniones();
+                                                                        if(gp.getTipo().equals("Porcentaje")){
+                                                                            
+                                                                        }else{
+                                                                            
+                                                                        }
                                                                         graficasGeneradas.add(gp);
                                                                         System.out.println("Grafica Valida");
                                                                     }else{
