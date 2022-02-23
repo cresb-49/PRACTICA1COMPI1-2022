@@ -48,25 +48,25 @@ public class AgregarGraficas {
         return chart;
     }
 
-    private Chart getSameChartPie(Chart chart,String descripcion,int textColor,int backgroudColor,int timeAnimation){
+    private Chart getSameChartPie(Chart chart,String descripcion,int textColor,int backgroudColor,int timeAnimation,int[]colors,String[]etiquetas){
         chart.getDescription().setText(descripcion);
         chart.getDescription().setTextSize(25);
         chart.setBackgroundColor(backgroudColor);
         chart.animateY(timeAnimation);
-        leyendaPie(chart);
+        leyendaPie(chart,colors,etiquetas);
         return chart;
     }
 
-    private void leyendaPie(Chart chart){
+    private void leyendaPie(Chart chart,int[]colors,String[]etiquetas){
         Legend legend = chart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         ArrayList<LegendEntry>entries = new ArrayList<>();
 
-        for (int i = 0; i < meses.length; i++) {
+        for (int i = 0; i < etiquetas.length; i++) {
             LegendEntry entry = new LegendEntry();
-            entry.formColor=randomColor();
-            entry.label=meses[i];
+            entry.formColor=colors[i];
+            entry.label=etiquetas[i];
             entries.add(entry);
         }
         legend.setCustom(entries);
@@ -91,10 +91,11 @@ public class AgregarGraficas {
         return entries;
     }
 
-    private ArrayList<PieEntry>getPieEntries(){
+    private ArrayList<PieEntry>getPieEntries(Double[]values){
+
         ArrayList<PieEntry> entries = new ArrayList<>();
-        for (int i = 0; i < sale.length; i++) {
-            entries.add(new PieEntry(sale[i]));
+        for (int i = 0; i < values.length; i++) {
+            entries.add(new PieEntry(values[i].floatValue()));
         }
         return entries;
     }
@@ -112,18 +113,6 @@ public class AgregarGraficas {
 
     private void axisYRigth(YAxis yaxis){
         yaxis.setEnabled(false);
-    }
-
-    public void createChart(){
-        pieChart=(PieChart) getSameChartPie(pieChart,"Ventas",Color.GRAY,randomColor(),3000);
-        pieChart.setTouchEnabled(false);
-        pieChart.setHoleRadius(10);
-        pieChart.setTransparentCircleRadius(12);
-        pieChart.setData(getPieData());
-        pieChart.invalidate();
-        //pieChart.setDrawHoleEnabled(false);
-
-
     }
 
     public void createBarChart(GraficaBarra graficaBarra){
@@ -149,7 +138,19 @@ public class AgregarGraficas {
         PieChart pieChart = new PieChart(context);
         pieChart.setMinimumHeight(700);
         linearLayout.addView(pieChart);
-
+        /** Generacion de los colores de la grafica **/
+        int[] colors = new int[graficaPie.getTag().length];
+        for (int i = 0; i < colors.length; i++) {
+            colors[i]=randomColor();
+        }
+        /** Personalizacion de la grafica **/
+        pieChart=(PieChart) getSameChartPie(pieChart,graficaPie.getTitulo(),Color.GRAY,randomColor(),3000,colors,graficaPie.getTag());
+        pieChart.setTouchEnabled(false);
+        pieChart.setHoleRadius(10);
+        pieChart.setTransparentCircleRadius(12);
+        pieChart.setData(getPieData(graficaPie.getVal(),colors));
+        pieChart.invalidate();
+        //pieChart.setDrawHoleEnabled(false);
     }
 
     private DataSet getDataBarra(DataSet dataSet){
@@ -159,11 +160,7 @@ public class AgregarGraficas {
         dataSet.setValueTextSize(10);
         return dataSet;
     }
-    private DataSet getDataPie(DataSet dataSet){
-        int[] colors = new int[sale.length];
-        for (int i = 0; i < colors.length; i++) {
-            colors[i]=randomColor();
-        }
+    private DataSet getDataPie(DataSet dataSet,int[]colors){
         dataSet.setColors(colors);
         dataSet.setValueTextColor(Color.WHITE);
         dataSet.setValueTextSize(10);
@@ -178,13 +175,12 @@ public class AgregarGraficas {
         return  barData;
     }
 
-    private PieData getPieData(){
-        PieDataSet pieDataSet = (PieDataSet)getDataPie(new PieDataSet(getPieEntries(),""));
+    private PieData getPieData(Double[]values,int[]colors){
+        PieDataSet pieDataSet = (PieDataSet)getDataPie(new PieDataSet(getPieEntries(values),""),colors);
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueFormatter(new PercentFormatter());
         return new PieData(pieDataSet);
     }
-
     private int randomColor(){
         Random rnd = new Random();
         int min = 68;

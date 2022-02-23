@@ -22,8 +22,5 @@ class ContendersGraphics : AppCompatActivity() {
 
     fun graficar(){
         val agregarGraficas = AgregarGraficas(layout,applicationContext)
-        agregarGraficas.agregarPie()
-        agregarGraficas.agregarBarra()
-        agregarGraficas.createChart()
     }
 }
