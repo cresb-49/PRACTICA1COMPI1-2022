@@ -12,6 +12,8 @@ import com.carlos.pruebas.obj.Grafica;
 import com.carlos.pruebas.obj.GraficaBarra;
 import com.carlos.pruebas.obj.GraficaPie;
 
+import com.carlos.pruebas.obj.VerficacionValuesPie;
+
 import java_cup.runtime.*;
 
 class ParserGraphics;
@@ -25,6 +27,7 @@ parser code {:
     private static final String ERROR_TYPE_CRE = "Creacion";
 
     private Lexer lexer;
+    private VerficacionValuesPie verficacionValuesPie;
     private SimbolosTerminales simbolosTerminales;
     private ArrayList<OcurrenciaOperador> ocurrencias;
     private ArrayList<Grafica> graficasGeneradas;
@@ -39,6 +42,7 @@ parser code {:
         this.ocurrencias = new ArrayList<>();
         this.graficasGeneradas = new ArrayList<>();
         this.graficasEjecutar = new ArrayList<>();
+        this.verficacionValuesPie= new VerficacionValuesPie();
     }
 
     public void report_error(String message, Object info) {
@@ -187,14 +191,19 @@ s   ::= s DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin   {:
                                                                     errorAnalisisesTmp = gp.analizarUnir();
                                                                     if(errorAnalisisesTmp.isEmpty()){
                                                                         gp.triangularUniones();
-                                                                        gp.triangularUniones();
                                                                         if(gp.getTipo().equals("Porcentaje")){
-                                                                            
+                                                                            String errorVer = verficacionValuesPie.verficarPiePorcentaje(gp);
+                                                                            if(errorVer.isEmpty()){
+                                                                                graficasGeneradas.add(gp);
+                                                                                System.out.println("Grafica Valida");
+                                                                            }else{
+                                                                                System.out.println("Grafica No Valida");
+                                                                                lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
+                                                                            }
                                                                         }else{
-                                                                            
+                                                                            graficasGeneradas.add(gp);
+                                                                            System.out.println("Grafica Valida");
                                                                         }
-                                                                        graficasGeneradas.add(gp);
-                                                                        System.out.println("Grafica Valida");
                                                                     }else{
                                                                         System.out.println("Grafica No Valida");
                                                                         for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {

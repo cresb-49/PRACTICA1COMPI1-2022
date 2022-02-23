@@ -14,6 +14,7 @@ import com.carlos.pruebas.obj.OcurrenciaOperador;
 import com.carlos.pruebas.obj.Grafica;
 import com.carlos.pruebas.obj.GraficaBarra;
 import com.carlos.pruebas.obj.GraficaPie;
+import com.carlos.pruebas.obj.VerficacionValuesPie;
 import java_cup.runtime.*;
 import java_cup.runtime.XMLElement;
 
@@ -253,6 +254,7 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     private static final String ERROR_TYPE_CRE = "Creacion";
 
     private Lexer lexer;
+    private VerficacionValuesPie verficacionValuesPie;
     private SimbolosTerminales simbolosTerminales;
     private ArrayList<OcurrenciaOperador> ocurrencias;
     private ArrayList<Grafica> graficasGeneradas;
@@ -267,6 +269,7 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
         this.ocurrencias = new ArrayList<>();
         this.graficasGeneradas = new ArrayList<>();
         this.graficasEjecutar = new ArrayList<>();
+        this.verficacionValuesPie= new VerficacionValuesPie();
     }
 
     public void report_error(String message, Object info) {
@@ -460,29 +463,18 @@ class CUP$ParserGraphics$actions {
                                                                     errorAnalisisesTmp = gp.analizarUnir();
                                                                     if(errorAnalisisesTmp.isEmpty()){
                                                                         gp.triangularUniones();
-                                                                        
                                                                         if(gp.getTipo().equals("Porcentaje")){
                                                                             
-                                                                            double tmpSum = 0;
-                                                                            Double[] tmpVal = new Double[gp.getVal().length];
-                                                                            for (Double double1 : gp.getVal()) {
-                                                                                if(double1<0){
-                                                                                    tmpSum = tmpSum + (double1/10);
-                                                                                }else{
-                                                                                    tmpSum = tmpSum + double1;
-                                                                                }
-                                                                            }
-                                                                            if(tmpSum>100){
-                                                                                
+                                                                            String errorVer = verficacionValuesPie.verficarPiePorcentaje(gp);
+                                                                            if(errorVer.isEmpty()){
+                                                                                graficasGeneradas.add(gp);
+                                                                                System.out.println("Grafica Valida");
                                                                             }else{
-                                                                                if(tmpSum<100){
-                                                                                    graficasGeneradas.add(gp);
-                                                                                    System.out.println("Grafica Valida");
-                                                                                }
+                                                                                
                                                                             }
-                                                                            
                                                                         }else{
-                                                                            
+                                                                            graficasGeneradas.add(gp);
+                                                                            System.out.println("Grafica Valida");
                                                                         }
                                                                     }else{
                                                                         System.out.println("Grafica No Valida");
