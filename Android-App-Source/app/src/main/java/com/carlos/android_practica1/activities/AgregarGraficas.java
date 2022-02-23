@@ -49,6 +49,15 @@ public class AgregarGraficas {
         return chart;
     }
 
+    private Chart getSameChartPiePorcentaje(Chart chart,String descripcion,int textColor,int backgroudColor,int timeAnimation,int[]colors,String[]etiquetas){
+        chart.getDescription().setText(descripcion);
+        chart.getDescription().setTextSize(25);
+        chart.setBackgroundColor(backgroudColor);
+        chart.animateY(timeAnimation);
+        leyendaPiePorcentaje(chart,colors,etiquetas);
+        return chart;
+    }
+
     private Chart getSameChartPie(Chart chart,String descripcion,int textColor,int backgroudColor,int timeAnimation,int[]colors,String[]etiquetas){
         chart.getDescription().setText(descripcion);
         chart.getDescription().setTextSize(25);
@@ -68,6 +77,21 @@ public class AgregarGraficas {
             LegendEntry entry = new LegendEntry();
             entry.formColor=colors[i];
             entry.label=etiquetas[i];
+            entries.add(entry);
+        }
+        legend.setCustom(entries);
+    }
+
+    private void leyendaPiePorcentaje(Chart chart,int[]colors,String[]etiquetas){
+        Legend legend = chart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        ArrayList<LegendEntry>entries = new ArrayList<>();
+
+        for (int i = 0; i < etiquetas.length; i++) {
+            LegendEntry entry = new LegendEntry();
+            entry.formColor=colors[i];
+            entry.label=etiquetas[i]+("(%)");
             entries.add(entry);
         }
         legend.setCustom(entries);
@@ -142,13 +166,16 @@ public class AgregarGraficas {
         }
         if(grafica instanceof  GraficaPie){
             System.out.println("Grafica de Pie");
+            logicaGrafPie((GraficaPie) grafica);
         }
     }
 
     private void logicaGrafPie(GraficaPie graficaPie){
         if(graficaPie.getTipo().equals("Porcentaje")){
-
+            System.out.println("Grafica de Pie Porcentaje");
+            createPieChartPorcentaje(graficaPie);
         }else{
+            System.out.println("Grafica de Pie Cantidad");
 
         }
     }
@@ -163,10 +190,10 @@ public class AgregarGraficas {
             colors[i]=randomColor();
         }
         /** Personalizacion de la grafica **/
-        pieChart=(PieChart) getSameChartPie(pieChart,graficaPie.getTitulo(),Color.GRAY,randomColor(),3000,colors,graficaPie.getTag());
+        pieChart=(PieChart) getSameChartPiePorcentaje(pieChart,graficaPie.getTitulo(),Color.GRAY,randomColor(),3000,colors,graficaPie.getTag());
         pieChart.setTouchEnabled(false);
-        pieChart.setHoleRadius(10);
-        pieChart.setTransparentCircleRadius(12);
+        pieChart.setHoleRadius(0);
+        pieChart.setTransparentCircleRadius(0);
         pieChart.setData(getPieData(graficaPie.getVal(),colors));
         pieChart.invalidate();
         //pieChart.setDrawHoleEnabled(false);
@@ -184,8 +211,8 @@ public class AgregarGraficas {
         /** Personalizacion de la grafica **/
         pieChart=(PieChart) getSameChartPie(pieChart,graficaPie.getTitulo(),Color.GRAY,randomColor(),3000,colors,graficaPie.getTag());
         pieChart.setTouchEnabled(false);
-        pieChart.setHoleRadius(10);
-        pieChart.setTransparentCircleRadius(12);
+        pieChart.setHoleRadius(0);
+        pieChart.setTransparentCircleRadius(0);
         pieChart.setData(getPieData(graficaPie.getVal(),colors));
         pieChart.invalidate();
         //pieChart.setDrawHoleEnabled(false);
@@ -202,6 +229,7 @@ public class AgregarGraficas {
         dataSet.setColors(colors);
         dataSet.setValueTextColor(Color.WHITE);
         dataSet.setValueTextSize(10);
+        //dataSet.setValueFormatter(new PercentFormatter());
         return dataSet;
     }
 
@@ -215,7 +243,7 @@ public class AgregarGraficas {
 
     private PieData getPieData(Double[]values,int[]colors){
         PieDataSet pieDataSet = (PieDataSet)getDataPie(new PieDataSet(getPieEntries(values),""),colors);
-        pieDataSet.setSliceSpace(2);
+        pieDataSet.setSliceSpace(0);
         pieDataSet.setValueFormatter(new PercentFormatter());
         return new PieData(pieDataSet);
     }
