@@ -464,17 +464,23 @@ class CUP$ParserGraphics$actions {
                                                                     if(errorAnalisisesTmp.isEmpty()){
                                                                         gp.triangularUniones();
                                                                         if(gp.getTipo().equals("Porcentaje")){
-                                                                            
                                                                             String errorVer = verficacionValuesPie.verficarPiePorcentaje(gp);
                                                                             if(errorVer.isEmpty()){
                                                                                 graficasGeneradas.add(gp);
                                                                                 System.out.println("Grafica Valida");
                                                                             }else{
-                                                                                
+                                                                                System.out.println("Grafica No Valida");
+                                                                                lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
                                                                             }
                                                                         }else{
-                                                                            graficasGeneradas.add(gp);
-                                                                            System.out.println("Grafica Valida");
+                                                                            String errorVer = verficacionValuesPie.verficarPieCantidad(gp);
+                                                                            if(errorVer.isEmpty()){
+                                                                                graficasGeneradas.add(gp);
+                                                                                System.out.println("Grafica Valida");
+                                                                            }else{
+                                                                                System.out.println("Grafica No Valida");
+                                                                                lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
+                                                                            }
                                                                         }
                                                                     }else{
                                                                         System.out.println("Grafica No Valida");
@@ -583,8 +589,25 @@ class CUP$ParserGraphics$actions {
                                                                 errorAnalisisesTmp = gp.analizarUnir();
                                                                 if(errorAnalisisesTmp.isEmpty()){
                                                                     gp.triangularUniones();
-                                                                    graficasGeneradas.add(gp);
-                                                                    System.out.println("Grafica Valida");
+                                                                    if(gp.getTipo().equals("Porcentaje")){
+                                                                        String errorVer = verficacionValuesPie.verficarPiePorcentaje(gp);
+                                                                        if(errorVer.isEmpty()){
+                                                                            graficasGeneradas.add(gp);
+                                                                            System.out.println("Grafica Valida");
+                                                                        }else{
+                                                                            System.out.println("Grafica No Valida");
+                                                                            lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
+                                                                        }
+                                                                    }else{
+                                                                        String errorVer = verficacionValuesPie.verficarPieCantidad(gp);
+                                                                        if(errorVer.isEmpty()){
+                                                                            graficasGeneradas.add(gp);
+                                                                            System.out.println("Grafica Valida");
+                                                                        }else{
+                                                                            System.out.println("Grafica No Valida");
+                                                                            lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
+                                                                        }
+                                                                    }
                                                                 }else{
                                                                     System.out.println("Grafica No Valida");
                                                                     for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
