@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TableLayout
 import com.carlos.android_practica1.R
+import com.carlos.android_practica1.backened.lexerParser.PaqueteReportes
 import com.carlos.android_practica1.backened.obj.ConvertRow
 
 class Reportes : AppCompatActivity() {
@@ -14,7 +15,7 @@ class Reportes : AppCompatActivity() {
     private lateinit var tableLayoutGraphics : TableLayout
     private lateinit var tableLayoutOcurrencias : TableLayout
     private val headerError = arrayOf("Lexema","Línea","Columna","Tipo","Descripción")
-    private val headerGraphics = arrayOf("Operador","Línea","Columna","Ejemplo de Ocurrencia")
+    private val headerGraphics = arrayOf("Operador","Línea","Columna","Ocurrencia")
     private val headerOcurrencias = arrayOf("Objeto","Cantidad de Definiciones")
 
 
@@ -25,44 +26,51 @@ class Reportes : AppCompatActivity() {
         tableLayoutGraphics = findViewById(R.id.tableGraphics);
         tableLayoutOcurrencias = findViewById(R.id.tableOcurrencias);
         recibirDatos()
-        rellenarTablaErrores()
-        rellenarTablaGraficos()
-        rellenarTablaOcurrencias()
     }
 
     fun recibirDatos(){
-        println("debuj")
-        val datos: String? = intent.extras?.get("text") as String?
-        println("Datos recibidos: "+datos)
+        val datos: PaqueteReportes? = intent.extras?.get("reports") as PaqueteReportes?
+        if(datos!=null){
+
+            if(datos.erroresFinal.isEmpty()){
+                rellenarTablaGraficos(datos)
+                rellenarTablaOcurrencias(datos)
+            }else{
+                rellenarTablaErrores(datos)
+            }
+            println("Se recuperaron los datos")
+        }else{
+            println("No se recuperaron los datos")
+        }
     }
 
-    fun rellenarTablaErrores(){
+    fun rellenarTablaErrores(paqueteReportes: PaqueteReportes){
         val tableDynamicError = TableDynamicError(tableLayoutError,applicationContext)
         tableDynamicError.addHeader(headerError)
         val convertRow = ConvertRow()
-        tableDynamicError.addData(convertRow.ejemplo1())
+        tableDynamicError.addData(paqueteReportes.erroresFinal)
         tableDynamicError.backgroundHeader(Color.rgb(10,109,125))
         tableDynamicError.backgroundData(Color.rgb(177,217,223),Color.rgb(230,245,247))
         tableDynamicError.textColorData(Color.BLACK)
         tableDynamicError.textColorHeader(Color.BLACK)
     }
 
-    fun rellenarTablaGraficos(){
+    fun rellenarTablaGraficos(paqueteReportes: PaqueteReportes){
         val tableDynamicError = TableDynamicError(tableLayoutGraphics,applicationContext)
-        tableDynamicError.addHeader(headerGraphics)
+        tableDynamicError.addHeader(headerOcurrencias)
         val convertRow = ConvertRow()
-        tableDynamicError.addData(convertRow.ejemplo2())
+        tableDynamicError.addData(paqueteReportes.graficos)
         tableDynamicError.backgroundHeader(Color.rgb(118,68,138))
         tableDynamicError.backgroundData(Color.rgb(195,155,211),Color.rgb(235,222,240))
         tableDynamicError.textColorData(Color.BLACK)
         tableDynamicError.textColorHeader(Color.BLACK)
     }
 
-    fun rellenarTablaOcurrencias(){
+    fun rellenarTablaOcurrencias(paqueteReportes: PaqueteReportes){
         val tableDynamicError = TableDynamicError(tableLayoutOcurrencias,applicationContext)
-        tableDynamicError.addHeader(headerOcurrencias)
+        tableDynamicError.addHeader(headerGraphics)
         val convertRow = ConvertRow()
-        tableDynamicError.addData(convertRow.ejemplo3())
+        tableDynamicError.addData(paqueteReportes.ocurrencias)
         tableDynamicError.backgroundHeader(Color.rgb(236,120,70))
         tableDynamicError.backgroundData(Color.rgb(249,164,127),Color.rgb(254,214,196))
         tableDynamicError.textColorData(Color.BLACK)

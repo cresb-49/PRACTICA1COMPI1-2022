@@ -43,7 +43,7 @@
                 android:layout_height="match_parent"
                 android:fillViewport="true">
                 <TableLayout
-                    android:id="@+id/tableOcurrencias"
+                    android:id="@+id/tableGraphics"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
             </HorizontalScrollView>
@@ -62,7 +62,7 @@
                 android:fillViewport="true">
 
                 <TableLayout
-                    android:id="@+id/tableGraphics"
+                    android:id="@+id/tableOcurrencias"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
             </HorizontalScrollView>
