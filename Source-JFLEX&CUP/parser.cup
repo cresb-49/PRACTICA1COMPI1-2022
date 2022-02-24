@@ -633,6 +633,7 @@ contUnir2   ::= COMA LLA_A:ref1 ee:num1 COMA:ref2 ee:num2 LLA_C contUnir2:pila  
             |   CO_C    {:
                             RESULT = new Pila<>();
                         :}
+            |   error contUnir2
             ;
 
 //GRAMAICA PARA EL RECONOCIMIENTO DE NUMEROS ENTERO
