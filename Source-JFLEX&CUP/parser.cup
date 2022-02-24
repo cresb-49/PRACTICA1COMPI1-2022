@@ -118,7 +118,7 @@ parser code {:
     }
 
     private void referencia_numero_negativo_values(Token token,Double valor){
-        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM,valor.toString(), token.getLinea(),(token.getColumna()+1), ", Se esperaba un valor positivo"));
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM,valor.toString(), token.getLinea(),(token.getColumna()+1), ",Se espera un valor positivo o una operacion con resultado positivo"));
     }
 
     public ArrayList<OcurrenciaOperador> getOcurrencias() {
@@ -530,7 +530,14 @@ f   ::= NUMBERS:num     {:
 contEjeY    ::= CO_A:ref e:num1 contEjeY2:pila   {:
                                                     RESULT = pila;
                                                     if(RESULT!=null){
-                                                        RESULT.push(num1);  
+                                                        if(num1!=null){
+                                                            if(num1<0){
+                                                                referencia_numero_negativo_values((Token)ref,num1);
+                                                            }
+                                                            RESULT.push(num1);
+                                                        }else{
+                                                            RESULT.push(num1);
+                                                        }  
                                                     }
                                                 :}
             ;
@@ -538,7 +545,14 @@ contEjeY    ::= CO_A:ref e:num1 contEjeY2:pila   {:
 contEjeY2   ::= COMA:ref e:num1 contEjeY2:pila   {:
                                                     RESULT = pila;
                                                     if(RESULT!=null){
-                                                        RESULT.push(num1);
+                                                        if(num1!=null){
+                                                            if(num1<0){
+                                                                referencia_numero_negativo_values((Token)ref,num1);
+                                                            }
+                                                            RESULT.push(num1);
+                                                        }else{
+                                                            RESULT.push(num1);
+                                                        }
                                                     }
                                                 :}
             |   CO_C                            {:

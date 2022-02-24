@@ -395,7 +395,7 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
     }
 
     private void referencia_numero_negativo_values(Token token,Double valor){
-        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM,valor.toString(), token.getLinea(),(token.getColumna()+1), ", Se esperaba un valor positivo"));
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM,valor.toString(), token.getLinea(),(token.getColumna()+1), ",Se espera un valor positivo o una operacion con resultado positivo"));
     }
 
     public ArrayList<OcurrenciaOperador> getOcurrencias() {
@@ -1278,7 +1278,14 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
 
                     RESULT = pila;
                     if(RESULT!=null){
-                        RESULT.push(num1);
+                        if(num1!=null){
+                            if(num1<0){
+                                referencia_numero_negativo_values((Token)ref,num1);
+                            }
+                            RESULT.push(num1);
+                        }else{
+                            RESULT.push(num1);
+                        }
                     }
 
                     CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contEjeY",3, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
@@ -1301,7 +1308,14 @@ public class ParserGraphics extends java_cup.runtime.lr_parser {
 
                     RESULT = pila;
                     if(RESULT!=null){
-                        RESULT.push(num1);
+                        if(num1!=null){
+                            if(num1<0){
+                                referencia_numero_negativo_values((Token)ref,num1);
+                            }
+                            RESULT.push(num1);
+                        }else{
+                            RESULT.push(num1);
+                        }
                     }
 
                     CUP$ParserGraphics$result = parser.getSymbolFactory().newSymbol("contEjeY2",4, ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.elementAt(CUP$ParserGraphics$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGraphics$stack.peek()), RESULT);
