@@ -11,6 +11,9 @@ public class Grafica {
     private String[] tag;
     private Double[] val;
     
+    private int linUnir;
+    private int colUnir;
+    
     public Grafica() {
     }
     
@@ -40,5 +43,21 @@ public class Grafica {
 
     public void setVal(Double[] val) {
         this.val = val;
+    }
+
+    public int getLinUnir() {
+        return linUnir;
+    }
+
+    public void setLinUnir(int linUnir) {
+        this.linUnir = linUnir;
+    }
+
+    public int getColUnir() {
+        return colUnir;
+    }
+
+    public void setColUnir(int colUnir) {
+        this.colUnir = colUnir;
     }
 }

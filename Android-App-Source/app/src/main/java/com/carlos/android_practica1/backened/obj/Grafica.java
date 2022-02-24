@@ -8,14 +8,17 @@ import java.io.Serializable;
  */
 public class Grafica implements Serializable {
     private String titulo;
-    
-    
+
+
     private String[] tag;
     private Double[] val;
-    
+
+    private int linUnir;
+    private int colUnir;
+
     public Grafica() {
     }
-    
+
     public Grafica(String titulo) {
         this.titulo = titulo;
     }
@@ -42,5 +45,21 @@ public class Grafica implements Serializable {
 
     public void setVal(Double[] val) {
         this.val = val;
+    }
+
+    public int getLinUnir() {
+        return linUnir;
+    }
+
+    public void setLinUnir(int linUnir) {
+        this.linUnir = linUnir;
+    }
+
+    public int getColUnir() {
+        return colUnir;
+    }
+
+    public void setColUnir(int colUnir) {
+        this.colUnir = colUnir;
     }
 }

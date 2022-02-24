@@ -158,7 +158,10 @@ terminal            DEF, GRAPHICBARRA,GRAPHICPIE, TITTLE, EJEX, EJEY, LABEL, VAL
 
 
 /* Non terminals */
-non terminal                    s;
+non terminal                    s,ej;
+non terminal                    EjeGraf;
+non terminal Grafica            DefgrafPie;
+non terminal Grafica            DefgrafBarra;
 non terminal GraficaPie         contPie;
 non terminal GraficaBarra       contBarra;
 non terminal Pila<Double>       contEjeY,contEjeY2;
@@ -170,19 +173,93 @@ non terminal InicioOperacion    t,f,te,fe;
 
 /* The grammar rules */
 
-s   ::= s DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin   {:
-                                                            if(gb!=null){
-                                                                System.out.println("Grafica: "+gb.getTitulo());
-                                                                if(buscarGrafica(gb.getTitulo())){
-                                                                    System.out.println("La Grafica: "+gb.getTitulo()+", ya existe");
-                                                                    error_grap_def((Token) ini, gb.getTitulo());
+ej  ::= ej EjeGraf
+    |   s 
+    |   ej error
+    ;
+
+s   ::= s DefgrafBarra
+    |   s DefgrafPie
+    |   DefgrafBarra
+    |   DefgrafPie
+    ;
+
+//Ejecuacion de grafica
+EjeGraf ::= EXECUTE:ex PA_A STRING:gn PA_C PUNTOCOMA{:
+                                                        System.out.println("Grafico ejecutar: "+(String)((Token)gn).getValue());
+                                                        Token strin = (Token) gn;
+                                                        Token exe = (Token) ex;
+                                                        if(buscarGrafica((String) strin.getValue())){
+                                                            graficasEjecutar.add((String) strin.getValue());
+                                                        }else{
+                                                            System.out.println("---La Grafica no existe");
+                                                            execution_error_grap(exe, (String) strin.getValue());
+                                                        }
+                                                    :}
+        ;
+
+//Definicion Grafica Barras
+DefgrafBarra   ::= DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin {:
+                                                                if(gb!=null){
+                                                                    System.out.println("Grafica: "+gb.getTitulo());
+                                                                    if(buscarGrafica(gb.getTitulo())){
+                                                                        System.out.println("La Grafica: "+gb.getTitulo()+", ya existe");
+                                                                        error_grap_def((Token) ini, gb.getTitulo());
+                                                                    }else{
+                                                                        if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
+                                                                            errorAnalisisesTmp = gb.analizarUnir();
+                                                                            if(errorAnalisisesTmp.isEmpty()){
+                                                                                gb.triangularUniones();
+                                                                                graficasGeneradas.add(gb);
+                                                                                System.out.println("Grafica Valida");
+                                                                            }else{
+                                                                                System.out.println("Grafica No Valida");
+                                                                                for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
+                                                                                    lexer.getErrors().push(errorAnalisis);
+                                                                                }
+                                                                            }
+                                                                        }else{
+                                                                            System.out.println("Grafica No Valida");
+                                                                        }
+                                                                    }
+                                                                }
+                                                            :}
+            ;
+
+//Definicion Grafica Pie
+
+DefgrafPie ::=  DEF:ini GRAPHICPIE contPie:gp LLA_C:fin    {:
+                                                            if(gp!=null){
+                                                                System.out.println("Grafica: "+gp.getTitulo());
+                                                                if(buscarGrafica(gp.getTitulo())){
+                                                                    System.out.println("La Grafica: "+gp.getTitulo()+", ya existe");
+                                                                    error_grap_def((Token) ini, gp.getTitulo());
                                                                 }else{
-                                                                    if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
-                                                                        errorAnalisisesTmp = gb.analizarUnir();
+                                                                    if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
+                                                                        errorAnalisisesTmp = gp.analizarUnir();
                                                                         if(errorAnalisisesTmp.isEmpty()){
-                                                                            gb.triangularUniones();
-                                                                            graficasGeneradas.add(gb);
-                                                                            System.out.println("Grafica Valida");
+                                                                            gp.triangularUniones();
+                                                                            if(gp.getTipo().equals("Porcentaje")){
+                                                                                String errorVer = verficacionValuesPie.verficarPiePorcentaje(gp);
+                                                                                if(errorVer.isEmpty()){
+                                                                                    graficasGeneradas.add(gp);
+                                                                                    System.out.println("Grafica Valida");
+                                                                                }else{
+                                                                                    System.out.println("Grafica No Valida");
+                                                                                    lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",gp.getLinUnir(),gp.getColUnir(), errorVer));
+                                                                                    //lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
+                                                                                }
+                                                                            }else{
+                                                                                String errorVer = verficacionValuesPie.verficarPieCantidad(gp);
+                                                                                if(errorVer.isEmpty()){
+                                                                                    graficasGeneradas.add(gp);
+                                                                                    System.out.println("Grafica Valida");
+                                                                                }else{
+                                                                                    System.out.println("Grafica No Valida");
+                                                                                    lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",gp.getLinUnir(),gp.getColUnir(), errorVer));
+                                                                                    //lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
+                                                                                }
+                                                                            }
                                                                         }else{
                                                                             System.out.println("Grafica No Valida");
                                                                             for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
@@ -195,128 +272,7 @@ s   ::= s DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin   {:
                                                                 }
                                                             }
                                                         :}
-    |   s DEF:ini GRAPHICPIE contPie:gp LLA_C:fin   {:
-                                                        if(gp!=null){
-                                                            System.out.println("Grafica: "+gp.getTitulo());
-                                                            if(buscarGrafica(gp.getTitulo())){
-                                                                System.out.println("La Grafica: "+gp.getTitulo()+", ya existe");
-                                                                error_grap_def((Token) ini, gp.getTitulo());
-                                                            }else{
-                                                                if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
-                                                                    errorAnalisisesTmp = gp.analizarUnir();
-                                                                    if(errorAnalisisesTmp.isEmpty()){
-                                                                        gp.triangularUniones();
-                                                                        if(gp.getTipo().equals("Porcentaje")){
-                                                                            String errorVer = verficacionValuesPie.verficarPiePorcentaje(gp);
-                                                                            if(errorVer.isEmpty()){
-                                                                                graficasGeneradas.add(gp);
-                                                                                System.out.println("Grafica Valida");
-                                                                            }else{
-                                                                                System.out.println("Grafica No Valida");
-                                                                                lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
-                                                                            }
-                                                                        }else{
-                                                                            String errorVer = verficacionValuesPie.verficarPieCantidad(gp);
-                                                                            if(errorVer.isEmpty()){
-                                                                                graficasGeneradas.add(gp);
-                                                                                System.out.println("Grafica Valida");
-                                                                            }else{
-                                                                                System.out.println("Grafica No Valida");
-                                                                                lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
-                                                                            }
-                                                                        }
-                                                                    }else{
-                                                                        System.out.println("Grafica No Valida");
-                                                                        for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
-                                                                            lexer.getErrors().push(errorAnalisis);
-                                                                        }
-                                                                    }
-                                                                }else{
-                                                                    System.out.println("Grafica No Valida");
-                                                                }
-                                                            }
-                                                        }
-                                                    :}
-    |   s EXECUTE:ex PA_A STRING:gn PA_C PUNTOCOMA  {:
-                                                        System.out.println("Grafico ejecutar: "+(String)((Token)gn).getValue());
-                                                        Token strin = (Token) gn;
-                                                        Token exe = (Token) ex;
-                                                        if(buscarGrafica((String) strin.getValue())){
-                                                            graficasEjecutar.add((String) strin.getValue());
-                                                        }else{
-                                                            System.out.println("---La Grafica no existe");
-                                                            execution_error_grap(exe, (String) strin.getValue());
-                                                        }
-                                                    :}
-    |   DEF:ini GRAPHICBARRA contBarra:gb LLA_C:fin {:
-                                                        if(gb!=null){
-                                                            System.out.println("Grafica: "+gb.getTitulo());
-                                                            if(buscarGrafica(gb.getTitulo())){
-                                                                System.out.println("La Grafica: "+gb.getTitulo()+", ya existe");
-                                                                error_grap_def((Token) ini, gb.getTitulo());
-                                                            }else{
-                                                                if(!definition_error((Token)ini,(Token)fin,gb.verificarGrafica())){
-                                                                    errorAnalisisesTmp = gb.analizarUnir();
-                                                                    if(errorAnalisisesTmp.isEmpty()){
-                                                                        gb.triangularUniones();
-                                                                        graficasGeneradas.add(gb);
-                                                                        System.out.println("Grafica Valida");
-                                                                    }else{
-                                                                        System.out.println("Grafica No Valida");
-                                                                        for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
-                                                                            lexer.getErrors().push(errorAnalisis);
-                                                                        }
-                                                                    }
-                                                                }else{
-                                                                    System.out.println("Grafica No Valida");
-                                                                }
-                                                            }
-                                                        }
-                                                    :}
-    |   DEF:ini GRAPHICPIE contPie:gp LLA_C:fin {:
-                                                    if(gp!=null){
-                                                        System.out.println("Grafica: "+gp.getTitulo());
-                                                        if(buscarGrafica(gp.getTitulo())){
-                                                            System.out.println("La Grafica: "+gp.getTitulo()+", ya existe");
-                                                            error_grap_def((Token) ini, gp.getTitulo());
-                                                        }else{
-                                                            if(!definition_error((Token)ini,(Token)fin,gp.verificarGrafica())){
-                                                                errorAnalisisesTmp = gp.analizarUnir();
-                                                                if(errorAnalisisesTmp.isEmpty()){
-                                                                    gp.triangularUniones();
-                                                                    if(gp.getTipo().equals("Porcentaje")){
-                                                                        String errorVer = verficacionValuesPie.verficarPiePorcentaje(gp);
-                                                                        if(errorVer.isEmpty()){
-                                                                            graficasGeneradas.add(gp);
-                                                                            System.out.println("Grafica Valida");
-                                                                        }else{
-                                                                            System.out.println("Grafica No Valida");
-                                                                            lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
-                                                                        }
-                                                                    }else{
-                                                                        String errorVer = verficacionValuesPie.verficarPieCantidad(gp);
-                                                                        if(errorVer.isEmpty()){
-                                                                            graficasGeneradas.add(gp);
-                                                                            System.out.println("Grafica Valida");
-                                                                        }else{
-                                                                            System.out.println("Grafica No Valida");
-                                                                            lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM, "unir",((Token)ini).getLinea(), ((Token)ini).getColumna(), errorVer));
-                                                                        }
-                                                                    }
-                                                                }else{
-                                                                    System.out.println("Grafica No Valida");
-                                                                    for (ErrorAnalisis errorAnalisis : errorAnalisisesTmp) {
-                                                                        lexer.getErrors().push(errorAnalisis);
-                                                                    }
-                                                                }
-                                                            }else{
-                                                                System.out.println("Grafica No Valida");
-                                                            }
-                                                        }
-                                                    }
-                                                :}
     ;
-
 //CONTENIDO DE UNA GRAFICA DE BARRAS
 
 contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
@@ -363,6 +319,8 @@ contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
                                                                                     }else{
                                                                                         if(pila!=null){
                                                                                             RESULT.setUnir(pila.toArrayList());
+                                                                                            RESULT.setLinUnir(((Token)e).getLinea());
+                                                                                            RESULT.setColUnir(((Token)e).getColumna());
                                                                                         }
                                                                                     }
                                                                                 }
@@ -442,6 +400,8 @@ contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
                                                                                     }else{
                                                                                         if(pila!=null){
                                                                                             RESULT.setUnir(pila.toArrayList());
+                                                                                            RESULT.setLinUnir(((Token)e).getLinea());
+                                                                                            RESULT.setColUnir(((Token)e).getColumna());
                                                                                         }
                                                                                     }
                                                                                 }
