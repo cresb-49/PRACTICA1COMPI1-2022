@@ -22,18 +22,20 @@ public class VerficacionValuesPie {
         double tmpSum = 0;
         Double[] tmpVal = new Double[gp.getVal().length];
         int count = 0;
-        
+
         for (Double double1 : gp.getVal()) {
-            if (double1 < 1) {
-                tmpVal[count] = (double1 / 10);
-                tmpSum = tmpSum + (double1 / 10);
-            } else {
-                tmpVal[count] = double1;
-                tmpSum = tmpSum + double1;
+            if (double1 != null) {
+                if (double1 < 1) {
+                    tmpVal[count] = (double1 / 10);
+                    tmpSum = tmpSum + (double1 / 10);
+                } else {
+                    tmpVal[count] = double1;
+                    tmpSum = tmpSum + double1;
+                }
             }
             count++;
         }
-        
+
         if (tmpSum > 100) {
             error = ("Los valores de la Grafica de Pie seleccionados a graficar: " + Arrays.toString(gp.getVal()) + ", suman mas del 100%");
         } else {
@@ -58,8 +60,8 @@ public class VerficacionValuesPie {
         newValues[cont] = (100 - total);
         return newValues;
     }
-    
-    public Double[] agregarSobrante(Double[] valuePercent, double suma,double total) {
+
+    public Double[] agregarSobrante(Double[] valuePercent, double suma, double total) {
         Double[] newValues = new Double[valuePercent.length + 1];
         int cont = 0;
         for (Double double1 : valuePercent) {
@@ -87,16 +89,18 @@ public class VerficacionValuesPie {
         Double[] tmpVal = new Double[gp.getVal().length];
         int count = 0;
         for (Double double1 : gp.getVal()) {
-            tmpVal[count] = double1;
-            tmpSum = tmpSum + double1;
+            if (double1 != null) {
+                tmpVal[count] = double1;
+                tmpSum = tmpSum + double1;
+            }
             count++;
         }
         if (tmpSum > gp.getTotal()) {
-            error = ("Los valores de la Grafica de Pie seleccionados a graficar: " + Arrays.toString(gp.getVal()) + ", suman mas que el total: "+gp.getTotal());
+            error = ("Los valores de la Grafica de Pie seleccionados a graficar: " + Arrays.toString(gp.getVal()) + ", suman mas que el total: " + gp.getTotal());
         } else {
             if (tmpSum < gp.getTotal()) {
                 System.out.println("Se agrego un sobrante a la grafica");
-                gp.setVal(this.agregarSobrante(tmpVal, tmpSum,gp.getTotal()));
+                gp.setVal(this.agregarSobrante(tmpVal, tmpSum, gp.getTotal()));
                 gp.setTag(this.agregarTagSobrante(gp.getTag(), gp.getExtra()));
             } else {
                 System.out.println("La grafica estaba exacta");

@@ -56,9 +56,15 @@ parser code {:
     public void syntax_error(Symbol cur_token) {
         Token tok = (Token) cur_token.value;
         if(tok!=null){
-            String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
-            this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,tok.getLexema(), tok.getLinea(), tok.getColumna(), er));
-            System.out.println(er);
+            if (cur_token.sym == ParserGraphicsSym.EOF) {
+                String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+                this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,"FIN ARCHIVO", cur_token.left, cur_token.right, er));
+                System.out.println(er);
+            } else {
+                String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+                this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,tok.getLexema(), tok.getLinea(), tok.getColumna(), er));
+                System.out.println(er);
+            }
         }else{
             String er = "Simbolo inesperado, se esperaba: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
             this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,"FIN ARCHIVO", cur_token.left, cur_token.right, er));
@@ -73,7 +79,8 @@ parser code {:
             System.out.println(er);
         } else {
             Token tok = (Token) cur_token.value;
-            String er = "Error irrecuperable, un posible simbolo esperado: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+            //String er = "Error irrecuperable, un posible simbolo esperado: "+ simbolosTerminales.obtenerSimbolos(expected_token_ids()).toString();
+            String er = "Error irrecuperable resuelva el error anterior";
             this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN, tok.getLexema(), tok.getLinea(), tok.getColumna(), er));
             System.out.println(er);
         }
@@ -104,6 +111,14 @@ parser code {:
 
     private void referencia_numerica_incorrecta(Token token,Double valor){
         this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SIN,valor.toString(), token.getLinea(),(token.getColumna()+1), ", Se espera un valor entero o una operacion con resultado entero"));
+    }
+
+    private void referencia_numero_negativo(Token token,Double valor){
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM,String.valueOf(valor.intValue()), token.getLinea(),(token.getColumna()+1), ", Se esperaba un valor positivo"));
+    }
+
+    private void referencia_numero_negativo_values(Token token,Double valor){
+        this.lexer.getErrors().push(new ErrorAnalisis(ERROR_TYPE_SEM,valor.toString(), token.getLinea(),(token.getColumna()+1), ",Se espera un valor positivo o una operacion con resultado positivo"));
     }
 
     public ArrayList<OcurrenciaOperador> getOcurrencias() {
@@ -146,11 +161,11 @@ terminal            DEF, GRAPHICBARRA,GRAPHICPIE, TITTLE, EJEX, EJEY, LABEL, VAL
 non terminal                    s;
 non terminal GraficaPie         contPie;
 non terminal GraficaBarra       contBarra;
-non terminal Pila<Double>       contEjeY;
-non terminal Pila<String>       contEjeX;
-non terminal Pila<Union>        contUnir;   
-non terminal Double             e;
-non terminal InicioOperacion    t,f;
+non terminal Pila<Double>       contEjeY,contEjeY2;
+non terminal Pila<String>       contEjeX,contEjeX2;
+non terminal Pila<Union>        contUnir,contUnir2;   
+non terminal Double             e,ee;
+non terminal InicioOperacion    t,f,te,fe;
 
 
 /* The grammar rules */
@@ -315,7 +330,7 @@ contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
                                                                                 }
                                                                             }
                                                                         :}
-            |   contBarra:gb EJEX:e DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA  {:
+            |   contBarra:gb EJEX:e DOSPUNTOS contEjeX:pila PUNTOCOMA  {:
                                                                                 if(gb !=null){
                                                                                     RESULT = gb;
                                                                                     if(RESULT.getEjex()!=null){
@@ -327,7 +342,7 @@ contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
                                                                                     }
                                                                                 }
                                                                             :}
-            |   contBarra:gb EJEY:e DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA  {:
+            |   contBarra:gb EJEY:e DOSPUNTOS contEjeY:pila PUNTOCOMA  {:
                                                                                 if(gb !=null){
                                                                                     RESULT = gb;
                                                                                     if(RESULT.getEjey()!=null){
@@ -356,6 +371,7 @@ contBarra   ::= contBarra:gb TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA {:
                                                                                 RESULT = new GraficaBarra();
                                                                             :}
             |   contBarra error
+            |   error PUNTOCOMA
             ;
 
 contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
@@ -379,7 +395,7 @@ contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
                                                                                 
                                                                             }
                                                                         :}
-            |   contPie:gp LABEL:e DOSPUNTOS CO_A contEjeX:pila PUNTOCOMA   {:
+            |   contPie:gp LABEL:e DOSPUNTOS contEjeX:pila PUNTOCOMA   {:
                                                                                 
                                                                                 if(gp!=null){
                                                                                     RESULT = gp;
@@ -392,7 +408,7 @@ contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
                                                                                     }
                                                                                 }
                                                                             :}
-            |   contPie:gp VALUES:e DOSPUNTOS CO_A contEjeY:pila PUNTOCOMA  {:
+            |   contPie:gp VALUES:e DOSPUNTOS contEjeY:pila PUNTOCOMA  {:
                                                                                 
                                                                                 if(gp!=null){
                                                                                     RESULT = gp;
@@ -445,6 +461,7 @@ contPie     ::= contPie:gp TITTLE:e DOSPUNTOS STRING:titulo PUNTOCOMA   {:
                             RESULT = new GraficaPie();
                         :}
             |   contPie error
+            |   error PUNTOCOMA
             ;
 
 
@@ -470,6 +487,7 @@ e   ::= e:num1 MAS:s t:num2   {:
                                     RESULT = exp.getValue();
                                 }
                             :}
+    |   error
     ;
 
 t   ::= t:num1 MUL:s f:num2 {:
@@ -509,71 +527,183 @@ f   ::= NUMBERS:num     {:
     |   error f
     ;
 // recuperacion de vectores del lenguaje
-contEjeY    ::= e:num1 COMA contEjeY:pila   {:
-                                                RESULT = pila;
-                                                if(RESULT != null){
-                                                    RESULT.push(num1);
-                                                }
-                                            :}
-            |   e:num1 CO_C {:
-                                RESULT = new Pila<>();
-                                RESULT.push(num1);
-                            :}
+contEjeY    ::= CO_A:ref e:num1 contEjeY2:pila   {:
+                                                    RESULT = pila;
+                                                    if(RESULT!=null){
+                                                        if(num1!=null){
+                                                            if(num1<0){
+                                                                referencia_numero_negativo_values((Token)ref,num1);
+                                                            }
+                                                            RESULT.push(num1);
+                                                        }else{
+                                                            RESULT.push(num1);
+                                                        }  
+                                                    }
+                                                :}
             ;
 
-contEjeX    ::= STRING:cadena COMA contEjeX:pila    {:
-                                                        RESULT = pila;
-                                                        if(RESULT!=null){
-                                                            String strin = (String)((Token)cadena).getValue();
-                                                            RESULT.push(strin);                    
+contEjeY2   ::= COMA:ref e:num1 contEjeY2:pila   {:
+                                                    RESULT = pila;
+                                                    if(RESULT!=null){
+                                                        if(num1!=null){
+                                                            if(num1<0){
+                                                                referencia_numero_negativo_values((Token)ref,num1);
+                                                            }
+                                                            RESULT.push(num1);
+                                                        }else{
+                                                            RESULT.push(num1);
                                                         }
-                                                    :}
-            |   STRING:cadena CO_C  {:
-                                        RESULT = new Pila<>();
-                                        String strin = (String)((Token)cadena).getValue();
-                                        RESULT.push(strin);
-                                    :}
+                                                    }
+                                                :}
+            |   CO_C                            {:
+                                                    RESULT = new Pila<>();
+                                                :}
             ;
 
-contUnir    ::= LLA_A:ref1 e:num1 COMA:ref2 e:num2 LLA_C COMA contUnir:pila {:
+contEjeX    ::= CO_A:ref STRING:cadena contEjeX2:pila   {:
+                                                            RESULT = pila;
+                                                            if(RESULT!=null){
+                                                                String strin = (String)((Token)cadena).getValue();
+                                                                RESULT.push(strin);  
+                                                            }
+                                                        :}
+            ;
+
+contEjeX2   ::= COMA:ref STRING:cadena contEjeX2:pila   {:
+                                                            RESULT = pila;
+                                                            if(RESULT!=null){
+                                                                String strin = (String)((Token)cadena).getValue();
+                                                                RESULT.push(strin);  
+                                                            }
+                                                        :}
+            |   CO_C                                    {:
+                                                            RESULT = new Pila<>();
+                                                        :}
+            ;
+
+
+contUnir    ::= LLA_A:ref1 ee:num1 COMA:ref2 ee:num2 LLA_C contUnir2:pila   {:
                                                                                 RESULT = pila;
                                                                                 if(RESULT!=null){
                                                                                     if(num1!=null && num2!=null){
-                                                                                        Double mod1 = num1 % 2;
-                                                                                        Double mod2 = num2 % 2;
-                                                                                        if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
-                                                                                            System.out.println("Los dos datos son enteros");
-                                                                                            Token tok = (Token)ref1;
-                                                                                            RESULT.push(new Union(num1.intValue(),num2.intValue(),tok.getLinea(),tok.getColumna()));
-                                                                                        }else{
-                                                                                            if(!(mod1==1||mod1==0)){
-                                                                                                referencia_numerica_incorrecta((Token) ref1, num1);
+                                                                                        if(num1>=0 && num2>=0){
+                                                                                            Double mod1 = num1 % 2;
+                                                                                            Double mod2 = num2 % 2;
+                                                                                            if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
+                                                                                                System.out.println("Los dos datos son enteros");
+                                                                                                Token tok = (Token)ref1;
+                                                                                                RESULT.push(new Union(num1.intValue(),num2.intValue(),tok.getLinea(),tok.getColumna()));
+                                                                                            }else{
+                                                                                                if(!(mod1==1||mod1==0)){
+                                                                                                    referencia_numerica_incorrecta((Token) ref1, num1);
+                                                                                                }
+                                                                                                if(!(mod2==1||mod2==0)){
+                                                                                                    referencia_numerica_incorrecta((Token) ref2, num2);
+                                                                                                }
                                                                                             }
-                                                                                            if(!(mod2==1||mod2==0)){
-                                                                                                referencia_numerica_incorrecta((Token) ref2, num2);
+                                                                                        }else{
+                                                                                            if(num1<0){
+                                                                                                referencia_numero_negativo((Token) ref1, num1);
+                                                                                            }
+                                                                                            if(num2<0){
+                                                                                                referencia_numero_negativo((Token) ref2, num2);
                                                                                             }
                                                                                         }
                                                                                     }
                                                                                 }
                                                                             :}
-            |   LLA_A:ref1 e:num1 COMA:ref2 e:num2 LLA_C CO_C            {:
-                                                                            if(num1!=null && num2!=null){
-                                                                                RESULT = new Pila<>();
-                                                                                Double mod1 = num1 % 2;
-                                                                                Double mod2 = num2 % 2;
-
-                                                                                if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
-                                                                                    System.out.println("Los dos datos son enteros");
-                                                                                    Token tok = (Token)ref1;
-                                                                                    RESULT.push(new Union(num1.intValue(),num2.intValue(),tok.getLinea(),tok.getColumna()));
-                                                                                }else{
-                                                                                    if(!(mod1==1||mod1==0)){
-                                                                                        referencia_numerica_incorrecta((Token) ref1, num1);
-                                                                                    }
-                                                                                    if(!(mod2==1||mod2==0)){
-                                                                                        referencia_numerica_incorrecta((Token) ref2, num2);
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        :}
             ;
+
+contUnir2   ::= COMA LLA_A:ref1 ee:num1 COMA:ref2 ee:num2 LLA_C contUnir2:pila  {:
+                                                                                    RESULT = pila;
+                                                                                    if(RESULT!=null){
+                                                                                        if(num1!=null && num2!=null){
+                                                                                            if(num1>=0 && num2>=0){
+                                                                                                Double mod1 = num1 % 2;
+                                                                                                Double mod2 = num2 % 2;
+                                                                                                if((mod1==1||mod1==0)&&(mod2==1||mod2==0)){
+                                                                                                    System.out.println("Los dos datos son enteros");
+                                                                                                    Token tok = (Token)ref1;
+                                                                                                    RESULT.push(new Union(num1.intValue(),num2.intValue(),tok.getLinea(),tok.getColumna()));
+                                                                                                }else{
+                                                                                                    if(!(mod1==1||mod1==0)){
+                                                                                                        referencia_numerica_incorrecta((Token) ref1, num1);
+                                                                                                    }
+                                                                                                    if(!(mod2==1||mod2==0)){
+                                                                                                        referencia_numerica_incorrecta((Token) ref2, num2);
+                                                                                                    }
+                                                                                                }
+                                                                                            }else{
+                                                                                                if(num1<0){
+                                                                                                    referencia_numero_negativo((Token) ref1, num1);
+                                                                                                }
+                                                                                                if(num2<0){
+                                                                                                    referencia_numero_negativo((Token) ref2, num2);
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                :}
+            |   CO_C    {:
+                            RESULT = new Pila<>();
+                        :}
+            |   error contUnir2
+            ;
+
+//GRAMAICA PARA EL RECONOCIMIENTO DE NUMEROS ENTERO
+ee   ::= ee:num1 MAS:s te:num2   {:
+                                Token operador = (Token) s;
+                                if(num2!=null&&num1!=null){
+                                    String ocu = operador.getAntToken().getLexema() + " + " +num2.getToken().getLexema();
+                                    ocurrencias.add(new OcurrenciaOperador("MAS",operador.getLinea(),operador.getColumna(),ocu));
+                                    RESULT = num1+num2.getValue();
+                                }
+                            :}
+    |   ee:num1 MENOS:s te:num2   {:
+                                    Token operador = (Token) s;
+                                    if(num2!=null&&num1!=null){
+                                        String ocu = operador.getAntToken().getLexema() + " - " +num2.getToken().getLexema();
+                                        ocurrencias.add(new OcurrenciaOperador("MENOS",operador.getLinea(),operador.getColumna(),ocu));
+                                        RESULT = num1-num2.getValue();
+                                    }
+                                :}
+    |   te:exp               {:
+                                if(exp!=null){
+                                    RESULT = exp.getValue();
+                                }
+                            :}
+    |   error
+    ;
+
+te   ::= te:num1 MUL:s fe:num2 {:
+                                Token operador = (Token) s;
+                                if(num1!=null&&num2!=null){
+                                    num2.setValue(num1.getValue()*num2.getValue());
+                                    String ocu = operador.getAntToken().getLexema() + " * " +num2.getToken().getLexema();
+                                    ocurrencias.add(new OcurrenciaOperador("Multiplicación",operador.getLinea(),operador.getColumna(),ocu));
+                                }
+                                RESULT = num2;
+                            :}
+    |   te:num1 DIV:s fe:num2 {:
+                                Token operador = (Token) s;
+                                if(num1!=null&&num2!=null){
+                                    num2.setValue(num1.getValue()/num2.getValue());
+                                    String ocu = operador.getAntToken().getLexema() + " / " +num2.getToken().getLexema();
+                                    ocurrencias.add(new OcurrenciaOperador("División",operador.getLinea(),operador.getColumna(),ocu));
+                                }
+                                RESULT = num2;
+                            :}             
+    |   fe:exp               {:
+                                RESULT = exp;
+                            :}
+    ;
+
+fe   ::= NUMBERS:num     {:
+                            Token tmp = (Token) num;
+                            RESULT = new InicioOperacion((Double) tmp.getValue(),tmp);
+                        :}
+    |   PA_A:ini e:exp PA_C {:
+                                RESULT = new InicioOperacion(exp,(Token)ini);
+                            :}
+    |   error f
+    ;

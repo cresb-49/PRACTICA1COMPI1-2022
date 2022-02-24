@@ -16,7 +16,7 @@ public class SimbolosTerminales {
             "ejey",
             "etiquetas",
             "valores",
-            "union",
+            "unir",
             "tipo",
             "Porcentaje/Cantidad",
             "total",
@@ -36,7 +36,7 @@ public class SimbolosTerminales {
             ":",
             ";",
             "cadena",
-            "numero",
+            "entero",
             "decimal"
     };
 
