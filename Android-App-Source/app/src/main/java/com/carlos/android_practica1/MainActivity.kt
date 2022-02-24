@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         buttonProcesar.setOnClickListener { view ->
 
             val text : EditText? = findViewById(R.id.editTextTextMultiLine)
+
             if(text !=null){
                 val info : String? = text.text.toString();
                 if(info!=null){
