@@ -14,6 +14,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -47,6 +48,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextArea1CaretUpdate(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Parsear");
@@ -56,7 +62,8 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Linea: 1, Columna: 1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,6 +116,17 @@ public class NewJFrame extends javax.swing.JFrame {
             System.out.println(object);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextArea1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextArea1CaretUpdate
+        try {
+            int caret = jTextArea1.getCaretPosition();
+            int linea = jTextArea1.getLineOfOffset(caret);
+            int columna = caret - jTextArea1.getLineStartOffset(linea);
+            this.jLabel1.setText("Linea: "+(linea+1)+", Columna: "+(columna+1));
+        } catch (BadLocationException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextArea1CaretUpdate
 
     /**
      * @param args the command line arguments
